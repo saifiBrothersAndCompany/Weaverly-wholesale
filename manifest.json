@@ -2,7 +2,7 @@
   "name": "Weaverly Wholesale | Evening Wholesale Delivery",
   "short_name": "Weaverly",
   "description": "Exclusive Wholesale Prices • Evening Delivery 6 PM to 9 PM",
-  "start_url": "./index.html",
+  "start_url": ".",
   "scope": "./",
   "display": "standalone",
   "background_color": "#240046",
@@ -13,13 +13,13 @@
       "src": "./logo.jpg",
       "sizes": "192x192",
       "type": "image/jpg",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "./logo.jpg",
       "sizes": "512x512",
       "type": "image/jpg",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ]
 }
