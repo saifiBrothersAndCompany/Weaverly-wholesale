@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#2e0249" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Weaverly Wholesale | Evening Delivery (6 PM – 9 PM)</title>
+  <link rel="manifest" id="pwaManifestLink" href="manifest.json" />
+  <style>
+    :root {
+      --z-purple-dark: #240046;
+      --z-purple: #3c096c;
+      --z-purple-light: #f3e8ff;
+      --z-pink: #ff2a6d;
+      --z-pink-light: #fff0f5;
+      --z-green: #059669;
+      --z-green-dark: #047857;
+      --z-gold: #facc15;
+      --bg-gray: #f4f5f8;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg-gray);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding-bottom: 130px;
+    }
+
+    .hidden { display: none !important; }
+
+    /* ================= ZEPTO STYLE HEADER ================= */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: linear-gradient(135deg, var(--z-purple-dark) 0%, var(--z-purple) 100%);
+      color: #fff;
+      padding: 10px 14px 12px;
+      box-shadow: 0 4px 16px rgba(36, 0, 70, 0.25);
+    }
+
+    .header-inner {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .brand-box {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: -0.4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-wholesale {
+      background: var(--z-gold);
+      color: #1e1b4b;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 7px;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: #e9d5ff;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-install {
+      background: linear-gradient(135deg, #ff2a6d, #e11d48);
+      color: #fff;
+      border: none;
+      padding: 7px 11px;
+      border-radius: 9px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(255, 42, 109, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    /* EVENING SLOT BANNER */
+    .slot-strip {
+      max-width: 920px;
+      margin: 8px auto 0;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(250, 204, 21, 0.35);
+      border-radius: 10px;
+      padding: 7px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11px;
+    }
+
+    .slot-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      color: #fef08a;
+    }
+
+    .slot-timer {
+      background: #1e1b4b;
+      color: #fff;
+      padding: 3px 7px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    /* ================= GATES (GPS & OUT OF ZONE) ================= */
+    .gate-wrap {
+      max-width: 440px;
+      margin: 22px auto;
+      padding: 0 14px;
+    }
+
+    .gate-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px 18px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(36, 0, 70, 0.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    .gate-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      background: var(--z-purple-light);
+    }
+
+    .gate-title {
+      font-size: 19px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: var(--z-purple-dark);
+    }
+
+    .gate-desc {
+      font-size: 13px;
+      color: #4b5563;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .Evening-highlight-box {
+      background: #fdf4ff;
+      border: 1px dashed #c084fc;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 16px;
+      text-align: left;
+      font-size: 12px;
+      color: #581c87;
+      line-height: 1.45;
+    }
+
+    .btn-main {
+      width: 100%;
+      background: linear-gradient(135deg, var(--z-pink), #e11d48);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(255, 42, 109, 0.35);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      background: #f3f4f6;
+      color: #374151;
+      border: 1px solid #d1d5db;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    /* ================= STOREFRONT ================= */
+    .loc-bar {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 8px 14px;
+      font-size: 12px;
+    }
+
+    .loc-bar-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 10px 12px;
+    }
+
+    /* ZEPTO WHOLESALE PROMISE BANNER */
+    .wholesale-hero {
+      background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 100%);
+      color: #fff;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(76, 29, 149, 0.15);
+    }
+
+    .wh-left h3 {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--z-gold);
+      margin-bottom: 2px;
+    }
+
+    .wh-left p {
+      font-size: 11px;
+      color: #e0e7ff;
+      line-height: 1.35;
+    }
+
+    .wh-badge {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      padding: 6px 10px;
+      text-align: center;
+      min-width: 88px;
+    }
+
+    .wh-badge strong {
+      display: block;
+      font-size: 13px;
+      color: #4ade80;
+      font-weight: 900;
+    }
+
+    .wh-badge span {
+      font-size: 10px;
+      color: #fff;
+    }
+
+    /* SEARCH & REPEAT BAR */
+    .search-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .search-wrap {
+      flex: 1;
+      position: relative;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 11px 12px 11px 34px;
+      border-radius: 12px;
+      border: 1.5px solid #e5e7eb;
+      font-size: 13px;
+      font-weight: 600;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box:focus {
+      border-color: var(--z-purple);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #9ca3af;
+    }
+
+    .btn-repeat {
+      background: #fff;
+      border: 1.5px solid #ddd6fe;
+      color: var(--z-purple);
+      padding: 0 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* MOV PROGRESS CARD */
+    .mov-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 9px 12px;
+      margin-bottom: 10px;
+    }
+
+    .mov-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .mov-track {
+      height: 7px;
+      background: #e5e7eb;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .mov-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--z-pink);
+      transition: width 0.25s ease;
+    }
+
+    .mov-fill.ok {
+      background: var(--z-green);
+    }
+
+    /* CATEGORY PILLS */
+    .cat-row {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      scrollbar-width: none;
+    }
+
+    .cat-row::-webkit-scrollbar { display: none; }
+
+    .cat-btn {
+      padding: 7px 13px;
+      border-radius: 99px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+      cursor: pointer;
+      color: #374151;
+      transition: all 0.15s;
+    }
+
+    .cat-btn.active {
+      background: var(--z-purple);
+      color: #fff;
+      border-color: var(--z-purple);
+      box-shadow: 0 3px 8px rgba(60, 9, 108, 0.25);
+    }
+
+    /* ZEPTO PRODUCT GRID & CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    @media (min-width: 580px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 840px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .p-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      padding: 9px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      transition: transform 0.12s;
+    }
+
+    .p-card.oos {
+      opacity: 0.6;
+    }
+
+    .p-off {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 6px;
+      z-index: 2;
+      box-shadow: 0 2px 4px rgba(5, 150, 105, 0.25);
+    }
+
+    .p-slot-tag {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #f3e8ff;
+      color: #5b21b6;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 5px;
+      border-radius: 5px;
+      z-index: 2;
+    }
+
+    .p-img {
+      height: 102px;
+      background: #f8fafc;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      margin-bottom: 7px;
+      overflow: hidden;
+    }
+
+    .p-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .p-unit {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #4b5563;
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-bottom: 4px;
+      width: fit-content;
+    }
+
+    .p-name {
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.3;
+      min-height: 34px;
+      margin-bottom: 6px;
+      color: #111827;
+    }
+
+    .p-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 6px;
+      border-top: 1px dashed #e5e7eb;
+    }
+
+    .p-price-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .p-price {
+      font-size: 15px;
+      font-weight: 900;
+      color: #111827;
+    }
+
+    .p-mrp {
+      font-size: 11px;
+      color: #9ca3af;
+      text-decoration: line-through;
+      font-weight: 600;
+    }
+
+    /* ZEPTO PINK ADD BUTTON */
+    .btn-add {
+      background: var(--z-pink-light);
+      color: var(--z-pink);
+      border: 1.5px solid var(--z-pink);
+      padding: 6px 15px;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-add:active {
+      transform: scale(0.95);
+    }
+
+    .qty-box {
+      display: flex;
+      align-items: center;
+      background: var(--z-pink);
+      color: #fff;
+      border-radius: 9px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(255, 42, 109, 0.3);
+    }
+
+    .qty-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      width: 27px;
+      height: 28px;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .qty-num {
+      font-size: 12px;
+      font-weight: 900;
+      min-width: 18px;
+      text-align: center;
+    }
+
+    /* ================= ZEPTO FLOATING BOTTOM CART ================= */
+    .bottom-bar-wrap {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: linear-gradient(to top, rgba(244,245,248,0.98) 70%, rgba(244,245,248,0));
+      padding: 6px 12px 10px;
+      pointer-events: none;
+    }
+
+    .bottom-bar-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      pointer-events: auto;
+    }
+
+    .savings-pill-bar {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      font-size: 11px;
+      font-weight: 800;
+      text-align: center;
+      padding: 4px 10px;
+      border-radius: 99px;
+      margin-bottom: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .zepto-cart-bar {
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #fff;
+      border-radius: 14px;
+      padding: 11px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(4, 120, 87, 0.35);
+      cursor: pointer;
+    }
+
+    .zepto-cart-bar.locked-bar {
+      background: linear-gradient(135deg, var(--z-purple-dark), var(--z-purple));
+      box-shadow: 0 8px 20px rgba(60, 9, 108, 0.3);
+    }
+
+    .btn-order-bar {
+      background: #fff;
+      color: #047857;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .zepto-cart-bar.locked-bar .btn-order-bar {
+      color: var(--z-purple-dark);
+    }
+
+    /* ================= MODALS ================= */
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 24, 39, 0.72);
+      backdrop-filter: blur(2px);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    @media (min-width: 600px) {
+      .modal-bg { align-items: center; padding: 12px; }
+    }
+
+    .modal-bg.open { display: flex; }
+
+    .modal-box {
+      background: #fff;
+      width: 100%;
+      max-width: 480px;
+      max-height: 92vh;
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: slideUp 0.2s ease-out;
+    }
+
+    @media (min-width: 600px) {
+      .modal-box { border-radius: 18px; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0.8; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-head {
+      padding: 13px 16px;
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 900;
+      font-size: 15px;
+    }
+
+    .modal-body {
+      padding: 14px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .inp {
+      width: 100%;
+      padding: 10px 11px;
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+      font-size: 13px;
+      margin-bottom: 8px;
+      outline: none;
+    }
+
+    .inp:focus { border-color: var(--z-purple); }
+
+    .slot-selector {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .slot-opt {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      background: #fff;
+    }
+
+    .slot-opt.selected {
+      border-color: var(--z-purple);
+      background: #f5f3ff;
+      color: var(--z-purple-dark);
+    }
+
+    .btn-wa {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-wa.ready {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
+    }
+
+    .btn-wa.locked {
+      background: #e5e7eb;
+      color: #6b7280;
+      cursor: not-allowed;
+    }
+
+    .code-area {
+      width: 100%;
+      height: 170px;
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: monospace;
+      font-size: 11px;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 6px;
+    }
+
+    .toast {
+      position: fixed;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111827;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 800;
+      z-index: 200;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="uiToast" class="toast"></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-top">
+        <div class="brand-box" onclick="handleSecretAdminTap()">
+          <div class="brand-title">
+            <span id="uiStoreName">Weaverly Wholesale</span>
+            <span class="badge-wholesale" id="uiZoneBadge">1.5 KM ZONE</span>
+          </div>
+          <div class="brand-sub" id="uiStoreSub">Evening Drop: 6 PM – 9 PM • Exclusive Mandi Prices</div>
+        </div>
+        <div class="header-actions">
+          <button type="button" class="btn-install" id="btnInstallApp" onclick="installAppPrompt()">
+            📲 Install App
+          </button>
+        </div>
+      </div>
+
+      <!-- LIVE EVENING DELIVERY SLOT & CUTOFF TIMER -->
+      <div class="slot-strip">
+        <div class="slot-left">
+          <span>🌙</span>
+          <span id="uiSlotBannerText">Evening Delivery: Today, 6:00 PM – 9:00 PM</span>
+        </div>
+        <div class="slot-timer" id="uiCutoffCountdown">Cutoff: --h --m</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= 1. LOCATION GATE ================= -->
+  <section id="secLocationGate" class="gate-wrap">
+    <div class="gate-card">
+      <div class="gate-icon">📍</div>
+      <h2 class="gate-title">Unlock Neighbourhood Wholesale Prices</h2>
+      <p class="gate-desc">
+        We deliver exclusively within <strong><span id="uiGateRad">1.5</span> km</strong> of <strong id="uiGateAddr">Yamuna Vihar, Delhi</strong> (Min Order <strong>₹<span id="uiGateMin">499</span></strong>).
+      </p>
+
+      <div class="Evening-highlight-box">
+        <strong>🌙 Why 6:00 PM – 9:00 PM Evening Delivery?</strong><br>
+        Instant 10-minute apps charge hidden surge & handling fees. By combining neighbourhood orders into one <strong>6 PM – 9 PM Evening Drop</strong>, we give you <strong>direct wholesale prices</strong> every single day!
+      </div>
+
+      <button type="button" id="btnCheckGps" class="btn-main" onclick="checkUserGps()">
+        📍 Verify My GPS & View Wholesale Prices
+      </button>
+      <p id="uiGpsMsg" style="margin-top:10px; font-size:12px; color:#d97706; font-weight:700;"></p>
+    </div>
+  </section>
+
+  <!-- ================= 2. NOT SERVICEABLE SCREEN (> 1.5 KM) ================= -->
+  <section id="secNotServiceable" class="gate-wrap hidden">
+    <div class="gate-card">
+      <div class="gate-icon" style="background:#fee2e2;">🚫</div>
+      <h2 class="gate-title">Outside Our 1.5 km Zone</h2>
+      <p class="gate-desc">
+        You are currently <strong><span id="uiFarDist">0.0</span> km</strong> away from our hub (<span id="uiFarAddr">Yamuna Vihar</span>).<br><br>
+        To keep our 6 PM – 9 PM evening prices at wholesale rates, we only serve within a <strong><span id="uiFarMax">1.5</span> km radius</strong>.
+      </p>
+      <button type="button" class="btn-main" onclick="checkUserGps()">↻ Re-check My GPS Location</button>
+    </div>
+  </section>
+
+  <!-- ================= 3. STOREFRONT (SHOWN WHEN <= 1.5 KM) ================= -->
+  <section id="secStorefront" class="hidden">
+    <div class="loc-bar">
+      <div class="loc-bar-inner">
+        <span style="color:#065f46; font-weight:800;">
+          ✅ <span id="uiDistBadge">0.0</span> km • Evening Slot Active <span id="uiUserGreet" style="color:#374151;"></span>
+        </span>
+        <button type="button" onclick="checkUserGps()" style="background:#f3f4f6; border:1px solid #d1d5db; padding:4px 8px; border-radius:6px; font-size:11px; font-weight:800; cursor:pointer;">
+          📍 Refresh GPS
+        </button>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- WHOLESALE VALUE BANNER -->
+      <div class="wholesale-hero">
+        <div class="wh-left">
+          <h3>⚡ Exclusive Evening Batch Rates</h3>
+          <p>No surge fee • No packing fee • Delivered 6:00 PM – 9:00 PM</p>
+        </div>
+        <div class="wh-badge">
+          <strong>6–9 PM</strong>
+          <span>Fixed Drop</span>
+        </div>
+      </div>
+
+      <!-- SEARCH + REPEAT LAST ORDER -->
+      <div class="search-row">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="inSearch" class="search-box" placeholder="Search rice, atta, dal, mustard oil, dry fruits..." oninput="renderProducts()" />
+        </div>
+        <button type="button" id="btnRepeatLast" class="btn-repeat hidden" onclick="repeatLastOrder()">
+          ↻ Repeat Last
+        </button>
+      </div>
+
+      <!-- MINIMUM ORDER VALUE TRACKER -->
+      <div class="mov-card">
+        <div class="mov-top">
+          <span id="uiMovTitle">Add ₹499 for Free Evening Delivery (6-9 PM)</span>
+          <span id="uiMovAmt">₹0 / ₹499</span>
+        </div>
+        <div class="mov-track"><div id="uiMovBar" class="mov-fill"></div></div>
+      </div>
+
+      <!-- CATEGORY TABS -->
+      <div id="uiCatList" class="cat-row"></div>
+
+      <!-- PRODUCT GRID -->
+      <div id="uiProdGrid" class="grid"></div>
+    </div>
+
+    <!-- ZEPTO FLOATING BOTTOM BAR -->
+    <div class="bottom-bar-wrap">
+      <div class="bottom-bar-inner">
+        <div id="uiSavingsTicker" class="savings-pill-bar hidden">
+          🎉 You are saving <span id="uiBarSavedAmt">₹0</span> with Evening Wholesale Prices!
+        </div>
+        <div id="uiBottomCartBar" class="zepto-cart-bar locked-bar" onclick="toggleCheckoutModal(true)">
+          <div>
+            <div style="font-size:11px; opacity:0.9; font-weight:800;" id="uiCartCount">0 ITEMS • 6 PM – 9 PM SLOT</div>
+            <div style="font-size:18px; font-weight:900;" id="uiCartTotal">₹0</div>
+          </div>
+          <button type="button" class="btn-order-bar">
+            View Basket & Order →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4. ADMIN PANEL (5 TAPS ON HEADER OR ?admin=1) ================= -->
+  <section id="secAdmin" class="container hidden">
+    <div class="gate-card" style="text-align:left; max-width:720px; margin:14px auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="font-size:16px; font-weight:900; color:#4c1d95;">⚙️ Store Admin & GitHub Pages Generator</h3>
+        <button type="button" onclick="exitAdmin()" style="background:#fee2e2; color:#b91c1c; border:none; padding:5px 10px; border-radius:8px; font-size:12px; font-weight:800; cursor:pointer;">✕ Close Admin</button>
+      </div>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; padding:10px; border-radius:10px; margin-bottom:12px; font-size:12px;">
+        <strong>📲 GitHub Pages Android 1-Tap PWA Files:</strong>
+        <p style="color:#1e40af; margin:4px 0 8px;">For Android Chrome to show the native 1-tap APK install prompt on GitHub Pages, upload `manifest.json` and `sw.js` in the same repository folder as `index.html`.</p>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button type="button" onclick="downloadPwaFiles()" style="background:#2563eb; color:#fff; border:none; padding:7px 12px; border-radius:8px; font-size:11px; font-weight:800; cursor:pointer;">⬇️ Download manifest.json & sw.js</button>
+          <button type="button" onclick="bypassGpsForTesting()" style="background:#059669; color:#fff; border:none; padding:7px 12px; border-radius:8px; font-size:11px; font-weight:800; cursor:pointer;">🔓 Bypass GPS Gate (Test Storefront)</button>
+        </div>
+      </div>
+
+      <label style="font-size:11px; font-weight:700;">Store Name</label>
+      <input type="text" id="admName" class="inp" oninput="refreshAdminCode()" />
+
+      <div style="display:flex; gap:8px;">
+        <div style="flex:1;">
+          <label style="font-size:11px; font-weight:700;">WhatsApp Number (with 91)</label>
+          <input type="text" id="admPhone" class="inp" oninput="refreshAdminCode()" />
+        </div>
+        <div style="flex:1;">
+          <label style="font-size:11px; font-weight:700;">Daily Cutoff Hour (24h, e.g. 17 = 5 PM)</label>
+          <input type="number" min="1" max="21" id="admCutoff" class="inp" oninput="refreshAdminCode()" />
+        </div>
+      </div>
+
+      <div style="display:flex; gap:8px;">
+        <div style="flex:1;"><label style="font-size:11px; font-weight:700;">Shop Lat</label><input type="number" step="any" id="admLat" class="inp" oninput="refreshAdminCode()" /></div>
+        <div style="flex:1;"><label style="font-size:11px; font-weight:700;">Shop Lng</label><input type="number" step="any" id="admLng" class="inp" oninput="refreshAdminCode()" /></div>
+      </div>
+      <button type="button" onclick="setShopGps()" style="width:100%; background:#059669; color:#fff; border:none; padding:9px; border-radius:8px; font-size:12px; font-weight:800; margin-bottom:10px; cursor:pointer;">📍 Use My Current Phone GPS as Shop Location</button>
+
+      <div style="display:flex; gap:8px;">
+        <div style="flex:1;"><label style="font-size:11px; font-weight:700;">Radius (km)</label><input type="number" step="0.1" id="admRad" class="inp" oninput="refreshAdminCode()" /></div>
+        <div style="flex:1;"><label style="font-size:11px; font-weight:700;">Min Order (₹)</label><input type="number" id="admMin" class="inp" oninput="refreshAdminCode()" /></div>
+      </div>
+      <label style="font-size:11px; font-weight:700;">Shop Address</label>
+      <input type="text" id="admAddr" class="inp" oninput="refreshAdminCode()" />
+
+      <hr style="margin:12px 0; border:0; border-top:1px solid #e5e7eb;" />
+      <h4 style="font-size:13px; font-weight:900; margin-bottom:6px;">+ Add New Wholesale Product</h4>
+      <input type="text" id="newPName" class="inp" placeholder="Product Name (e.g. Fortune Besan)" />
+      <div style="display:flex; gap:6px;">
+        <input type="text" id="newPCat" class="inp" placeholder="Category (e.g. Rice & Atta)" />
+        <input type="text" id="newPUnit" class="inp" placeholder="Unit (e.g. 1 kg)" />
+      </div>
+      <div style="display:flex; gap:6px;">
+        <input type="number" id="newPPrice" class="inp" placeholder="Wholesale ₹" />
+        <input type="number" id="newPMrp" class="inp" placeholder="MRP ₹" />
+        <input type="text" id="newPEmoji" class="inp" placeholder="🌾" style="max-width:70px;" />
+      </div>
+      <input type="text" id="newPImg" class="inp" placeholder="Image URL (optional)" />
+      <button type="button" onclick="adminAddProd()" style="width:100%; background:#6d28d9; color:#fff; border:none; padding:10px; border-radius:8px; font-size:12px; font-weight:800; margin-bottom:12px; cursor:pointer;">+ Add Product to Catalogue</button>
+
+      <div id="admProdList" style="max-height:200px; overflow-y:auto; margin-bottom:12px; border:1px solid #e5e7eb; border-radius:8px; padding:6px;"></div>
+
+      <h4 style="font-size:12px; font-weight:900;">Copy & Replace `STORE_DATA` in GitHub `index.html`:</h4>
+      <textarea id="admCodeBox" class="code-area" readonly></textarea>
+      <button type="button" onclick="copyAdminCode()" style="width:100%; background:#1e1b4b; color:#fff; border:none; padding:12px; border-radius:8px; font-size:13px; font-weight:900; margin-top:8px; cursor:pointer;">📋 Copy STORE_DATA Code</button>
+    </div>
+  </section>
+
+  <!-- ================= CHECKOUT MODAL ================= -->
+  <div id="modalCheckout" class="modal-bg">
+    <div class="modal-box">
+      <div class="modal-head">
+        <span>🛒 Evening Wholesale Basket</span>
+        <button type="button" onclick="toggleCheckoutModal(false)" style="border:none; background:#e5e7eb; width:28px; height:28px; border-radius:50%; font-weight:900; cursor:pointer;">✕</button>
+      </div>
+      <div class="modal-body">
+        <!-- EVENING DELIVERY SLOT SELECTOR -->
+        <div style="margin-bottom:10px;">
+          <div style="font-size:11px; font-weight:900; color:#4c1d95; margin-bottom:5px;">🌙 SELECT EVENING DELIVERY SLOT (6:00 PM – 9:00 PM)</div>
+          <div class="slot-selector">
+            <div id="slotOptToday" class="slot-opt selected" onclick="selectDeliverySlot('TODAY')">
+              <div id="uiSlotTodayTitle">Today Evening</div>
+              <div style="font-size:10px; color:#059669;">6:00 PM – 9:00 PM</div>
+            </div>
+            <div id="slotOptTomorrow" class="slot-opt" onclick="selectDeliverySlot('TOMORROW')">
+              <div>Tomorrow Evening</div>
+              <div style="font-size:10px; color:#6b7280;">6:00 PM – 9:00 PM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BASKET ITEMS -->
+        <div id="uiBasketItems" style="margin-bottom:12px;"></div>
+
+        <!-- AUTO-SAVED CUSTOMER DETAILS -->
+        <div style="background:#f5f3ff; padding:10px; border-radius:12px; border:1px solid #ddd6fe; margin-bottom:10px;">
+          <div style="font-size:11px; font-weight:900; color:#5b21b6; margin-bottom:6px;">📌 DELIVERY ADDRESS (AUTO-SAVED ON PHONE)</div>
+          <input type="text" id="custName" class="inp" placeholder="Your Full Name *" oninput="saveUserData()" />
+          <input type="tel" id="custPhone" class="inp" placeholder="10-Digit Mobile Number *" maxlength="10" oninput="saveUserData()" />
+          <input type="text" id="custAddr" class="inp" placeholder="House/Flat No., Floor, Gali/Street, Block *" oninput="saveUserData()" />
+          <input type="text" id="custLandmark" class="inp" placeholder="Nearby Landmark & Payment Mode (UPI / Cash)" style="margin-bottom:0;" oninput="saveUserData()" />
+        </div>
+
+        <!-- BILL SUMMARY -->
+        <div style="background:#f9fafb; padding:10px 12px; border-radius:12px; font-size:13px; border:1px solid #e5e7eb;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:3px; color:#6b7280;">
+            <span>Total MRP Value</span><span id="uiBillMrp" style="text-decoration:line-through;">₹0</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:3px; color:#059669; font-weight:800;">
+            <span>Wholesale Evening Discount</span><strong id="uiBillSave">-₹0</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+            <span>Evening Slot Delivery (6–9 PM)</span><strong style="color:#059669;">FREE</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:16px; font-weight:900; border-top:1px dashed #d1d5db; margin-top:6px; padding-top:6px;">
+            <span>To Pay (Cash/UPI on Delivery)</span><span id="uiBillGrand">₹0</span>
+          </div>
+        </div>
+
+        <button type="button" id="btnWaSend" class="btn-wa locked" onclick="sendWhatsAppOrder()">
+          🟢 Send Order on WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= INSTALL HELPER MODAL (FALLBACK) ================= -->
+  <div id="modalInstallHelp" class="modal-bg">
+    <div class="modal-box">
+      <div class="modal-head">
+        <span>📲 Install Weaverly App on Android</span>
+        <button type="button" onclick="document.getElementById('modalInstallHelp').classList.remove('open')" style="border:none; background:#e5e7eb; width:28px; height:28px; border-radius:50%; font-weight:900; cursor:pointer;">✕</button>
+      </div>
+      <div class="modal-body" style="font-size:13px; line-height:1.5; color:#374151;">
+        <p style="margin-bottom:10px;">Install <strong>Weaverly Wholesale</strong> on your home screen for 1-tap evening grocery ordering:</p>
+        <div style="background:#f3f4f6; padding:12px; border-radius:10px; margin-bottom:10px;">
+          <strong>1.</strong> Tap the <strong>3 dots (⋮)</strong> at the top-right of Chrome.<br>
+          <strong>2.</strong> Tap <strong>"Add to Home screen"</strong> or <strong>"Install App"</strong>.<br>
+          <strong>3.</strong> Tap <strong>Install</strong> — the app icon will appear on your phone!
+        </div>
+        <button type="button" class="btn-main" onclick="document.getElementById('modalInstallHelp').classList.remove('open')">Got It!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       PART 1: STORE DATA (PASTE GENERATED ADMIN CODE HERE)
+       ========================================================= -->
+  <script>
+    /* === START_STORE_DATA === */
+    var STORE_DATA = {
+      "name": "Weaverly Wholesale",
+      "whatsappNumber": "918076433724",
+      "storeLat": 28.697995,
+      "storeLng": 77.269438,
+      "storeAddress": "Block C, Yamuna Vihar, Delhi 110053",
+      "maxRadiusKm": 1.5,
+      "minOrderValue": 499,
+      "eveningCutoffHour": 17,
+      "deliveryWindow": "6:00 PM – 9:00 PM",
+      "products": [
+        {
+          "id": 1,
+          "name": "India Gate Basmati Rice",
+          "category": "Rice & Atta",
+          "unit": "5 kg",
+          "price": 460,
+          "mrp": 540,
+          "emoji": "🌾",
+          "image": "",
+          "inStock": true
+        },
+        {
+          "id": 2,
+          "name": "Aashirvaad Chakki Atta",
+          "category": "Rice & Atta",
+          "unit": "5 kg",
+          "price": 245,
+          "mrp": 275,
+          "emoji": "🌾",
+          "image": "",
+          "inStock": true
+        },
+        {
+          "id": 3,
+          "name": "Unpolished Toor Dal",
+          "category": "Dal & Pulses",
+          "unit": "1 kg",
+          "price": 165,
+          "mrp": 195,
+          "emoji": "🫘",
+          "image": "",
+          "inStock": true
+        },
+        {
+          "id": 4,
+          "name": "Yellow Moong Dal",
+          "category": "Dal & Pulses",
+          "unit": "1 kg",
+          "price": 135,
+          "mrp": 160,
+          "emoji": "🫘",
+          "image": "",
+          "inStock": true
+        },
+        {
+          "id": 5,
+          "name": "White Kabuli Chana",
+          "category": "Dal & Pulses",
+          "unit": "1 kg",
+          "price": 155,
+          "mrp": 185,
+          "emoji": "🫘",
+          "image": "",
+          "inStock": true
+        },
+        {
+          "id": 6,
+          "name": "Kachi Ghani Mustard Oil",
+          "category": "Oil & Ghee",
+          "unit": "1 Litre",
+          "price": 185,
+          "mrp": 220,
+          "emoji": "🍾",
+          "image": "",
+          "inStock": true
+        },
+        {
+          "id": 7,
+          "name": "Pure Desi Cow Ghee",
+          "category": "Oil & Ghee",
+          "unit": "500 ml",
+          "price": 345,
+          "mrp": 399,
+          "emoji": "🧈",
+          "image": "",
+          "inStock": true
+        },
+        {
+          "id": 8,
+          "name": "Fortune Sunflower Oil",
+          "category": "Oil & Ghee",
+          "unit": "1 Litre",
+          "price": 145,
+          "mrp": 170,
+          "emoji": "🌻",
+          "image": "",
+          "inStock": true
+        },
+        {
+          "id": 9,
+          "name": "Kashmiri Lal Mirch",
+          "category": "Spices",
+          "unit": "200 g",
+          "price": 88,
+          "mrp": 115,
+          "emoji": "🌶️",
+          "image": "",
+          "inStock": true
+        },
+        {
+          "id": 10,
+          "name": "Tata Salt Vacuum Pack",
+          "category": "Spices",
+          "unit": "1 kg",
+          "price": 27,
+          "mrp": 30,
+          "emoji": "🧂",
+          "image": "",
+          "inStock": true
+        },
+        {
+          "id": 11,
+          "name": "California Almonds",
+          "category": "Dry Fruits",
+          "unit": "500 g",
+          "price": 420,
+          "mrp": 525,
+          "emoji": "🌰",
+          "image": "",
+          "inStock": true
+        },
+        {
+          "id": 12,
+          "name": "Whole Cashews (Kaju)",
+          "category": "Dry Fruits",
+          "unit": "500 g",
+          "price": 450,
+          "mrp": 550,
+          "emoji": "🥜",
+          "image": "",
+          "inStock": true
+        }
+      ]
+    };
+    /* === END_STORE_DATA === */
+  </script>
+
+  <!-- =========================================================
+       PART 2: COMPLETE APPLICATION ENGINE
+       ========================================================= -->
+  <script>
+    var KEY_USER = "wv_user_perm_v3";
+    var KEY_CART = "wv_cart_perm_v3";
+    var KEY_LAST_ORDER = "wv_last_order_v3";
+
+    var cart = {};
+    var curCat = "All";
+    var tapCnt = 0;
+    var tapTimer = null;
+    var deferredPwa = null;
+    var selectedSlotChoice = "TODAY"; // "TODAY" or "TOMORROW"
+    var user = { name: "", phone: "", addr: "", landmark: "", lat: null, lng: null, dist: null };
+
+    /* ---------------- 1. INITIALIZATION ---------------- */
+    window.addEventListener("DOMContentLoaded", function () {
+      initPwaSupport();
+      loadSavedState();
+      applyStoreBranding();
+      updateEveningSlotClock();
+      setInterval(updateEveningSlotClock, 15000);
+
+      // Check URL for ?admin=1
+      if (window.location.search.indexOf("admin=1") !== -1) {
+        openAdminPanel();
+        return;
+      }
+
+      // If user already verified GPS earlier and is within radius, open storefront automatically
+      if (user.lat && user.lng) {
+        var d = calcDistanceKm(user.lat, user.lng, STORE_DATA.storeLat, STORE_DATA.storeLng);
+        user.dist = d;
+        routeByDistance(d);
+      }
+    });
+
+    function applyStoreBranding() {
+      document.getElementById("uiStoreName").textContent = STORE_DATA.name;
+      document.getElementById("uiZoneBadge").textContent = STORE_DATA.maxRadiusKm + " KM ZONE";
+      document.getElementById("uiStoreSub").textContent =
+        "Evening Drop: " + (STORE_DATA.deliveryWindow || "6 PM – 9 PM") + " • Min ₹" + STORE_DATA.minOrderValue;
+
+      document.getElementById("uiGateRad").textContent = STORE_DATA.maxRadiusKm;
+      document.getElementById("uiGateAddr").textContent = STORE_DATA.storeAddress;
+      document.getElementById("uiGateMin").textContent = STORE_DATA.minOrderValue;
+      document.getElementById("uiFarAddr").textContent = STORE_DATA.storeAddress;
+      document.getElementById("uiFarMax").textContent = STORE_DATA.maxRadiusKm;
+
+      // Show Repeat Last Order button if user has a previous order
+      if (localStorage.getItem(KEY_LAST_ORDER)) {
+        document.getElementById("btnRepeatLast").classList.remove("hidden");
+      }
+    }
+
+    function showToast(msg) {
+      var t = document.getElementById("uiToast");
+      t.textContent = msg;
+      t.style.display = "block";
+      clearTimeout(t._timer);
+      t._timer = setTimeout(function () {
+        t.style.display = "none";
+      }, 2400);
+    }
+
+    /* ---------------- 2. EVENING SLOT & CUTOFF ENGINE ---------------- */
+    function updateEveningSlotClock() {
+      var now = new Date();
+      var cutoffHour = STORE_DATA.eveningCutoffHour || 17; // 5:00 PM default cutoff for same-day 6-9 PM slot
+      var cutoffToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), cutoffHour, 0, 0);
+
+      var bannerEl = document.getElementById("uiSlotBannerText");
+      var timerEl = document.getElementById("uiCutoffCountdown");
+      var slotTodayEl = document.getElementById("slotOptToday");
+      var slotTomorrowEl = document.getElementById("slotOptTomorrow");
+
+      if (now < cutoffToday) {
+        var diffMs = cutoffToday - now;
+        var hrs = Math.floor(diffMs / 3600000);
+        var mins = Math.floor((diffMs % 3600000) / 60000);
+        bannerEl.textContent = "Today's Evening Drop: 6:00 PM – 9:00 PM";
+        timerEl.textContent = "Order in " + hrs + "h " + mins + "m";
+        if (slotTodayEl) {
+          slotTodayEl.style.opacity = "1";
+          document.getElementById("uiSlotTodayTitle").textContent = "Today Evening";
+        }
+      } else {
+        bannerEl.textContent = "Next Evening Drop: Tomorrow, 6:00 PM – 9:00 PM";
+        timerEl.textContent = "Today's 6 PM Batch Full";
+        selectedSlotChoice = "TOMORROW";
+        if (slotTodayEl && slotTomorrowEl) {
+          slotTodayEl.classList.remove("selected");
+          slotTodayEl.style.opacity = "0.5";
+          document.getElementById("uiSlotTodayTitle").textContent = "Today (Closed)";
+          slotTomorrowEl.classList.add("selected");
+        }
+      }
+    }
+
+    function selectDeliverySlot(slot) {
+      var now = new Date();
+      var cutoffHour = STORE_DATA.eveningCutoffHour || 17;
+      if (slot === "TODAY" && now.getHours() >= cutoffHour) {
+        showToast("Today's 5 PM cutoff passed! Scheduled for Tomorrow 6–9 PM.");
+        slot = "TOMORROW";
+      }
+      selectedSlotChoice = slot;
+      document.getElementById("slotOptToday").classList.toggle("selected", slot === "TODAY");
+      document.getElementById("slotOptTomorrow").classList.toggle("selected", slot === "TOMORROW");
+    }
+
+    function getFormattedSlotLabel() {
+      var now = new Date();
+      var targetDate = new Date(now);
+      if (selectedSlotChoice === "TOMORROW" || now.getHours() >= (STORE_DATA.eveningCutoffHour || 17)) {
+        targetDate.setDate(targetDate.getDate() + 1);
+      }
+      var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var dateStr = days[targetDate.getDay()] + ", " + targetDate.getDate() + " " + months[targetDate.getMonth()];
+      var prefix = (selectedSlotChoice === "TODAY" && now.getHours() < (STORE_DATA.eveningCutoffHour || 17)) ? "Today" : "Tomorrow";
+      return prefix + " (" + dateStr + ") • 6:00 PM – 9:00 PM";
+    }
+
+    /* ---------------- 3. GPS GEOFENCE (1.5 KM) ---------------- */
+    function calcDistanceKm(lat1, lon1, lat2, lon2) {
+      var R = 6371;
+      var dLat = ((lat2 - lat1) * Math.PI) / 180;
+      var dLon = ((lon2 - lon1) * Math.PI) / 180;
+      var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos((lat1 * Math.PI) / 180) *
+          Math.cos((lat2 * Math.PI) / 180) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    function checkUserGps() {
+      var msgEl = document.getElementById("uiGpsMsg");
+      var btnEl = document.getElementById("btnCheckGps");
+      if (!navigator.geolocation) {
+        msgEl.textContent = "❌ GPS is not supported on this browser.";
+        return;
+      }
+      btnEl.textContent = "⏳ Checking GPS Distance...";
+      msgEl.textContent = "Please allow location access when prompted...";
+
+      navigator.geolocation.getCurrentPosition(
+        function (pos) {
+          user.lat = pos.coords.latitude;
+          user.lng = pos.coords.longitude;
+          var dist = calcDistanceKm(user.lat, user.lng, STORE_DATA.storeLat, STORE_DATA.storeLng);
+          user.dist = dist;
+          saveUserData();
+          btnEl.textContent = "📍 Verify My GPS & View Wholesale Prices";
+          msgEl.textContent = "";
+          routeByDistance(dist);
+        },
+        function (err) {
+          btnEl.textContent = "📍 Verify My GPS & View Wholesale Prices";
+          msgEl.textContent = "⚠️ Please turn ON Phone Location/GPS and allow permission in Chrome.";
+        },
+        { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
+      );
+    }
+
+    function routeByDistance(distKm) {
+      var gateSec = document.getElementById("secLocationGate");
+      var farSec = document.getElementById("secNotServiceable");
+      var storeSec = document.getElementById("secStorefront");
+
+      gateSec.classList.add("hidden");
+      farSec.classList.add("hidden");
+      storeSec.classList.add("hidden");
+
+      if (distKm <= STORE_DATA.maxRadiusKm) {
+        storeSec.classList.remove("hidden");
+        document.getElementById("uiDistBadge").textContent = distKm.toFixed(2);
+        if (user.name) {
+          document.getElementById("uiUserGreet").textContent = "• Hi, " + user.name.split(" ")[0];
+        }
+        renderCategories();
+        renderProducts();
+        updateCartUI();
+      } else {
+        farSec.classList.remove("hidden");
+        document.getElementById("uiFarDist").textContent = distKm.toFixed(2);
+      }
+    }
+
+    /* ---------------- 4. STOREFRONT & CART ENGINE ---------------- */
+    function renderCategories() {
+      var cats = ["All"];
+      STORE_DATA.products.forEach(function (p) {
+        if (cats.indexOf(p.category) === -1) cats.push(p.category);
+      });
+
+      var html = "";
+      cats.forEach(function (c) {
+        var activeCls = c === curCat ? "cat-btn active" : "cat-btn";
+        html += '<button type="button" class="' + activeCls + '" onclick="setCategory(\'' + c.replace(/'/g, "\\'") + '\')">' + c + "</button>";
+      });
+      document.getElementById("uiCatList").innerHTML = html;
+    }
+
+    function setCategory(c) {
+      curCat = c;
+      renderCategories();
+      renderProducts();
+    }
+
+    function renderProducts() {
+      var q = (document.getElementById("inSearch").value || "").toLowerCase().trim();
+      var grid = document.getElementById("uiProdGrid");
+      var html = "";
+
+      var filtered = STORE_DATA.products.filter(function (p) {
+        var matchCat = curCat === "All" || p.category === curCat;
+        var matchSearch = !q || p.name.toLowerCase().indexOf(q) !== -1 || p.category.toLowerCase().indexOf(q) !== -1;
+        return matchCat && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:32px; color:#6b7280; font-weight:700;">No wholesale items match your search.</div>';
+        return;
+      }
+
+      filtered.forEach(function (p) {
+        var qty = cart[p.id] || 0;
+        var saveAmt = p.mrp > p.price ? p.mrp - p.price : 0;
+        var isOos = p.inStock === false;
+
+        var imgContent = p.image
+          ? '<img src="' + p.image + '" alt="' + p.name + '" loading="lazy" />'
+          : (p.emoji || "🛍️");
+
+        var actionHtml = "";
+        if (isOos) {
+          actionHtml = '<span style="font-size:11px; font-weight:800; color:#dc2626;">Sold Out</span>';
+        } else if (qty === 0) {
+          actionHtml = '<button type="button" class="btn-add" onclick="changeQty(' + p.id + ', 1)">ADD</button>';
+        } else {
+          actionHtml =
+            '<div class="qty-box">' +
+            '<button type="button" class="qty-btn" onclick="changeQty(' + p.id + ', -1)">−</button>' +
+            '<span class="qty-num">' + qty + "</span>" +
+            '<button type="button" class="qty-btn" onclick="changeQty(' + p.id + ', 1)">+</button>' +
+            "</div>";
+        }
+
+        html +=
+          '<div class="p-card ' + (isOos ? "oos" : "") + '">' +
+          (saveAmt > 0 ? '<div class="p-off">SAVE ₹' + saveAmt + "</div>" : "") +
+          '<div class="p-slot-tag">🌙 6-9 PM</div>' +
+          '<div>' +
+          '<div class="p-img">' + imgContent + "</div>" +
+          '<span class="p-unit">' + p.unit + "</span>" +
+          '<div class="p-name">' + p.name + "</div>" +
+          "</div>" +
+          '<div class="p-foot">' +
+          '<div class="p-price-wrap">' +
+          '<span class="p-price">₹' + p.price + "</span>" +
+          (p.mrp > p.price ? '<span class="p-mrp">MRP ₹' + p.mrp + "</span>" : "") +
+          "</div>" +
+          actionHtml +
+          "</div>" +
+          "</div>";
+      });
+
+      grid.innerHTML = html;
+    }
+
+    function changeQty(prodId, delta) {
+      var cur = cart[prodId] || 0;
+      var next = cur + delta;
+      if (next <= 0) {
+        delete cart[prodId];
+      } else {
+        cart[prodId] = next;
+      }
+      localStorage.setItem(KEY_CART, JSON.stringify(cart));
+      renderProducts();
+      updateCartUI();
+      if (document.getElementById("modalCheckout").classList.contains("open")) {
+        renderCheckoutModal();
+      }
+    }
+
+    function getCartTotals() {
+      var itemsCount = 0;
+      var subTotal = 0;
+      var mrpTotal = 0;
+
+      STORE_DATA.products.forEach(function (p) {
+        var q = cart[p.id] || 0;
+        if (q > 0) {
+          itemsCount += q;
+          subTotal += p.price * q;
+          mrpTotal += (p.mrp || p.price) * q;
+        }
+      });
+
+      return {
+        itemsCount: itemsCount,
+        subTotal: subTotal,
+        mrpTotal: mrpTotal,
+        savings: Math.max(0, mrpTotal - subTotal)
+      };
+    }
+
+    function updateCartUI() {
+      var t = getCartTotals();
+      var minOrder = STORE_DATA.minOrderValue || 499;
+
+      // MOV Progress Bar
+      var pct = Math.min(100, Math.round((t.subTotal / minOrder) * 100));
+      var movBar = document.getElementById("uiMovBar");
+      movBar.style.width = pct + "%";
+      document.getElementById("uiMovAmt").textContent = "₹" + t.subTotal + " / ₹" + minOrder;
+
+      if (t.subTotal >= minOrder) {
+        movBar.classList.add("ok");
+        document.getElementById("uiMovTitle").innerHTML = "✅ <strong>Unlocked Free Evening Delivery (6:00 PM – 9:00 PM)!</strong>";
+      } else {
+        movBar.classList.remove("ok");
+        var diff = minOrder - t.subTotal;
+        document.getElementById("uiMovTitle").textContent = "Add ₹" + diff + " more for Evening Wholesale Delivery";
+      }
+
+      // Bottom Floating Bar
+      document.getElementById("uiCartCount").textContent = t.itemsCount + " ITEMS • 6 PM – 9 PM DROP";
+      document.getElementById("uiCartTotal").textContent = "₹" + t.subTotal;
+
+      var ticker = document.getElementById("uiSavingsTicker");
+      var cartBar = document.getElementById("uiBottomCartBar");
+
+      if (t.savings > 0) {
+        ticker.classList.remove("hidden");
+        document.getElementById("uiBarSavedAmt").textContent = "₹" + t.savings;
+      } else {
+        ticker.classList.add("hidden");
+      }
+
+      if (t.subTotal >= minOrder) {
+        cartBar.classList.remove("locked-bar");
+      } else {
+        cartBar.classList.add("locked-bar");
+      }
+    }
+
+    function repeatLastOrder() {
+      try {
+        var saved = JSON.parse(localStorage.getItem(KEY_LAST_ORDER));
+        if (saved && typeof saved === "object") {
+          cart = saved;
+          localStorage.setItem(KEY_CART, JSON.stringify(cart));
+          renderProducts();
+          updateCartUI();
+          showToast("✅ Previous wholesale basket loaded!");
+        }
+      } catch (e) {}
+    }
+
+    /* ---------------- 5. CHECKOUT & WHATSAPP ORDER ENGINE ---------------- */
+    function toggleCheckoutModal(open) {
+      var modal = document.getElementById("modalCheckout");
+      if (open) {
+        updateEveningSlotClock();
+        renderCheckoutModal();
+        modal.classList.add("open");
+      } else {
+        modal.classList.remove("open");
+      }
+    }
+
+    function renderCheckoutModal() {
+      var listEl = document.getElementById("uiBasketItems");
+      var t = getCartTotals();
+
+      if (t.itemsCount === 0) {
+        listEl.innerHTML = '<div style="text-align:center; padding:18px; color:#6b7280; font-size:13px;">Your basket is empty. Add wholesale items to order!</div>';
+      } else {
+        var html = "";
+        STORE_DATA.products.forEach(function (p) {
+          var q = cart[p.id] || 0;
+          if (q > 0) {
+            html +=
+              '<div style="display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid #f3f4f6; font-size:13px;">' +
+              '<div style="flex:1;">' +
+              '<div style="font-weight:800;">' + p.name + " <span style='color:#6b7280; font-size:11px;'>(" + p.unit + ")</span></div>" +
+              '<div style="font-size:11px; color:#059669; font-weight:700;">₹' + p.price + " × " + q + " = ₹" + (p.price * q) + "</div>" +
+              "</div>" +
+              '<div class="qty-box">' +
+              '<button type="button" class="qty-btn" onclick="changeQty(' + p.id + ', -1)">−</button>' +
+              '<span class="qty-num">' + q + "</span>" +
+              '<button type="button" class="qty-btn" onclick="changeQty(' + p.id + ', 1)">+</button>' +
+              "</div>" +
+              "</div>";
+          }
+        });
+        listEl.innerHTML = html;
+      }
+
+      document.getElementById("uiBillMrp").textContent = "₹" + t.mrpTotal;
+      document.getElementById("uiBillSave").textContent = "-₹" + t.savings;
+      document.getElementById("uiBillGrand").textContent = "₹" + t.subTotal;
+
+      validateOrderButton();
+    }
+
+    function loadSavedState() {
+      try {
+        var u = JSON.parse(localStorage.getItem(KEY_USER));
+        if (u) user = Object.assign(user, u);
+      } catch (e) {}
+
+      try {
+        var c = JSON.parse(localStorage.getItem(KEY_CART));
+        if (c) cart = c;
+      } catch (e) {}
+
+      document.getElementById("custName").value = user.name || "";
+      document.getElementById("custPhone").value = user.phone || "";
+      document.getElementById("custAddr").value = user.addr || "";
+      document.getElementById("custLandmark").value = user.landmark || "";
+    }
+
+    function saveUserData() {
+      user.name = document.getElementById("custName").value.trim();
+      user.phone = document.getElementById("custPhone").value.replace(/\D/g, "").slice(0, 10);
+      user.addr = document.getElementById("custAddr").value.trim();
+      user.landmark = document.getElementById("custLandmark").value.trim();
+      localStorage.setItem(KEY_USER, JSON.stringify(user));
+      validateOrderButton();
+    }
+
+    function validateOrderButton() {
+      var t = getCartTotals();
+      var minOrder = STORE_DATA.minOrderValue || 499;
+      var btn = document.getElementById("btnWaSend");
+
+      var validCart = t.subTotal >= minOrder;
+      var validUser = user.name.length >= 2 && user.phone.length === 10 && user.addr.length >= 5;
+
+      if (!validCart) {
+        btn.className = "btn-wa locked";
+        btn.textContent = "🔒 Add ₹" + (minOrder - t.subTotal) + " more (Min Order ₹" + minOrder + ")";
+      } else if (!validUser) {
+        btn.className = "btn-wa locked";
+        btn.textContent = "✏️ Enter Name, 10-Digit Phone & Address";
+      } else {
+        btn.className = "btn-wa ready";
+        btn.textContent = "🟢 Confirm Evening Order on WhatsApp (₹" + t.subTotal + ")";
+      }
+    }
+
+    function sendWhatsAppOrder() {
+      var t = getCartTotals();
+      var minOrder = STORE_DATA.minOrderValue || 499;
+      if (t.subTotal < minOrder) {
+        showToast("Minimum order is ₹" + minOrder);
+        return;
+      }
+      if (user.name.length < 2 || user.phone.length !== 10 || user.addr.length < 5) {
+        showToast("Please fill your Name, 10-digit Mobile & Full Address");
+        return;
+      }
+
+      // Save basket as Last Order for 1-Tap Repeat next time
+      localStorage.setItem(KEY_LAST_ORDER, JSON.stringify(cart));
+      document.getElementById("btnRepeatLast").classList.remove("hidden");
+
+      var orderId = "WV-" + Math.floor(1000 + Math.random() * 9000);
+      var slotText = getFormattedSlotLabel();
+      var gpsLink = user.lat && user.lng
+        ? "https://maps.google.com/?q=" + user.lat.toFixed(6) + "," + user.lng.toFixed(6)
+        : "Not shared";
+
+      var lines = [];
+      lines.push("🟣 *" + STORE_DATA.name.toUpperCase() + " ORDER*");
+      lines.push("🆔 *Order ID:* " + orderId);
+      lines.push("🌙 *Delivery Slot:* " + slotText);
+      lines.push("--------------------------------");
+      lines.push("📦 *ITEMS:*");
+
+      STORE_DATA.products.forEach(function (p) {
+        var q = cart[p.id] || 0;
+        if (q > 0) {
+          lines.push("• " + p.name + " (" + p.unit + ") × *" + q + "* = ₹" + (p.price * q));
+        }
+      });
+
+      lines.push("--------------------------------");
+      lines.push("💰 *Total MRP:* ₹" + t.mrpTotal);
+      lines.push("🎉 *Wholesale Discount:* -₹" + t.savings);
+      lines.push("🚚 *Evening Slot Delivery:* FREE");
+      lines.push("💵 *GRAND TOTAL TO PAY: ₹" + t.subTotal + "*");
+      lines.push("--------------------------------");
+      lines.push("👤 *Customer:* " + user.name);
+      lines.push("📞 *Phone:* " + user.phone);
+      lines.push("🏠 *Address:* " + user.addr);
+      if (user.landmark) {
+        lines.push("📝 *Landmark / Note:* " + user.landmark);
+      }
+      if (user.dist !== null) {
+        lines.push("📏 *Zone Distance:* " + user.dist.toFixed(2) + " km");
+      }
+      lines.push("📍 *Rider GPS Map:* " + gpsLink);
+
+      var waPhone = (STORE_DATA.whatsappNumber || "918076433724").replace(/\D/g, "");
+      var waUrl = "https://wa.me/" + waPhone + "?text=" + encodeURIComponent(lines.join("\n"));
+      window.open(waUrl, "_blank");
+    }
+
+    /* ---------------- 6. ANDROID ONE-TAP PWA INSTALL ---------------- */
+    function initPwaSupport() {
+      // Capture Chrome Android native install prompt
+      window.addEventListener("beforeinstallprompt", function (e) {
+        e.preventDefault();
+        deferredPwa = e;
+      });
+
+      // Register Service Worker if sw.js exists on GitHub Pages
+      if ("serviceWorker" in navigator && (window.location.protocol === "https:" || window.location.hostname === "localhost")) {
+        navigator.serviceWorker.register("sw.js").catch(function () {});
+      }
+    }
+
+    function installAppPrompt() {
+      if (deferredPwa) {
+        deferredPwa.prompt();
+        deferredPwa.userChoice.then(function () {
+          deferredPwa = null;
+        });
+      } else {
+        document.getElementById("modalInstallHelp").classList.add("open");
+      }
+    }
+
+    function downloadPwaFiles() {
+      var manifestObj = {
+        name: STORE_DATA.name + " | Evening Wholesale Delivery",
+        short_name: "Weaverly",
+        description: "Exclusive Wholesale Prices • Evening Delivery 6 PM to 9 PM",
+        start_url: "./index.html",
+        scope: "./",
+        display: "standalone",
+        background_color: "#240046",
+        theme_color: "#2e0249",
+        orientation: "portrait",
+        icons: [
+          {
+            src: "https://cdn-icons-png.flaticon.com/512/3081/3081559.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any maskable"
+          },
+          {
+            src: "https://cdn-icons-png.flaticon.com/512/3081/3081559.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable"
+          }
+        ]
+      };
+
+      var swCode =
+        "const CACHE_NAME = 'weaverly-pwa-v1';\n" +
+        "self.addEventListener('install', e => { self.skipWaiting(); });\n" +
+        "self.addEventListener('activate', e => { e.waitUntil(self.clients.claim()); });\n" +
+        "self.addEventListener('fetch', e => {\n" +
+        "  e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));\n" +
+        "});\n";
+
+      triggerDownload("manifest.json", JSON.stringify(manifestObj, null, 2), "application/json");
+      setTimeout(function () {
+        triggerDownload("sw.js", swCode, "application/javascript");
+      }, 400);
+      showToast("⬇️ Downloaded manifest.json & sw.js!");
+    }
+
+    function triggerDownload(filename, content, mime) {
+      var blob = new Blob([content], { type: mime });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    /* ---------------- 7. ADMIN PANEL & GITHUB CODE GENERATOR ---------------- */
+    function handleSecretAdminTap() {
+      tapCnt++;
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(function () {
+        tapCnt = 0;
+      }, 1800);
+      if (tapCnt >= 5) {
+        tapCnt = 0;
+        openAdminPanel();
+      }
+    }
+
+    function openAdminPanel() {
+      document.getElementById("secLocationGate").classList.add("hidden");
+      document.getElementById("secNotServiceable").classList.add("hidden");
+      document.getElementById("secStorefront").classList.add("hidden");
+      document.getElementById("secAdmin").classList.remove("hidden");
+
+      document.getElementById("admName").value = STORE_DATA.name || "Weaverly Wholesale";
+      document.getElementById("admPhone").value = STORE_DATA.whatsappNumber || "";
+      document.getElementById("admCutoff").value = STORE_DATA.eveningCutoffHour || 17;
+      document.getElementById("admLat").value = STORE_DATA.storeLat;
+      document.getElementById("admLng").value = STORE_DATA.storeLng;
+      document.getElementById("admRad").value = STORE_DATA.maxRadiusKm;
+      document.getElementById("admMin").value = STORE_DATA.minOrderValue;
+      document.getElementById("admAddr").value = STORE_DATA.storeAddress;
+
+      renderAdminProdList();
+      refreshAdminCode();
+    }
+
+    function exitAdmin() {
+      document.getElementById("secAdmin").classList.add("hidden");
+      if (user.lat && user.lng) {
+        routeByDistance(user.dist || 0);
+      } else {
+        document.getElementById("secLocationGate").classList.remove("hidden");
+      }
+    }
+
+    function bypassGpsForTesting() {
+      user.lat = STORE_DATA.storeLat;
+      user.lng = STORE_DATA.storeLng;
+      user.dist = 0.1;
+      saveUserData();
+      document.getElementById("secAdmin").classList.add("hidden");
+      routeByDistance(0.1);
+      showToast("🔓 GPS Gate Bypassed for Testing!");
+    }
+
+    function setShopGps() {
+      if (!navigator.geolocation) return;
+      navigator.geolocation.getCurrentPosition(function (pos) {
+        document.getElementById("admLat").value = pos.coords.latitude.toFixed(6);
+        document.getElementById("admLng").value = pos.coords.longitude.toFixed(6);
+        refreshAdminCode();
+        showToast("📍 Shop coordinates updated!");
+      });
+    }
+
+    function renderAdminProdList() {
+      var box = document.getElementById("admProdList");
+      var html = "";
+      STORE_DATA.products.forEach(function (p, idx) {
+        var stockLabel = p.inStock === false ? "🔴 Out" : "🟢 In Stock";
+        html +=
+          '<div style="display:flex; justify-content:space-between; align-items:center; padding:6px; border-bottom:1px solid #f3f4f6; font-size:12px;">' +
+          '<div><strong>' + p.name + "</strong> (" + p.unit + ") • ₹" + p.price + ' <span style="color:#9ca3af;text-decoration:line-through;">₹' + p.mrp + "</span></div>" +
+          '<div style="display:flex; gap:6px;">' +
+          '<button type="button" onclick="adminToggleStock(' + idx + ')" style="border:1px solid #d1d5db; background:#fff; padding:3px 7px; border-radius:6px; font-size:11px; cursor:pointer;">' + stockLabel + "</button>" +
+          '<button type="button" onclick="adminDelProd(' + idx + ')" style="border:none; background:#fee2e2; color:#b91c1c; padding:3px 7px; border-radius:6px; font-size:11px; font-weight:800; cursor:pointer;">Delete</button>' +
+          "</div></div>";
+      });
+      box.innerHTML = html;
+    }
+
+    function adminToggleStock(idx) {
+      STORE_DATA.products[idx].inStock = STORE_DATA.products[idx].inStock === false ? true : false;
+      renderAdminProdList();
+      refreshAdminCode();
+    }
+
+    function adminDelProd(idx) {
+      STORE_DATA.products.splice(idx, 1);
+      renderAdminProdList();
+      refreshAdminCode();
+    }
+
+    function adminAddProd() {
+      var name = document.getElementById("newPName").value.trim();
+      var cat = document.getElementById("newPCat").value.trim() || "Staples";
+      var unit = document.getElementById("newPUnit").value.trim() || "1 kg";
+      var price = parseFloat(document.getElementById("newPPrice").value) || 0;
+      var mrp = parseFloat(document.getElementById("newPMrp").value) || price;
+      var emoji = document.getElementById("newPEmoji").value.trim() || "🛍️";
+      var img = document.getElementById("newPImg").value.trim();
+
+      if (!name || price <= 0) {
+        showToast("Enter Product Name and Wholesale Price");
+        return;
+      }
+
+      STORE_DATA.products.push({
+        id: Date.now(),
+        name: name,
+        category: cat,
+        unit: unit,
+        price: price,
+        mrp: mrp,
+        emoji: emoji,
+        image: img,
+        inStock: true
+      });
+
+      document.getElementById("newPName").value = "";
+      document.getElementById("newPPrice").value = "";
+      document.getElementById("newPMrp").value = "";
+      document.getElementById("newPImg").value = "";
+
+      renderAdminProdList();
+      refreshAdminCode();
+      showToast("✅ Product Added!");
+    }
+
+    function refreshAdminCode() {
+      STORE_DATA.name = document.getElementById("admName").value.trim() || "Weaverly Wholesale";
+      STORE_DATA.whatsappNumber = document.getElementById("admPhone").value.trim();
+      STORE_DATA.eveningCutoffHour = parseInt(document.getElementById("admCutoff").value, 10) || 17;
+      STORE_DATA.storeLat = parseFloat(document.getElementById("admLat").value) || 0;
+      STORE_DATA.storeLng = parseFloat(document.getElementById("admLng").value) || 0;
+      STORE_DATA.maxRadiusKm = parseFloat(document.getElementById("admRad").value) || 1.5;
+      STORE_DATA.minOrderValue = parseInt(document.getElementById("admMin").value, 10) || 499;
+      STORE_DATA.storeAddress = document.getElementById("admAddr").value.trim();
+
+      applyStoreBranding();
+      var code = "var STORE_DATA = " + JSON.stringify(STORE_DATA, null, 2) + ";";
+      document.getElementById("admCodeBox").value = code;
+    }
+
+    function copyAdminCode() {
+      var box = document.getElementById("admCodeBox");
+      box.select();
+      navigator.clipboard.writeText(box.value);
+      showToast("📋 STORE_DATA copied! Paste it in index.html on GitHub.");
+    }
+  </script>
+</body>
+</html>
