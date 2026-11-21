@@ -1,0 +1,3762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1A3D28" />
+  <meta name="description" content="Direct Mandi Wholesale Staples & Evening 6–9 PM COD Delivery in Yamuna Vihar, Delhi." />
+
+  <!-- REAL STATIC PWA MANIFEST & ICONS (Required by Android Chrome WebAPK & iOS Safari) -->
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Weaverly" />
+  <title>Weaverly Wholesale — Yamuna Vihar Quick-Commerce</title>
+
+  <!-- Plus Jakarta Sans Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            ivory: '#FAF9F5',
+            surface: '#FFFFFF',
+            borderSubtle: '#EAE6DC',
+            forest: {
+              DEFAULT: '#1A3D28',
+              dark: '#122B1C',
+              light: '#245236',
+              soft: '#EBF3EE',
+            },
+            emeraldBrand: {
+              DEFAULT: '#16A34A',
+              soft: '#DCFCE7',
+            },
+            wheat: {
+              DEFAULT: '#C88A1E',
+              soft: '#FEF5E3',
+              border: '#F2D7A0',
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #141A16;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      overscroll-behavior: none;
+    }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .app-shell {
+      width: 100%;
+      height: 100dvh;
+      max-width: 100%;
+      background-color: #FAF9F5;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (min-width: 500px) {
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at 20% 20%, #1F3527 0%, #111814 55%, #0B0F0D 100%);
+        padding: 12px;
+      }
+      .app-shell {
+        max-width: 430px;
+        height: min(92dvh, 880px);
+        border-radius: 32px;
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    /* Scroll-Aware Floating Bottom Dock Transition */
+    #floating-bottom-dock {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 40;
+      padding: 0 12px calc(10px + env(safe-area-inset-bottom));
+      transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    #floating-bottom-dock.dock-hidden {
+      transform: translateY(130%);
+      opacity: 0;
+      pointer-events: none !important;
+    }
+
+    #floating-bottom-dock:not(.dock-hidden) .dock-interactive {
+      pointer-events: auto;
+    }
+
+    @keyframes placeholderSlide {
+      0% { opacity: 0; transform: translateY(6px); }
+      15% { opacity: 1; transform: translateY(0); }
+      85% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-6px); }
+    }
+    .placeholder-animate { animation: placeholderSlide 2.8s ease-in-out infinite; }
+
+    @keyframes viewFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .view-enter { animation: viewFadeIn 220ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+    .sheet-backdrop { transition: opacity 240ms ease; }
+    .sheet-panel { transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1); }
+
+    .pressable { transition: transform 120ms ease, background-color 150ms ease; }
+    .pressable:active { transform: scale(0.96); }
+
+    .carousel-track { scroll-snap-type: x mandatory; scroll-behavior: smooth; }
+    .carousel-slide { scroll-snap-align: start; }
+
+    @keyframes popIn {
+      0% { transform: scale(0.88); }
+      60% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+    .pop-in { animation: popIn 180ms ease-out; }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .shake-anim { animation: shake 320ms ease-in-out; }
+  </style>
+</head>
+<body class="text-slate-900 antialiased selection:bg-forest-soft selection:text-forest">
+
+  <!-- MAIN MOBILE APP SHELL -->
+  <div id="app-shell" class="app-shell">
+
+    <!-- DYNAMIC VIEW CONTAINER (Header + Scrollable Content per Tab) -->
+    <div id="view-root" class="flex-1 flex flex-col min-h-0 overflow-hidden relative"></div>
+
+    <!-- SCROLL-AWARE FLOATING BOTTOM DOCK -->
+    <div id="floating-bottom-dock" aria-label="Bottom navigation dock">
+      <div class="flex flex-col gap-2 w-full">
+        <div id="dock-cart-pill-slot" class="hidden dock-interactive"></div>
+        <nav id="dock-bottom-nav" class="dock-interactive bg-white/95 backdrop-blur-md border border-borderSubtle rounded-2xl shadow-[0_10px_30px_rgba(26,61,40,0.12)] px-2 py-1.5 flex items-center justify-around"></nav>
+      </div>
+    </div>
+
+    <!-- HOME-ONLY LIVE SEARCH OVERLAY -->
+    <div id="search-overlay" class="hidden absolute inset-0 z-50 bg-ivory flex flex-col"></div>
+
+    <!-- PRODUCT DETAIL BOTTOM SHEET -->
+    <div id="pdp-modal" class="hidden absolute inset-0 z-50 flex flex-col justify-end">
+      <div id="pdp-backdrop" class="sheet-backdrop absolute inset-0 bg-black/45 backdrop-blur-[2px] opacity-0" onclick="closePDP()"></div>
+      <div id="pdp-sheet" class="sheet-panel relative bg-white rounded-t-3xl max-h-[88%] flex flex-col shadow-2xl translate-y-full overflow-hidden"></div>
+    </div>
+
+    <!-- CART & CHECKOUT DRAWER -->
+    <div id="cart-modal" class="hidden absolute inset-0 z-50 flex flex-col justify-end">
+      <div id="cart-backdrop" class="sheet-backdrop absolute inset-0 bg-black/50 backdrop-blur-[2px] opacity-0" onclick="closeCart()"></div>
+      <div id="cart-sheet" class="sheet-panel relative bg-ivory rounded-t-3xl h-[91%] flex flex-col shadow-2xl translate-y-full overflow-hidden"></div>
+    </div>
+
+    <!-- ORDER SUCCESS CELEBRATION MODAL -->
+    <div id="order-success-modal" class="hidden absolute inset-0 z-[60] bg-forest/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center text-white"></div>
+
+    <!-- ADMIN PIN GATE MODAL -->
+    <div id="pin-modal" class="hidden absolute inset-0 z-50 flex items-center justify-center p-5">
+      <div class="absolute inset-0 bg-black/55 backdrop-blur-sm" onclick="closePinModal()"></div>
+      <div id="pin-card" class="relative bg-white rounded-3xl w-full max-w-[340px] p-6 shadow-2xl border border-borderSubtle"></div>
+    </div>
+
+    <!-- 1-TAP APP INSTALL GUIDE MODAL (Fallback for iOS Safari / In-App WebViews) -->
+    <div id="install-modal" class="hidden absolute inset-0 z-50 flex items-end sm:items-center justify-center p-4">
+      <div class="absolute inset-0 bg-black/55 backdrop-blur-sm" onclick="closeInstallModal()"></div>
+      <div id="install-card" class="relative bg-white rounded-3xl w-full max-w-[360px] p-5 shadow-2xl border border-borderSubtle"></div>
+    </div>
+
+    <!-- CUSTOMER PROFILE & ADDRESS MODAL -->
+    <div id="address-modal" class="hidden absolute inset-0 z-50 flex items-end sm:items-center justify-center p-4">
+      <div class="absolute inset-0 bg-black/55 backdrop-blur-sm" onclick="closeAddressModal()"></div>
+      <div id="address-card" class="relative bg-white rounded-3xl w-full max-w-[360px] p-5 shadow-2xl border border-borderSubtle"></div>
+    </div>
+
+    <!-- STORE ADMIN & OWNER CONSOLE -->
+    <div id="admin-console" class="hidden absolute inset-0 z-[55] bg-[#F4F5F2] flex flex-col overflow-hidden"></div>
+
+    <!-- IN-APP TOAST NOTIFICATION -->
+    <div id="toast-container" class="pointer-events-none absolute top-4 left-4 right-4 z-[70] flex flex-col items-center gap-2"></div>
+
+  </div>
+
+  <script>
+    /* =========================================================================
+       WEAVERLY WHOLESALE v4.0 — PRODUCTION PWA & QUICK-COMMERCE ENGINE
+       Yamuna Vihar, Delhi | 1.5 km Geofence | 6 PM–9 PM Slot | ₹499 Free Del
+    ========================================================================== */
+
+    // -------------------------------------------------------------------------
+    // 0. EARLY PWA INSTALL & SERVICE WORKER CAPTURE (Must run immediately!)
+    // -------------------------------------------------------------------------
+    let deferredInstallPrompt = null;
+    let isAppInstalled =
+      window.matchMedia('(display-mode: standalone)').matches ||
+      window.matchMedia('(display-mode: minimal-ui)').matches ||
+      window.navigator.standalone === true;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      if (typeof syncAllUI === 'function') syncAllUI();
+    });
+
+    window.addEventListener('appinstalled', () => {
+      deferredInstallPrompt = null;
+      isAppInstalled = true;
+      if (typeof showToast === 'function') {
+        showToast('Weaverly App icon added to your Home Screen!', 'emerald');
+      }
+      if (typeof syncAllUI === 'function') syncAllUI();
+    });
+
+    // Register static Service Worker (Required for Android Chrome WebAPK Home Screen Icon)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('./sw.js', { scope: './' })
+          .then((reg) => {
+            reg.addEventListener('updatefound', () => {
+              const newWorker = reg.installing;
+              if (!newWorker) return;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  if (typeof showToast === 'function') {
+                    showToast('App updated to latest version! Reload to refresh.', 'forest');
+                  }
+                }
+              });
+            });
+          })
+          .catch(() => {
+            // Safe ignore on local file:// preview
+          });
+      });
+    }
+
+    function isInAppWebView() {
+      const ua = navigator.userAgent || '';
+      return /FBAN|FBAV|Instagram|WhatsApp|Line|Snapchat|Twitter|wv\)/i.test(ua);
+    }
+
+    // -------------------------------------------------------------------------
+    // 1. INLINE VECTOR ARTWORK LIBRARY
+    // -------------------------------------------------------------------------
+    const SVG_ART = {
+      rice_1121: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#F7F2E4"/>
+          <path d="M32 34C32 29 36 25 41 25H79C84 25 88 29 88 34V94C88 100 83 104 77 104H43C37 104 32 100 32 94V34Z" fill="#E8D8B4" stroke="#B79252" stroke-width="2.5"/>
+          <path d="M40 25L44 17H76L80 25" fill="#D5BC89" stroke="#B79252" stroke-width="2"/>
+          <rect x="38" y="42" width="44" height="36" rx="8" fill="#1A3D28"/>
+          <text x="60" y="57" text-anchor="middle" fill="#F4C96B" font-size="11" font-weight="800" font-family="Plus Jakarta Sans">1121</text>
+          <text x="60" y="69" text-anchor="middle" fill="#FFFFFF" font-size="8" font-weight="600" font-family="Plus Jakarta Sans">BASMATI</text>
+          <ellipse cx="48" cy="89" rx="5" ry="2.2" transform="rotate(-20 48 89)" fill="#FFFDF7"/>
+          <ellipse cx="60" cy="91" rx="5.5" ry="2.2" transform="rotate(10 60 91)" fill="#FFFDF7"/>
+          <ellipse cx="72" cy="88" rx="5" ry="2.2" transform="rotate(-12 72 88)" fill="#FFFDF7"/>
+        </svg>`,
+      rice_mogra: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#EEF5F0"/>
+          <rect x="33" y="24" width="54" height="78" rx="11" fill="#FFFFFF" stroke="#1A3D28" stroke-width="2.4"/>
+          <rect x="33" y="24" width="54" height="16" rx="6" fill="#1A3D28"/>
+          <text x="60" y="35" text-anchor="middle" fill="#F2D7A0" font-size="7.5" font-weight="800" font-family="Plus Jakarta Sans">KAARTIK</text>
+          <circle cx="60" cy="65" r="18" fill="#FAF4E4" stroke="#C88A1E" stroke-width="2"/>
+          <text x="60" y="64" text-anchor="middle" fill="#1A3D28" font-size="9" font-weight="800" font-family="Plus Jakarta Sans">MOGRA</text>
+          <text x="60" y="74" text-anchor="middle" fill="#8A6118" font-size="7" font-weight="700" font-family="Plus Jakarta Sans">DAILY</text>
+          <path d="M45 92H75" stroke="#16A34A" stroke-width="3" stroke-linecap="round"/>
+        </svg>`,
+      dal_toor: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#FEF6E4"/>
+          <path d="M35 30C35 25 39 21 44 21H76C81 21 85 25 85 30V94C85 99 81 103 76 103H44C39 103 35 99 35 94V30Z" fill="#FFFDF8" stroke="#D99B26" stroke-width="2.4"/>
+          <rect x="42" y="31" width="36" height="22" rx="6" fill="#1A3D28"/>
+          <text x="60" y="45" text-anchor="middle" fill="#FFFFFF" font-size="9.5" font-weight="800" font-family="Plus Jakarta Sans">TOOR</text>
+          <rect x="42" y="60" width="36" height="33" rx="8" fill="#F2B93B"/>
+          <circle cx="51" cy="69" r="3" fill="#D98E14"/><circle cx="60" cy="72" r="3.2" fill="#E39D1E"/><circle cx="69" cy="68" r="2.8" fill="#D98E14"/>
+          <circle cx="53" cy="81" r="3.1" fill="#E39D1E"/><circle cx="63" cy="83" r="3" fill="#D98E14"/><circle cx="71" cy="79" r="2.8" fill="#E39D1E"/>
+          <circle cx="48" cy="87" r="2.5" fill="#D98E14"/><circle cx="67" cy="88" r="2.6" fill="#D98E14"/>
+        </svg>`,
+      dal_moong: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#FBF9E3"/>
+          <rect x="35" y="22" width="50" height="80" rx="12" fill="#FFFFFF" stroke="#C4A022" stroke-width="2.4"/>
+          <rect x="41" y="30" width="38" height="20" rx="6" fill="#16A34A"/>
+          <text x="60" y="43" text-anchor="middle" fill="#FFFFFF" font-size="8.5" font-weight="800" font-family="Plus Jakarta Sans">MOONG</text>
+          <rect x="42" y="57" width="36" height="36" rx="8" fill="#F7DC6F"/>
+          <circle cx="50" cy="66" r="2.5" fill="#D4AC0D"/><circle cx="59" cy="64" r="2.5" fill="#D4AC0D"/><circle cx="69" cy="68" r="2.5" fill="#D4AC0D"/>
+          <circle cx="54" cy="75" r="2.6" fill="#D4AC0D"/><circle cx="64" cy="76" r="2.5" fill="#D4AC0D"/><circle cx="50" cy="85" r="2.5" fill="#D4AC0D"/>
+          <circle cx="60" cy="86" r="2.5" fill="#D4AC0D"/><circle cx="70" cy="84" r="2.5" fill="#D4AC0D"/>
+        </svg>`,
+      dal_chana: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#FDF3E4"/>
+          <rect x="35" y="22" width="50" height="80" rx="12" fill="#FFFDF9" stroke="#C87E1E" stroke-width="2.4"/>
+          <rect x="41" y="30" width="38" height="20" rx="6" fill="#9A5314"/>
+          <text x="60" y="43" text-anchor="middle" fill="#FFFFFF" font-size="8.5" font-weight="800" font-family="Plus Jakarta Sans">CHANA</text>
+          <rect x="42" y="57" width="36" height="36" rx="8" fill="#E8A838"/>
+          <ellipse cx="52" cy="67" rx="3.4" ry="2.6" fill="#B97312"/><ellipse cx="64" cy="66" rx="3.4" ry="2.6" fill="#B97312"/>
+          <ellipse cx="56" cy="77" rx="3.4" ry="2.6" fill="#B97312"/><ellipse cx="68" cy="78" rx="3.4" ry="2.6" fill="#B97312"/>
+          <ellipse cx="51" cy="86" rx="3.2" ry="2.5" fill="#B97312"/><ellipse cx="63" cy="87" rx="3.2" ry="2.5" fill="#B97312"/>
+        </svg>`,
+      oil_mustard: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#FEF7DE"/>
+          <rect x="52" y="16" width="16" height="9" rx="3" fill="#B91C1C"/>
+          <path d="M53 25H67L72 37H48L53 25Z" fill="#F5C531" stroke="#C88A1E" stroke-width="2"/>
+          <rect x="40" y="37" width="40" height="65" rx="10" fill="#F5C531" stroke="#C88A1E" stroke-width="2.4"/>
+          <rect x="44" y="52" width="32" height="34" rx="6" fill="#1A3D28"/>
+          <path d="M60 58C60 58 53 66 53 71C53 75 56 78 60 78C64 78 67 75 67 71C67 66 60 58 60 58Z" fill="#F5C531"/>
+          <text x="60" y="96" text-anchor="middle" fill="#784D0C" font-size="7" font-weight="800" font-family="Plus Jakarta Sans">KACHI GHANI</text>
+        </svg>`,
+      atta: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#F5EFE4"/>
+          <rect x="29" y="24" width="62" height="78" rx="10" fill="#EADBC2" stroke="#9C7A47" stroke-width="2.4"/>
+          <path d="M35 33H85" stroke="#9C7A47" stroke-width="2" stroke-dasharray="4 3"/>
+          <rect x="37" y="43" width="46" height="38" rx="8" fill="#FFFFFF" stroke="#C88A1E" stroke-width="1.8"/>
+          <text x="60" y="59" text-anchor="middle" fill="#1A3D28" font-size="11" font-weight="800" font-family="Plus Jakarta Sans">ATTA</text>
+          <text x="60" y="72" text-anchor="middle" fill="#C88A1E" font-size="7.5" font-weight="700" font-family="Plus Jakarta Sans">MP SHARBATI</text>
+          <path d="M46 92C52 88 68 88 74 92" stroke="#1A3D28" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>`,
+      sugar: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#EEF6FB"/>
+          <rect x="35" y="23" width="50" height="78" rx="11" fill="#FFFFFF" stroke="#60A5FA" stroke-width="2.4"/>
+          <rect x="35" y="23" width="50" height="22" rx="8" fill="#1D4ED8"/>
+          <text x="60" y="37" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="800" font-family="Plus Jakarta Sans">SUGAR</text>
+          <rect x="46" y="58" width="10" height="10" rx="2" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+          <rect x="61" y="56" width="11" height="11" rx="2" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.5"/>
+          <rect x="53" y="71" width="12" height="12" rx="2" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+          <text x="60" y="94" text-anchor="middle" fill="#1E40AF" font-size="7" font-weight="700" font-family="Plus Jakarta Sans">SULPHUR FREE</text>
+        </svg>`,
+      soya: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#EEF7EE"/>
+          <rect x="33" y="23" width="54" height="78" rx="12" fill="#FFFFFF" stroke="#16A34A" stroke-width="2.4"/>
+          <rect x="39" y="31" width="42" height="22" rx="6" fill="#1A3D28"/>
+          <text x="60" y="45" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="800" font-family="Plus Jakarta Sans">SOYA</text>
+          <circle cx="49" cy="70" r="7" fill="#E6C58F" stroke="#B68B4C" stroke-width="1.5"/>
+          <circle cx="65" cy="68" r="8" fill="#DFB87A" stroke="#B68B4C" stroke-width="1.5"/>
+          <circle cx="57" cy="83" r="7.5" fill="#E6C58F" stroke="#B68B4C" stroke-width="1.5"/>
+          <circle cx="71" cy="83" r="6" fill="#DFB87A" stroke="#B68B4C" stroke-width="1.5"/>
+        </svg>`,
+      haldi: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#FEF5D4"/>
+          <rect x="36" y="26" width="48" height="74" rx="10" fill="#F59E0B" stroke="#B45309" stroke-width="2.4"/>
+          <rect x="42" y="36" width="36" height="28" rx="6" fill="#FFFBEB"/>
+          <text x="60" y="49" text-anchor="middle" fill="#92400E" font-size="9.5" font-weight="800" font-family="Plus Jakarta Sans">HALDI</text>
+          <text x="60" y="59" text-anchor="middle" fill="#B45309" font-size="7" font-weight="700" font-family="Plus Jakarta Sans">SALEM PURE</text>
+          <path d="M44 86C50 74 70 74 76 86H44Z" fill="#FDE047"/>
+        </svg>`,
+      mirch: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#FDECEC"/>
+          <rect x="36" y="26" width="48" height="74" rx="10" fill="#DC2626" stroke="#991B1B" stroke-width="2.4"/>
+          <rect x="42" y="36" width="36" height="28" rx="6" fill="#FFFFFF"/>
+          <text x="60" y="49" text-anchor="middle" fill="#991B1B" font-size="9" font-weight="800" font-family="Plus Jakarta Sans">MIRCH</text>
+          <text x="60" y="59" text-anchor="middle" fill="#DC2626" font-size="6.8" font-weight="700" font-family="Plus Jakarta Sans">KASHMIRI</text>
+          <path d="M51 84C54 75 66 72 72 78C67 86 58 89 51 84Z" fill="#FCA5A5"/>
+        </svg>`,
+      jeera: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#F3EFE7"/>
+          <rect x="36" y="25" width="48" height="75" rx="11" fill="#FFFDF9" stroke="#785A3A" stroke-width="2.4"/>
+          <rect x="42" y="33" width="36" height="22" rx="6" fill="#5C4026"/>
+          <text x="60" y="47" text-anchor="middle" fill="#F6E2B3" font-size="9" font-weight="800" font-family="Plus Jakarta Sans">JEERA</text>
+          <rect x="43" y="61" width="34" height="31" rx="7" fill="#D5BE9A"/>
+          <rect x="49" y="68" width="7" height="2.4" rx="1.2" transform="rotate(25 49 68)" fill="#5C4026"/>
+          <rect x="62" y="67" width="7" height="2.4" rx="1.2" transform="rotate(-18 62 67)" fill="#5C4026"/>
+          <rect x="54" y="77" width="7" height="2.4" rx="1.2" transform="rotate(-30 54 77)" fill="#5C4026"/>
+          <rect x="65" y="81" width="7" height="2.4" rx="1.2" transform="rotate(15 65 81)" fill="#5C4026"/>
+        </svg>`,
+      pack_starter: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#FEF5E3"/>
+          <rect x="20" y="42" width="80" height="58" rx="10" fill="#1A3D28"/>
+          <path d="M20 54H100" stroke="#C88A1E" stroke-width="3"/>
+          <rect x="30" y="22" width="22" height="24" rx="5" fill="#EADBC2" stroke="#9C7A47" stroke-width="2"/>
+          <rect x="55" y="18" width="22" height="28" rx="5" fill="#F5C531" stroke="#C88A1E" stroke-width="2"/>
+          <rect x="74" y="25" width="18" height="21" rx="4" fill="#F2B93B" stroke="#B45309" stroke-width="2"/>
+          <text x="60" y="74" text-anchor="middle" fill="#F4C96B" font-size="11" font-weight="800" font-family="Plus Jakarta Sans">STARTER</text>
+          <text x="60" y="88" text-anchor="middle" fill="#FFFFFF" font-size="8" font-weight="600" font-family="Plus Jakarta Sans">3 ESSENTIALS</text>
+        </svg>`,
+      pack_family: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#EBF5EE"/>
+          <rect x="18" y="40" width="84" height="60" rx="11" fill="#1A3D28"/>
+          <rect x="28" y="19" width="24" height="25" rx="5" fill="#E8D8B4" stroke="#B79252" stroke-width="2"/>
+          <rect x="54" y="16" width="20" height="28" rx="5" fill="#F5C531" stroke="#C88A1E" stroke-width="2"/>
+          <rect x="76" y="22" width="18" height="22" rx="4" fill="#F7DC6F" stroke="#C4A022" stroke-width="2"/>
+          <rect x="18" y="52" width="84" height="5" fill="#16A34A"/>
+          <text x="60" y="75" text-anchor="middle" fill="#FFFFFF" font-size="10.5" font-weight="800" font-family="Plus Jakarta Sans">DAL-CHAWAL</text>
+          <text x="60" y="89" text-anchor="middle" fill="#A7F3D0" font-size="8" font-weight="700" font-family="Plus Jakarta Sans">FAMILY PACK</text>
+        </svg>`,
+      pack_monthly: () => `
+        <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="18" fill="#FDF2DA"/>
+          <rect x="16" y="38" width="88" height="64" rx="12" fill="#122B1C" stroke="#C88A1E" stroke-width="2.5"/>
+          <rect x="24" y="18" width="20" height="24" rx="5" fill="#EADBC2" stroke="#9C7A47" stroke-width="2"/>
+          <rect x="46" y="15" width="22" height="27" rx="5" fill="#E8D8B4" stroke="#B79252" stroke-width="2"/>
+          <rect x="70" y="18" width="24" height="24" rx="5" fill="#F5C531" stroke="#C88A1E" stroke-width="2"/>
+          <text x="60" y="68" text-anchor="middle" fill="#F4C96B" font-size="11" font-weight="800" font-family="Plus Jakarta Sans">MONTHLY</text>
+          <text x="60" y="82" text-anchor="middle" fill="#FFFFFF" font-size="8.5" font-weight="700" font-family="Plus Jakarta Sans">FULL RATION</text>
+          <rect x="38" y="88" width="44" height="8" rx="4" fill="#16A34A"/>
+        </svg>`,
+    };
+
+    const CAT_ICONS = {
+      'Dal & Pulses': `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="10" r="4" fill="#E8A838"/><circle cx="15.5" cy="9.5" r="3.5" fill="#F2B93B"/><circle cx="12" cy="15.5" r="4" fill="#D98E14"/></svg>`,
+      'Basmati Rice': `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><rect x="6" y="5" width="12" height="15" rx="3" fill="#E8D8B4" stroke="#9C7A47" stroke-width="1.6"/><path d="M9 11H15M9 14H13" stroke="#1A3D28" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+      'Oils & Ghee': `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M12 4C12 4 6.5 11 6.5 15C6.5 18 9 20.5 12 20.5C15 20.5 17.5 18 17.5 15C17.5 11 12 4 12 4Z" fill="#F5C531" stroke="#C88A1E" stroke-width="1.6"/></svg>`,
+      'Atta & Sugar': `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><rect x="5" y="6" width="14" height="13" rx="3" fill="#EADBC2" stroke="#8C6B3C" stroke-width="1.6"/><circle cx="12" cy="12.5" r="2.5" fill="#1A3D28"/></svg>`,
+      'Spices & Soya': `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13" r="6.5" fill="#DC2626" opacity="0.9"/><path d="M12 6.5V4" stroke="#16A34A" stroke-width="2" stroke-linecap="round"/></svg>`,
+      'Express Packs': `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><rect x="4" y="8" width="16" height="12" rx="2.5" fill="#1A3D28"/><path d="M4 12H20" stroke="#C88A1E" stroke-width="2"/><path d="M9 8V6C9 4.9 9.9 4 11 4H13C14.1 4 15 4.9 15 6V8" stroke="#1A3D28" stroke-width="1.8"/></svg>`,
+    };
+
+    // -------------------------------------------------------------------------
+    // 2. CATALOG DATA WITH BILINGUAL HINGLISH/HINDI SEARCH KEYWORDS
+    // -------------------------------------------------------------------------
+    const INITIAL_PRODUCTS = [
+      {
+        id: 'p_rice_1121',
+        name: '1121 Steam Basmati Rice',
+        hindiName: '1121 बासमती चावल',
+        keywords: 'chawal rice biryani pulao basmati 1121',
+        category: 'Basmati Rice',
+        art: 'rice_1121',
+        origin: 'Karnal Direct Mill • 2-Year Aged Extra-Long Grain',
+        badge: 'BESTSELLER',
+        inStock: true,
+        substitutes: ['p_rice_mogra', 'p_atta'],
+        variants: [
+          { label: '1 kg', price: 112, mrp: 145 },
+          { label: '5 kg', price: 545, mrp: 710 },
+          { label: '10 kg', price: 1060, mrp: 1390 },
+        ],
+      },
+      {
+        id: 'p_toor_dal',
+        name: 'Unpolished Toor Dal (Arhar)',
+        hindiName: 'अरहर तूर दाल',
+        keywords: 'daal dal arhar tuar toor pulses',
+        category: 'Dal & Pulses',
+        art: 'dal_toor',
+        origin: 'Latur Mandi Direct • Zero Oil, Zero Colour Polish',
+        badge: 'MANDI RATE',
+        inStock: true,
+        substitutes: ['p_moong_dal', 'p_chana_dal'],
+        variants: [
+          { label: '500 g', price: 78, mrp: 98 },
+          { label: '1 kg', price: 148, mrp: 192 },
+          { label: '5 kg', price: 725, mrp: 940 },
+        ],
+      },
+      {
+        id: 'p_mustard_oil',
+        name: 'Kachi Ghani Mustard Oil',
+        hindiName: 'कच्ची घानी सरसों तेल',
+        keywords: 'tel sarson sarso mustard oil cooking',
+        category: 'Oils & Ghee',
+        art: 'oil_mustard',
+        origin: 'Bharatpur Cold-Pressed • High Pungency Pure Oil',
+        badge: 'DIRECT MILL',
+        inStock: true,
+        substitutes: ['p_toor_dal', 'p_atta'],
+        variants: [
+          { label: '1 L', price: 142, mrp: 178 },
+          { label: '2 L', price: 278, mrp: 350 },
+          { label: '5 L', price: 685, mrp: 860 },
+        ],
+      },
+      {
+        id: 'p_atta',
+        name: 'Chakki Fresh MP Sharbati Atta',
+        hindiName: 'चक्की ताज़ा आटा',
+        keywords: 'aata atta gehu wheat flour roti sharbati',
+        category: 'Atta & Sugar',
+        art: 'atta',
+        origin: 'Freshly Milled Daily • Sehore Sharbati Wheat',
+        badge: 'FRESH MILL',
+        inStock: true,
+        substitutes: ['p_rice_mogra', 'p_rice_1121'],
+        variants: [
+          { label: '5 kg', price: 215, mrp: 265 },
+          { label: '10 kg', price: 418, mrp: 520 },
+        ],
+      },
+      {
+        id: 'p_moong_dal',
+        name: 'Moong Dhuli Dal (Split)',
+        hindiName: 'मूंग धुली दाल',
+        keywords: 'moong mung dhuli daal dal khichdi yellow',
+        category: 'Dal & Pulses',
+        art: 'dal_moong',
+        origin: 'Nagaur Mandi Direct • Quick Cooking Protein Rich',
+        badge: 'UNPOLISHED',
+        inStock: true,
+        substitutes: ['p_toor_dal', 'p_chana_dal'],
+        variants: [
+          { label: '500 g', price: 64, mrp: 82 },
+          { label: '1 kg', price: 122, mrp: 158 },
+          { label: '5 kg', price: 595, mrp: 775 },
+        ],
+      },
+      {
+        id: 'p_rice_mogra',
+        name: 'Kaartik Mogra Basmati Rice',
+        hindiName: 'मोगरा बासमती चावल',
+        keywords: 'chawal mogra daily rice khichdi',
+        category: 'Basmati Rice',
+        art: 'rice_mogra',
+        origin: 'Taraori Mill • Aromatic Daily Khichdi & Pulao',
+        badge: 'VALUE BUY',
+        inStock: true,
+        substitutes: ['p_rice_1121', 'p_atta'],
+        variants: [
+          { label: '1 kg', price: 68, mrp: 88 },
+          { label: '5 kg', price: 330, mrp: 430 },
+        ],
+      },
+      {
+        id: 'p_chana_dal',
+        name: 'Desi Chana Dal (Bold)',
+        hindiName: 'देसी चना दाल',
+        keywords: 'chana channa daal dal gram besan',
+        category: 'Dal & Pulses',
+        art: 'dal_chana',
+        origin: 'Indore Mandi • Naturally Sweet & Aromatic',
+        badge: 'WHOLESALE',
+        inStock: true,
+        substitutes: ['p_toor_dal', 'p_moong_dal'],
+        variants: [
+          { label: '500 g', price: 48, mrp: 62 },
+          { label: '1 kg', price: 92, mrp: 118 },
+          { label: '5 kg', price: 445, mrp: 580 },
+        ],
+      },
+      {
+        id: 'p_sugar',
+        name: 'Double Refined Sulphur-Free Sugar',
+        hindiName: 'चीनी (सल्फर मुक्त)',
+        keywords: 'cheeni chini shakkar sugar sweet',
+        category: 'Atta & Sugar',
+        art: 'sugar',
+        origin: 'Western UP Mill • Sparkling White Fine Crystals',
+        badge: 'M-30 GRADE',
+        inStock: true,
+        substitutes: ['p_atta', 'p_haldi'],
+        variants: [
+          { label: '1 kg', price: 45, mrp: 56 },
+          { label: '5 kg', price: 218, mrp: 275 },
+        ],
+      },
+      {
+        id: 'p_soya',
+        name: 'High-Protein Soyabean Chunks',
+        hindiName: 'सोयाबीन बड़ी',
+        keywords: 'soya soyabean badi nutri chunks protein',
+        category: 'Spices & Soya',
+        art: 'soya',
+        origin: '52% Plant Protein • Soft & Spongy Wholesale Pack',
+        badge: '52% PROTEIN',
+        inStock: true,
+        substitutes: ['p_moong_dal', 'p_chana_dal'],
+        variants: [
+          { label: '500 g', price: 68, mrp: 90 },
+          { label: '1 kg', price: 129, mrp: 175 },
+        ],
+      },
+      {
+        id: 'p_haldi',
+        name: 'Salem Pure Haldi Powder',
+        hindiName: 'हल्दी पाउडर',
+        keywords: 'haldi turmeric masala spice',
+        category: 'Spices & Soya',
+        art: 'haldi',
+        origin: 'High Curcumin 4.5% • Cold-Ground Pure Turmeric',
+        badge: 'PURE SPICE',
+        inStock: true,
+        substitutes: ['p_mirch', 'p_jeera'],
+        variants: [
+          { label: '250 g', price: 62, mrp: 82 },
+          { label: '500 g', price: 118, mrp: 158 },
+          { label: '1 kg', price: 228, mrp: 305 },
+        ],
+      },
+      {
+        id: 'p_mirch',
+        name: 'Kashmiri Lal Mirch Powder',
+        hindiName: 'कश्मीरी लाल मिर्च',
+        keywords: 'mirch mirchi chilli red lal masala',
+        category: 'Spices & Soya',
+        art: 'mirch',
+        origin: 'Natural Deep Red Colour • Mild Balanced Heat',
+        badge: 'NO COLOUR',
+        inStock: true,
+        substitutes: ['p_haldi', 'p_jeera'],
+        variants: [
+          { label: '250 g', price: 115, mrp: 150 },
+          { label: '500 g', price: 222, mrp: 295 },
+        ],
+      },
+      {
+        id: 'p_jeera',
+        name: 'Unjha Bold Jeera Whole',
+        hindiName: 'साबुत जीरा',
+        keywords: 'jeera jira cumin sabut masala spice',
+        category: 'Spices & Soya',
+        art: 'jeera',
+        origin: 'Unjha Mandi Machine-Cleaned • 99.5% Purity',
+        badge: 'BOLD GRADE',
+        inStock: true,
+        substitutes: ['p_haldi', 'p_mirch'],
+        variants: [
+          { label: '250 g', price: 96, mrp: 128 },
+          { label: '500 g', price: 185, mrp: 248 },
+          { label: '1 kg', price: 360, mrp: 480 },
+        ],
+      },
+    ];
+
+    const EXPRESS_PACKS = [
+      {
+        id: 'pack_499',
+        name: 'Starter Staples Pack',
+        subtitle: '5kg Atta • 1kg Toor Dal • 1kg 1121 Rice',
+        keywords: 'combo pack bundle ration starter 499',
+        category: 'Express Packs',
+        art: 'pack_starter',
+        origin: 'Curated Free-Delivery Combo • Zero Small-Cart Fee',
+        badge: 'FREE DELIVERY',
+        inStock: true,
+        isPack: true,
+        variants: [{ label: '3 Items • 7 kg', price: 499, mrp: 602 }],
+      },
+      {
+        id: 'pack_799',
+        name: 'Family Dal-Chawal Pack',
+        subtitle: '5kg 1121 Basmati • 2kg Toor • 1kg Moong • 1L Oil',
+        keywords: 'combo pack family dal chawal ration 799',
+        category: 'Express Packs',
+        art: 'pack_family',
+        origin: 'Most Popular Yamuna Vihar Weekly Wholesale Bundle',
+        badge: 'SAVE ₹210',
+        inStock: true,
+        isPack: true,
+        variants: [{ label: '4 Items • 9 kg', price: 799, mrp: 1009 }],
+      },
+      {
+        id: 'pack_1149',
+        name: 'Full Monthly Ration Pack',
+        subtitle: '10kg Atta • 5kg Rice • 3kg Dals • 2L Oil • Spices',
+        keywords: 'combo pack monthly full ration bulk 1149',
+        category: 'Express Packs',
+        art: 'pack_monthly',
+        origin: 'Complete 30-Day Family Wholesale Ration Crate',
+        badge: 'MAX SAVINGS',
+        inStock: true,
+        isPack: true,
+        variants: [{ label: '8 Items • 21 kg', price: 1149, mrp: 1495 }],
+      },
+    ];
+
+    const ALL_CATEGORIES_LIST = [
+      'Dal & Pulses',
+      'Basmati Rice',
+      'Oils & Ghee',
+      'Atta & Sugar',
+      'Spices & Soya',
+      'Express Packs',
+    ];
+
+    const HOME_FILTER_PILLS = [
+      'All',
+      'Saved ♥',
+      'Dal & Pulses',
+      'Basmati Rice',
+      'Oils & Ghee',
+      'Spices & Sugar',
+      'Express Packs',
+    ];
+
+    const PROMO_BANNERS = [
+      {
+        id: 'b1',
+        tag: 'MANDI DIRECT RATES',
+        title: 'Save up to 28% on Loose Staples',
+        desc: '1121 Basmati, Unpolished Dals & Atta at wholesale Delhi rates.',
+        cta: 'Shop Staples',
+        filter: 'Dal & Pulses',
+        bg: 'from-[#1A3D28] via-[#214D33] to-[#132E1E]',
+      },
+      {
+        id: 'b2',
+        tag: 'EVENING SLOT • 6–9 PM',
+        title: 'FREE Delivery on Orders ₹499+',
+        desc: 'Zero packaging markups. Cash on Delivery across Yamuna Vihar.',
+        cta: 'View ₹499 Pack',
+        filter: 'Express Packs',
+        bg: 'from-[#8C5A0F] via-[#B47817] to-[#74480B]',
+      },
+      {
+        id: 'b3',
+        tag: 'DIRECT MILL PURITY',
+        title: 'Cold-Pressed Kachi Ghani Oil',
+        desc: '100% pure Bharatpur mustard oil & freshly ground Sharbati Atta.',
+        cta: 'Explore Oils',
+        filter: 'Oils & Ghee',
+        bg: 'from-[#1E3A5F] via-[#1D4E4F] to-[#1A3D28]',
+      },
+    ];
+
+    // Yamuna Vihar Dark Store Hub Coordinates
+    const HUB_COORDS = { lat: 28.6987, lng: 77.2725, maxRadiusKm: 1.5 };
+
+    const GEOFENCE_PRESETS = {
+      inside: {
+        key: 'inside',
+        label: 'Inside Zone (0.8 km)',
+        shortLoc: 'Yamuna Vihar, Block C',
+        fullAddress: 'H.No. C-4/118, Yamuna Vihar, Delhi - 110053',
+        distanceKm: 0.8,
+        deliverable: true,
+        badge: '0.8 km • Within 1.5 km Hub',
+      },
+      edge: {
+        key: 'edge',
+        label: 'Zone Edge (1.4 km)',
+        shortLoc: 'Bhajanpura Border, Block B',
+        fullAddress: 'B-12, Main Market Rd, Bhajanpura Border, Delhi - 110053',
+        distanceKm: 1.4,
+        deliverable: true,
+        badge: '1.4 km • Edge of 1.5 km Zone',
+      },
+      outside: {
+        key: 'outside',
+        label: 'Outside Zone (2.3 km)',
+        shortLoc: 'Shahdara Extension',
+        fullAddress: 'Gali No. 7, Shahdara Extension, Delhi - 110032',
+        distanceKm: 2.3,
+        deliverable: false,
+        badge: '2.3 km • Outside 1.5 km Radius',
+      },
+    };
+
+    const SEARCH_PLACEHOLDERS = [
+      'Search "1121 Basmati" or "Chawal"',
+      'Search "Toor Dal" or "Arhar"',
+      'Search "Mustard Oil" or "Sarson Tel"',
+      'Search "Chakki Fresh Atta"',
+      'Search "Express Packs ₹499"',
+    ];
+
+    const STORAGE_KEY = 'weaverly_wholesale_store_v4';
+    const STORE_INTEGRITY_SALT = 'WV_YV_HUB_2026_IMMUTABLE_SECRET_#9811';
+
+    // -------------------------------------------------------------------------
+    // 2B. 1-TAP PWA INSTALL TRIGGER & DIAGNOSTIC FALLBACK
+    // -------------------------------------------------------------------------
+    async function triggerOneTapInstall() {
+      if (isAppInstalled) {
+        showToast('Weaverly App is already installed on your Home Screen!', 'emerald');
+        return;
+      }
+
+      if (deferredInstallPrompt) {
+        try {
+          await deferredInstallPrompt.prompt();
+          const choice = await deferredInstallPrompt.userChoice;
+          if (choice && choice.outcome === 'accepted') {
+            isAppInstalled = true;
+            deferredInstallPrompt = null;
+            showToast('Installing Weaverly icon to your Home Screen...', 'emerald');
+            syncAllUI();
+            return;
+          }
+          deferredInstallPrompt = null;
+        } catch (err) {
+          // Fall through to OS-specific visual guide
+        }
+      }
+
+      openInstallModal();
+    }
+
+    function openInstallModal() {
+      const modal = document.getElementById('install-modal');
+      const card = document.getElementById('install-card');
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const inApp = isInAppWebView();
+
+      let stepsHtml = '';
+      if (inApp) {
+        stepsHtml = `
+          <div class="font-extrabold text-amber-800">Opened Inside WhatsApp / In-App Browser</div>
+          <p class="text-[11px] text-slate-600">In-app browsers block Home Screen icons. Open in Chrome to install in 1 tap:</p>
+          <div class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-forest text-white text-[10px] font-bold flex items-center justify-center shrink-0">1</span><span>Tap the <b>⋮</b> menu in the top-right corner.</span></div>
+          <div class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-forest text-white text-[10px] font-bold flex items-center justify-center shrink-0">2</span><span>Tap <b>"Open in Chrome"</b>, then tap <b>Install</b>.</span></div>`;
+      } else if (isIOS) {
+        stepsHtml = `
+          <div class="font-extrabold text-forest">Add to iPhone / iPad Home Screen:</div>
+          <div class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-forest text-white text-[10px] font-bold flex items-center justify-center shrink-0">1</span><span>Tap the Safari <b>Share</b> icon (square with ↑ arrow) at the bottom.</span></div>
+          <div class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-forest text-white text-[10px] font-bold flex items-center justify-center shrink-0">2</span><span>Scroll down and tap <b>"Add to Home Screen"</b> → <b>Add</b>.</span></div>`;
+      } else {
+        stepsHtml = `
+          <div class="font-extrabold text-forest">Add App Icon on Android Chrome:</div>
+          <div class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-forest text-white text-[10px] font-bold flex items-center justify-center shrink-0">1</span><span>Tap the Chrome menu (<b>⋮</b>) in the top-right corner.</span></div>
+          <div class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-forest text-white text-[10px] font-bold flex items-center justify-center shrink-0">2</span><span>Tap <b>"Install app"</b> or <b>"Add to Home screen"</b> → <b>Install</b>.</span></div>
+          <p class="text-[10.5px] text-slate-500 pt-1">Note: If you recently dismissed the Chrome prompt or cleared files, refresh once on HTTPS.</p>`;
+      }
+
+      card.innerHTML = `
+        <div class="flex items-start justify-between gap-2 mb-3">
+          <div class="flex items-center gap-3">
+            <img src="./icon-192.png" alt="Weaverly Icon" onerror="this.style.display='none'"
+              class="w-12 h-12 rounded-2xl shadow-md border border-wheat/40 object-cover bg-forest" />
+            <div>
+              <h3 class="text-base font-extrabold text-forest leading-tight">Add Weaverly to Home Screen</h3>
+              <p class="text-[11px] text-slate-500 font-medium">Real app icon • Instant 1-tap opening</p>
+            </div>
+          </div>
+          <button onclick="closeInstallModal()" class="w-8 h-8 rounded-full bg-ivory text-slate-600 text-xs font-bold">✕</button>
+        </div>
+
+        <div class="bg-ivory rounded-2xl border border-borderSubtle p-3.5 space-y-2 text-xs text-slate-700">
+          ${stepsHtml}
+        </div>
+
+        <div class="mt-4 flex gap-2">
+          <button onclick="closeInstallModal()" class="pressable flex-1 py-3 rounded-xl bg-forest text-white text-xs font-extrabold shadow-sm">
+            Got It
+          </button>
+        </div>
+      `;
+      modal.classList.remove('hidden');
+    }
+
+    function closeInstallModal() {
+      document.getElementById('install-modal').classList.add('hidden');
+    }
+
+    // -------------------------------------------------------------------------
+    // 2C. TAMPER-PROOF ORDER INTEGRITY ENGINE (FNV-64 + WebCrypto SHA-256)
+    // -------------------------------------------------------------------------
+    function canonicalOrderString(order) {
+      const normalizedItems = (order.items || []).map((i) => ({
+        itemId: String(i.itemId),
+        name: String(i.name),
+        variant: String(i.variant),
+        qty: Number(i.qty),
+        unitPrice: Number(i.price),
+        unitMrp: Number(i.mrp || i.price),
+        lineTotal: Number(i.price) * Number(i.qty),
+      }));
+      return JSON.stringify({
+        id: String(order.id),
+        isoTime: String(order.isoTime),
+        customerName: String(order.customerName),
+        customerPhone: String(order.customerPhone),
+        address: String(order.address),
+        slot: String(order.slot),
+        paymentMode: String(order.paymentMode),
+        items: normalizedItems,
+        subtotal: Number(order.subtotal),
+        deliveryFee: Number(order.deliveryFee),
+        grandTotal: Number(order.grandTotal),
+        salt: STORE_INTEGRITY_SALT,
+      });
+    }
+
+    function computeSyncSeal(payloadStr) {
+      let h1 = 0x811c9dc5;
+      let h2 = 0xdeadbeef;
+      for (let i = 0; i < payloadStr.length; i++) {
+        const ch = payloadStr.charCodeAt(i);
+        h1 ^= ch;
+        h1 = Math.imul(h1, 0x01000193);
+        h2 ^= ch + i * 31;
+        h2 = Math.imul(h2, 0x85ebca6b);
+      }
+      const part1 = (h1 >>> 0).toString(16).padStart(8, '0').toUpperCase();
+      const part2 = (h2 >>> 0).toString(16).padStart(8, '0').toUpperCase();
+      return `${part1}${part2}`;
+    }
+
+    function sealOrderRecord(orderObj) {
+      const payload = canonicalOrderString(orderObj);
+      const signature = computeSyncSeal(payload);
+      const sealed = {
+        ...orderObj,
+        integrityHash: signature,
+        sealCode: `WV-${signature.slice(0, 8)}`,
+        lockedByStore: true,
+      };
+      Object.freeze(sealed.items);
+      return Object.freeze(sealed);
+    }
+
+    function verifyOrderIntegrity(order) {
+      if (!order) return false;
+      if (order.fromCloud) return order.tamperStatus === 'VERIFIED_EXACT' || order.tamperStatus === 'CUSTOM_CATALOG_ITEM';
+      if (!order.integrityHash) return false;
+      return computeSyncSeal(canonicalOrderString(order)) === order.integrityHash;
+    }
+
+    // -------------------------------------------------------------------------
+    // 2D. REAL LIVE GPS DISTANCE CHECK (Haversine from Yamuna Vihar Hub)
+    // -------------------------------------------------------------------------
+    function haversineKm(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const toRad = (d) => (d * Math.PI) / 180;
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    function detectLiveGPS() {
+      if (!navigator.geolocation) {
+        showToast('GPS not supported on this browser.', 'amber');
+        return;
+      }
+      showToast('Detecting your distance from Yamuna Vihar Hub...', 'forest');
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const dist = Number(
+            haversineKm(HUB_COORDS.lat, HUB_COORDS.lng, pos.coords.latitude, pos.coords.longitude).toFixed(2)
+          );
+          const deliverable = dist <= HUB_COORDS.maxRadiusKm;
+          state.liveGPS = {
+            distanceKm: dist,
+            deliverable,
+            lat: pos.coords.latitude.toFixed(5),
+            lng: pos.coords.longitude.toFixed(5),
+            checkedAt: new Date().toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' }),
+          };
+          saveStoreState();
+          syncAllUI();
+          showToast(
+            deliverable
+              ? `GPS Verified: ${dist} km from Hub (Deliverable!)`
+              : `GPS Check: ${dist} km away (Outside 1.5 km Hub radius)`,
+            deliverable ? 'emerald' : 'red'
+          );
+        },
+        () => {
+          showToast('Location permission denied. Using saved Yamuna Vihar address.', 'amber');
+        },
+        { enableHighAccuracy: true, timeout: 8000 }
+      );
+    }
+
+    function clearLiveGPS() {
+      state.liveGPS = null;
+      saveStoreState();
+      syncAllUI();
+    }
+
+    // -------------------------------------------------------------------------
+    // 2E. EVENING SLOT CUTOFF COUNTDOWN (6 PM–9 PM | Cutoff 5:30 PM IST)
+    // -------------------------------------------------------------------------
+    function getSlotCutoffInfo() {
+      const now = new Date();
+      const cutoff = new Date(now);
+      cutoff.setHours(17, 30, 0, 0); // 5:30 PM daily cutoff
+      if (now < cutoff) {
+        const diffMin = Math.max(1, Math.floor((cutoff - now) / 60000));
+        const hrs = Math.floor(diffMin / 60);
+        const mins = diffMin % 60;
+        return {
+          slotLabel: "Today's Evening • 6–9 PM",
+          shortBadge: 'Today 6–9 PM',
+          countdown: hrs > 0 ? `Order in ${hrs}h ${mins}m for today's slot` : `Order in ${mins}m for today's slot`,
+          urgent: diffMin <= 60,
+        };
+      }
+      return {
+        slotLabel: "Tomorrow's Evening • 6–9 PM",
+        shortBadge: 'Tomorrow 6–9 PM',
+        countdown: "Today's 5:30 PM cutoff passed • Booking for Tomorrow 6–9 PM",
+        urgent: false,
+      };
+    }
+
+    // -------------------------------------------------------------------------
+    // 3. CENTRALIZED REACTIVE STATE + PERSISTENCE
+    // -------------------------------------------------------------------------
+    function createInitialState() {
+      const seededOrder1 = sealOrderRecord({
+        id: 'WV-2611-842',
+        placedAt: 'Today, 1:15 PM',
+        isoTime: '2026-11-21T07:45:00.000Z',
+        slot: 'Evening • 6–9 PM',
+        paymentMode: 'Cash on Delivery (COD)',
+        customerName: 'Rajesh Sharma',
+        customerPhone: '+91 98112 45670',
+        address: GEOFENCE_PRESETS.inside.fullAddress,
+        deliveryNote: 'Ring bell twice, ground floor gate.',
+        items: [
+          { itemId: 'p_rice_1121', variantIdx: 1, name: '1121 Steam Basmati Rice', variant: '5 kg', qty: 1, price: 545, mrp: 710 },
+          { itemId: 'p_toor_dal', variantIdx: 1, name: 'Unpolished Toor Dal (Arhar)', variant: '1 kg', qty: 1, price: 148, mrp: 192 },
+          { itemId: 'p_mustard_oil', variantIdx: 0, name: 'Kachi Ghani Mustard Oil', variant: '1 L', qty: 1, price: 142, mrp: 178 },
+        ],
+        subtotal: 835,
+        mrpTotal: 1080,
+        savings: 245,
+        deliveryFee: 0,
+        grandTotal: 835,
+      });
+
+      const seededOrder2 = sealOrderRecord({
+        id: 'WV-2611-719',
+        placedAt: '14 Nov, 7:40 PM',
+        isoTime: '2026-11-14T14:10:00.000Z',
+        slot: 'Evening • 6–9 PM',
+        paymentMode: 'COD Paid',
+        customerName: 'Rajesh Sharma',
+        customerPhone: '+91 98112 45670',
+        address: GEOFENCE_PRESETS.inside.fullAddress,
+        deliveryNote: '',
+        items: [
+          { itemId: 'p_atta', variantIdx: 0, name: 'Chakki Fresh MP Sharbati Atta', variant: '5 kg', qty: 1, price: 215, mrp: 265 },
+          { itemId: 'p_moong_dal', variantIdx: 1, name: 'Moong Dhuli Dal (Split)', variant: '1 kg', qty: 1, price: 122, mrp: 158 },
+          { itemId: 'p_sugar', variantIdx: 0, name: 'Double Refined Sulphur-Free Sugar', variant: '1 kg', qty: 2, price: 45, mrp: 56 },
+          { itemId: 'p_haldi', variantIdx: 0, name: 'Salem Pure Haldi Powder', variant: '250 g', qty: 1, price: 62, mrp: 82 },
+        ],
+        subtotal: 489,
+        mrpTotal: 617,
+        savings: 128,
+        deliveryFee: 10,
+        grandTotal: 499,
+      });
+
+      return {
+        activeTab: 'home',
+        homeFilter: 'All',
+        selectedCategoryRail: 'Dal & Pulses',
+        activeBannerIdx: 0,
+        placeholderIdx: 0,
+        installBannerDismissed: false,
+
+        // Customer favorites (saved staples)
+        favorites: ['p_rice_1121', 'p_toor_dal', 'p_atta'],
+        // Quick selected variant per card
+        cardVariantSelection: {},
+
+        customer: {
+          name: 'Rajesh Sharma',
+          phone: '+91 98112 45670',
+          houseNo: 'H.No. C-4/118, Yamuna Vihar',
+          landmark: 'Near C-Block Mother Dairy, Delhi - 110053',
+        },
+        deliveryNote: '',
+        liveGPS: null,
+
+        // Store Config (Editable in Admin Console)
+        storeConfig: {
+          whatsappNumber: '919811245670',
+          adminPin: '1234',
+          freeDeliveryThreshold: 499,
+          smallCartFee: 10,
+          maxQtyPerSku: 20,
+          cloudWebhookUrl: '',
+          cloudApiKey: 'WEAVERLY_ADMIN_2026',
+        },
+
+        products: JSON.parse(JSON.stringify(INITIAL_PRODUCTS)),
+        packs: JSON.parse(JSON.stringify(EXPRESS_PACKS)),
+        cart: {},
+        geofence: 'inside',
+        orderLedger: [seededOrder1, seededOrder2],
+        cloudOrders: [],
+        cloudSyncBusy: false,
+
+        pdpItemId: null,
+        pdpSelectedVariantIdx: 0,
+        searchQuery: '',
+        voiceListening: false,
+        pinEntered: '',
+        pinError: false,
+        adminTab: 'ledger',
+        adminSealCheckInput: '',
+        adminSealCheckResult: null,
+        adminEditingProductId: null,
+        newProductDraft: {
+          name: '',
+          hindiName: '',
+          category: 'Dal & Pulses',
+          origin: 'Yamuna Vihar Mandi Direct • Wholesale Pack',
+          badge: 'NEW ARRIVAL',
+          art: 'dal_toor',
+          v1Label: '1 kg',
+          v1Price: '',
+          v1Mrp: '',
+          v2Label: '5 kg',
+          v2Price: '',
+          v2Mrp: '',
+        },
+      };
+    }
+
+    function saveStoreState() {
+      try {
+        const snapshot = {
+          customer: state.customer,
+          favorites: state.favorites,
+          storeConfig: state.storeConfig,
+          products: state.products,
+          packs: state.packs,
+          cart: state.cart,
+          geofence: state.geofence,
+          liveGPS: state.liveGPS,
+          orderLedger: state.orderLedger,
+          installBannerDismissed: state.installBannerDismissed,
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
+      } catch (e) {}
+    }
+
+    function loadStoreState() {
+      const base = createInitialState();
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return base;
+        const parsed = JSON.parse(raw);
+        if (parsed.customer) base.customer = parsed.customer;
+        if (Array.isArray(parsed.favorites)) base.favorites = parsed.favorites;
+        if (parsed.storeConfig) base.storeConfig = { ...base.storeConfig, ...parsed.storeConfig };
+        if (Array.isArray(parsed.products) && parsed.products.length > 0) base.products = parsed.products;
+        if (Array.isArray(parsed.packs) && parsed.packs.length > 0) base.packs = parsed.packs;
+        if (parsed.cart && typeof parsed.cart === 'object') base.cart = parsed.cart;
+        if (parsed.geofence && GEOFENCE_PRESETS[parsed.geofence]) base.geofence = parsed.geofence;
+        if (parsed.liveGPS) base.liveGPS = parsed.liveGPS;
+        if (Array.isArray(parsed.orderLedger)) base.orderLedger = parsed.orderLedger;
+        if (typeof parsed.installBannerDismissed === 'boolean') base.installBannerDismissed = parsed.installBannerDismissed;
+      } catch (e) {}
+      return base;
+    }
+
+    let state = loadStoreState();
+    const scrollTracker = { lastScrollTop: 0, isHidden: false };
+
+    // -------------------------------------------------------------------------
+    // 4. SELECTORS & HELPERS
+    // -------------------------------------------------------------------------
+    function getAllItems() { return [...state.products, ...state.packs]; }
+    function findItemById(id) { return getAllItems().find((i) => i.id === id); }
+    function getCartKey(itemId, variantIdx = 0) { return `${itemId}__${variantIdx}`; }
+    function getCartQty(itemId, variantIdx = 0) {
+      const entry = state.cart[getCartKey(itemId, variantIdx)];
+      return entry ? entry.qty : 0;
+    }
+    function getTotalQtyForItem(itemId) {
+      return Object.values(state.cart)
+        .filter((e) => e.itemId === itemId)
+        .reduce((sum, e) => sum + e.qty, 0);
+    }
+
+    function getCartTotals() {
+      let itemCount = 0;
+      let subtotal = 0;
+      let mrpTotal = 0;
+      const lines = [];
+
+      for (const key of Object.keys(state.cart)) {
+        const entry = state.cart[key];
+        const item = findItemById(entry.itemId);
+        if (!item || entry.qty <= 0) continue;
+        const v = item.variants[entry.variantIdx] || item.variants[0];
+        itemCount += entry.qty;
+        subtotal += v.price * entry.qty;
+        mrpTotal += v.mrp * entry.qty;
+        lines.push({ key, item, variantIdx: entry.variantIdx, variant: v, qty: entry.qty });
+      }
+
+      const freeDeliveryThreshold = Number(state.storeConfig.freeDeliveryThreshold) || 499;
+      const feeAmt = Number(state.storeConfig.smallCartFee) || 10;
+      const smallCartFee = subtotal > 0 && subtotal < freeDeliveryThreshold ? feeAmt : 0;
+      const remainingForFree = Math.max(0, freeDeliveryThreshold - subtotal);
+      const wholesaleSavings = Math.max(0, mrpTotal - subtotal);
+      const grandTotal = subtotal + smallCartFee;
+
+      return {
+        lines,
+        itemCount,
+        subtotal,
+        mrpTotal,
+        wholesaleSavings,
+        smallCartFee,
+        remainingForFree,
+        freeDeliveryThreshold,
+        grandTotal,
+      };
+    }
+
+    function getDiscountPct(price, mrp) {
+      if (!mrp || mrp <= price) return 0;
+      return Math.round(((mrp - price) / mrp) * 100);
+    }
+
+    function getGeo() {
+      const preset = GEOFENCE_PRESETS[state.geofence] || GEOFENCE_PRESETS.inside;
+      const customAddr = state.customer
+        ? `${state.customer.houseNo}${state.customer.landmark ? ', ' + state.customer.landmark : ''}`
+        : preset.fullAddress;
+
+      // If live GPS was checked and admin hasn't forced outside/edge simulation
+      if (state.liveGPS && state.geofence === 'inside') {
+        return {
+          key: state.liveGPS.deliverable ? 'live_inside' : 'live_outside',
+          shortLoc: state.liveGPS.deliverable ? 'Yamuna Vihar (Live GPS)' : `GPS (${state.liveGPS.distanceKm} km away)`,
+          fullAddress: customAddr,
+          distanceKm: state.liveGPS.distanceKm,
+          deliverable: state.liveGPS.deliverable,
+          badge: state.liveGPS.deliverable
+            ? `${state.liveGPS.distanceKm} km • Live GPS Verified`
+            : `${state.liveGPS.distanceKm} km • Outside 1.5 km Hub`,
+          isLive: true,
+        };
+      }
+
+      if (state.geofence === 'inside') {
+        return { ...preset, fullAddress: customAddr };
+      }
+      return preset;
+    }
+
+    function toggleFavorite(itemId, evt) {
+      if (evt) evt.stopPropagation();
+      const idx = state.favorites.indexOf(itemId);
+      if (idx === -1) {
+        state.favorites.push(itemId);
+        showToast('Saved to Favorites ♥', 'forest');
+      } else {
+        state.favorites.splice(idx, 1);
+      }
+      saveStoreState();
+      syncAllUI();
+    }
+
+    function cycleCardVariant(itemId, evt) {
+      if (evt) evt.stopPropagation();
+      const item = findItemById(itemId);
+      if (!item || item.variants.length <= 1) return;
+      const cur = state.cardVariantSelection[itemId] || 0;
+      state.cardVariantSelection[itemId] = (cur + 1) % item.variants.length;
+      syncAllUI();
+    }
+
+    // -------------------------------------------------------------------------
+    // 5. TOAST NOTIFICATIONS
+    // -------------------------------------------------------------------------
+    function showToast(message, type = 'forest') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const styles = {
+        forest: 'bg-forest text-white border-forest-light',
+        emerald: 'bg-emerald-600 text-white border-emerald-500',
+        amber: 'bg-amber-600 text-white border-amber-500',
+        red: 'bg-red-600 text-white border-red-500',
+      };
+
+      const toast = document.createElement('div');
+      toast.className = `pointer-events-auto px-4 py-2.5 rounded-2xl text-xs font-semibold shadow-xl border flex items-center gap-2 transition-all duration-300 opacity-0 -translate-y-2 max-w-[340px] text-center ${styles[type] || styles.forest}`;
+      toast.innerHTML = `<span>${message}</span>`;
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('opacity-0', '-translate-y-2');
+        toast.classList.add('opacity-100', 'translate-y-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', '-translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 2600);
+    }
+
+    // -------------------------------------------------------------------------
+    // 6. SCROLL-AWARE FLOATING BOTTOM DOCK CONTROLLER
+    // -------------------------------------------------------------------------
+    function showFloatingDock() {
+      const dock = document.getElementById('floating-bottom-dock');
+      if (!dock) return;
+      scrollTracker.isHidden = false;
+      dock.classList.remove('dock-hidden');
+    }
+
+    function hideFloatingDock() {
+      const dock = document.getElementById('floating-bottom-dock');
+      if (!dock) return;
+      scrollTracker.isHidden = true;
+      dock.classList.add('dock-hidden');
+    }
+
+    function handleScrollContainerEvent(el) {
+      if (!el) return;
+      const currentTop = Math.max(0, el.scrollTop);
+      const maxScroll = el.scrollHeight - el.clientHeight;
+      const delta = currentTop - scrollTracker.lastScrollTop;
+
+      if (maxScroll > 0 && currentTop >= maxScroll - 4 && delta > 0) {
+        scrollTracker.lastScrollTop = currentTop;
+        return;
+      }
+
+      if (currentTop <= 24) {
+        showFloatingDock();
+      } else if (delta > 8 && currentTop > 40) {
+        if (!scrollTracker.isHidden) hideFloatingDock();
+      } else if (delta < -6) {
+        if (scrollTracker.isHidden) showFloatingDock();
+      }
+
+      scrollTracker.lastScrollTop = currentTop;
+    }
+
+    function bindScrollListeners() {
+      scrollTracker.lastScrollTop = 0;
+      document.querySelectorAll('[data-dock-scroll="true"]').forEach((el) => {
+        el.addEventListener('scroll', () => handleScrollContainerEvent(el), { passive: true });
+      });
+    }
+
+    // -------------------------------------------------------------------------
+    // 7. CART MUTATIONS (With Bulk Guard)
+    // -------------------------------------------------------------------------
+    function addToCart(itemId, variantIdx = 0, evt = null) {
+      if (evt) evt.stopPropagation();
+      const item = findItemById(itemId);
+      if (!item) return;
+
+      if (!item.inStock) {
+        showToast('Currently out of stock. Viewing verified substitutes.', 'amber');
+        openPDP(itemId);
+        return;
+      }
+
+      const key = getCartKey(itemId, variantIdx);
+      const maxQty = Number(state.storeConfig.maxQtyPerSku) || 20;
+      const currentQty = state.cart[key] ? state.cart[key].qty : 0;
+
+      if (currentQty >= maxQty) {
+        showToast(`Bulk cap reached (max ${maxQty} packs per item). Contact WhatsApp for bulk mandi orders.`, 'amber');
+        return;
+      }
+
+      state.cart[key] = { itemId, variantIdx, qty: currentQty + 1 };
+      showFloatingDock();
+      saveStoreState();
+      syncAllUI();
+    }
+
+    function decrementCart(itemId, variantIdx = 0, evt = null) {
+      if (evt) evt.stopPropagation();
+      const key = getCartKey(itemId, variantIdx);
+      if (!state.cart[key]) return;
+      state.cart[key].qty -= 1;
+      if (state.cart[key].qty <= 0) delete state.cart[key];
+      saveStoreState();
+      syncAllUI();
+    }
+
+    function reorderPastOrder(orderId) {
+      const order = state.orderLedger.find((o) => o.id === orderId);
+      if (!order) return;
+
+      let addedCount = 0;
+      let oosSkipped = 0;
+
+      order.items.forEach((line) => {
+        const item = findItemById(line.itemId);
+        if (item && item.inStock) {
+          const vIdx = line.variantIdx || 0;
+          const key = getCartKey(line.itemId, vIdx);
+          if (!state.cart[key]) {
+            state.cart[key] = { itemId: line.itemId, variantIdx: vIdx, qty: line.qty };
+          } else {
+            state.cart[key].qty += line.qty;
+          }
+          addedCount += line.qty;
+        } else {
+          oosSkipped += 1;
+        }
+      });
+
+      showFloatingDock();
+      saveStoreState();
+      syncAllUI();
+
+      if (addedCount > 0) {
+        showToast(
+          oosSkipped > 0
+            ? `Added ${addedCount} items (${oosSkipped} OOS skipped)`
+            : `Added ${addedCount} items from #${orderId} to cart!`,
+          'emerald'
+        );
+      } else {
+        showToast('All items from this order are currently out of stock.', 'amber');
+      }
+    }
+
+    function copyOrderReceipt(orderId) {
+      const allOrders = [...(state.cloudOrders || []), ...(state.orderLedger || [])];
+      const order = allOrders.find((o) => o.id === orderId);
+      if (!order) return;
+      const lines = order.items.map((i) => `• ${i.qty}× ${i.name} (${i.variant}) = ₹${i.price * i.qty}`).join('\n');
+      const text = `WEAVERLY WHOLESALE — VERIFIED RECEIPT\nOrder ID: #${order.id}\nVerification Seal: ${order.sealCode}\nDate: ${order.placedAt} | Slot: ${order.slot}\nCustomer: ${order.customerName} (${order.customerPhone})\nAddress: ${order.address}\n\n${lines}\n\nSubtotal: ₹${order.subtotal}\nDelivery Fee: ${order.deliveryFee === 0 ? 'FREE' : '₹' + order.deliveryFee}\nTotal Payable (${order.paymentMode}): ₹${order.grandTotal}`;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+        }
+        showToast(`Verified receipt #${order.id} copied!`, 'emerald');
+      } catch (e) {
+        showToast('Could not copy receipt.', 'amber');
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 8. NAVIGATION & TAB SWITCHING
+    // -------------------------------------------------------------------------
+    function switchTab(tab) {
+      state.activeTab = tab;
+      showFloatingDock();
+      renderCurrentView();
+      renderFloatingDock();
+    }
+
+    function setHomeFilter(pill) {
+      state.homeFilter = pill;
+      renderCurrentView({ preserveScroll: true });
+    }
+
+    function selectCategoryRail(cat) {
+      state.selectedCategoryRail = cat;
+      renderCurrentView();
+    }
+
+    function jumpToBannerFilter(filter) {
+      state.homeFilter = filter;
+      renderCurrentView();
+      const grid = document.getElementById('home-catalog-anchor');
+      if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // -------------------------------------------------------------------------
+    // 9. COMPONENT RENDERERS — PRODUCT CARD & STEPPER
+    // -------------------------------------------------------------------------
+    function renderStepperHTML(itemId, variantIdx = 0, compact = false) {
+      const item = findItemById(itemId);
+      if (!item) return '';
+
+      if (!item.inStock) {
+        return `
+          <button onclick="openPDP('${itemId}'); event.stopPropagation();"
+            class="pressable px-2.5 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-[11px] font-bold tracking-tight whitespace-nowrap">
+            Substitutes
+          </button>`;
+      }
+
+      const qty = getCartQty(itemId, variantIdx);
+      if (qty === 0) {
+        return `
+          <button onclick="addToCart('${itemId}', ${variantIdx}, event)"
+            class="pressable ${compact ? 'px-3.5 py-1.5 text-xs' : 'px-4 py-1.5 text-xs'} rounded-xl bg-white border-[1.5px] border-emeraldBrand text-emeraldBrand font-extrabold tracking-wide shadow-sm hover:bg-emeraldBrand-soft">
+            ADD
+          </button>`;
+      }
+
+      return `
+        <div class="pop-in inline-flex items-center bg-emeraldBrand text-white rounded-xl shadow-sm overflow-hidden" onclick="event.stopPropagation()">
+          <button onclick="decrementCart('${itemId}', ${variantIdx}, event)" aria-label="Decrease quantity"
+            class="pressable w-7 h-7 flex items-center justify-center font-bold text-sm hover:bg-emerald-700">−</button>
+          <span class="min-w-[20px] text-center text-xs font-extrabold">${qty}</span>
+          <button onclick="addToCart('${itemId}', ${variantIdx}, event)" aria-label="Increase quantity"
+            class="pressable w-7 h-7 flex items-center justify-center font-bold text-sm hover:bg-emerald-700">+</button>
+        </div>`;
+    }
+
+    function renderProductCard(product, isCompactRail = false) {
+      const activeVIdx = Math.min(state.cardVariantSelection[product.id] || 0, product.variants.length - 1);
+      const v = product.variants[activeVIdx];
+      const discount = getDiscountPct(v.price, v.mrp);
+      const totalInCart = getTotalQtyForItem(product.id);
+      const isFav = state.favorites.includes(product.id);
+      const artSvg = SVG_ART[product.art] ? SVG_ART[product.art]() : '';
+
+      return `
+        <div onclick="openPDP('${product.id}', ${activeVIdx})"
+          class="bg-white rounded-2xl border ${totalInCart > 0 ? 'border-emeraldBrand/45 ring-1 ring-emeraldBrand/15' : 'border-borderSubtle'} p-2.5 flex flex-col justify-between shadow-[0_2px_10px_rgba(26,61,40,0.04)] cursor-pointer transition hover:shadow-md relative overflow-hidden">
+
+          <div class="relative aspect-square w-full rounded-xl overflow-hidden mb-2 bg-ivory">
+            <div class="w-full h-full ${!product.inStock ? 'opacity-45 grayscale' : ''}">
+              ${artSvg}
+            </div>
+
+            ${discount > 0 && product.inStock ? `
+              <span class="absolute top-1.5 left-1.5 bg-forest text-white text-[9.5px] font-extrabold px-1.5 py-0.5 rounded-md tracking-tight shadow-sm">
+                ${discount}% OFF
+              </span>
+            ` : ''}
+
+            <!-- Favorite Heart Toggle -->
+            <button onclick="toggleFavorite('${product.id}', event)" aria-label="Save favorite"
+              class="pressable absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-white/90 backdrop-blur-sm border border-borderSubtle flex items-center justify-center text-[11px] shadow-sm">
+              ${isFav ? '<span class="text-red-500">♥</span>' : '<span class="text-slate-400">♡</span>'}
+            </button>
+
+            ${!product.inStock ? `
+              <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+                <span class="bg-red-600 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-lg shadow">OUT OF STOCK</span>
+              </div>
+            ` : ''}
+          </div>
+
+          <div class="flex-1 flex flex-col">
+            <div class="flex items-center justify-between gap-1 mb-0.5">
+              ${product.variants.length > 1 && product.inStock ? `
+                <button onclick="cycleCardVariant('${product.id}', event)" title="Tap to switch pack weight"
+                  class="pressable inline-flex items-center gap-0.5 text-[10px] font-extrabold text-forest bg-forest-soft border border-forest/20 px-1.5 py-0.5 rounded-md">
+                  <span>${v.label}</span>
+                  <span class="text-[8px]">▾</span>
+                </button>
+              ` : `
+                <span class="text-[10px] font-bold text-slate-500 bg-ivory border border-borderSubtle px-1.5 py-0.5 rounded-md">${v.label}</span>
+              `}
+              ${product.badge && !isCompactRail ? `<span class="text-[8.5px] font-bold text-wheat uppercase tracking-tight truncate">${product.badge}</span>` : ''}
+            </div>
+            <h3 class="text-[12.5px] font-bold text-slate-900 leading-snug line-clamp-2 min-h-[34px]">${product.name}</h3>
+          </div>
+
+          <div class="mt-2 pt-1.5 flex items-end justify-between gap-1">
+            <div class="leading-none">
+              <div class="text-[14px] font-extrabold text-slate-900">₹${v.price}</div>
+              <div class="text-[10.5px] text-slate-400 line-through font-medium mt-0.5">₹${v.mrp}</div>
+            </div>
+            <div data-stepper-slot="${product.id}__${activeVIdx}">
+              ${renderStepperHTML(product.id, activeVIdx, isCompactRail)}
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function renderExpressPackCard(pack) {
+      const v = pack.variants[0];
+      const savings = v.mrp - v.price;
+      const artSvg = SVG_ART[pack.art] ? SVG_ART[pack.art]() : '';
+
+      return `
+        <div onclick="openPDP('${pack.id}')"
+          class="snap-start shrink-0 w-[236px] bg-gradient-to-br from-white to-wheat-soft/60 rounded-2xl border border-wheat-border p-3 flex flex-col justify-between shadow-sm cursor-pointer">
+          <div class="flex items-start gap-2.5">
+            <div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 shadow-sm border border-wheat-border/60">
+              ${artSvg}
+            </div>
+            <div class="min-w-0 flex-1">
+              <span class="inline-block text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-wheat text-white tracking-wide mb-1">${pack.badge}</span>
+              <h4 class="text-[13px] font-extrabold text-forest leading-tight">${pack.name}</h4>
+              <p class="text-[10.5px] text-slate-600 leading-snug mt-0.5 line-clamp-2">${pack.subtitle}</p>
+            </div>
+          </div>
+          <div class="mt-3 pt-2 border-t border-wheat-border/60 flex items-center justify-between">
+            <div>
+              <div class="flex items-baseline gap-1.5">
+                <span class="text-[15px] font-extrabold text-slate-900">₹${v.price}</span>
+                <span class="text-[11px] text-slate-400 line-through font-medium">₹${v.mrp}</span>
+              </div>
+              <div class="text-[10px] font-bold text-emeraldBrand">Save ₹${savings} wholesale</div>
+            </div>
+            <div data-stepper-slot="${pack.id}__0">
+              ${renderStepperHTML(pack.id, 0, true)}
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // -------------------------------------------------------------------------
+    // 10. VIEW RENDERERS (HOME, CATEGORIES, ORDERS, ACCOUNT)
+    //     Search Panel appears STRICTLY ONLY ON HOME PAGE.
+    // -------------------------------------------------------------------------
+    function renderHomeView() {
+      const geo = getGeo();
+      const slotInfo = getSlotCutoffInfo();
+
+      let visibleProducts = state.products;
+      if (state.homeFilter === 'Saved ♥') {
+        visibleProducts = getAllItems().filter((p) => state.favorites.includes(p.id));
+      } else if (state.homeFilter === 'Spices & Sugar') {
+        visibleProducts = state.products.filter((p) => p.category === 'Spices & Soya' || p.category === 'Atta & Sugar');
+      } else if (state.homeFilter === 'Express Packs') {
+        visibleProducts = state.packs;
+      } else if (state.homeFilter !== 'All') {
+        visibleProducts = state.products.filter((p) => p.category === state.homeFilter);
+      }
+
+      const oosCount = state.products.filter((p) => !p.inStock).length;
+
+      return `
+        <div class="flex-1 flex flex-col min-h-0 bg-ivory view-enter">
+
+          <!-- TOP FOREST GREEN ZEPTO-STYLE HEADER -->
+          <header class="bg-forest text-white px-4 pt-3 pb-2.5 shrink-0">
+            <div class="flex items-center justify-between gap-2">
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="inline-flex items-center gap-1 bg-emeraldBrand/25 border border-emerald-400/35 text-emerald-200 text-[10px] font-extrabold px-2 py-0.5 rounded-full tracking-wide">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    ${slotInfo.shortBadge}
+                  </span>
+                  <span class="text-[10px] font-semibold text-white/75">COD • Free ≥ ₹${state.storeConfig.freeDeliveryThreshold}</span>
+                </div>
+                <div class="mt-1 flex items-center gap-1.5">
+                  <button onclick="openAddressModal()" class="flex items-center gap-1 text-left min-w-0">
+                    <svg class="w-3.5 h-3.5 text-wheat shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                    <span class="text-[14px] font-extrabold tracking-tight truncate">${geo.shortLoc}</span>
+                    <svg class="w-3.5 h-3.5 text-white/70 shrink-0" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                  </button>
+                  <button onclick="detectLiveGPS()" title="Check Live GPS Distance"
+                    class="pressable text-[9.5px] font-bold bg-white/12 border border-white/20 px-1.5 py-0.5 rounded-md text-emerald-200 hover:bg-white/20 shrink-0">
+                    GPS
+                  </button>
+                </div>
+              </div>
+
+              <!-- 1-Tap Install App + Profile Buttons -->
+              <div class="flex items-center gap-1.5 shrink-0">
+                ${!isAppInstalled ? `
+                  <button onclick="triggerOneTapInstall()" aria-label="Install App"
+                    class="pressable h-9 px-2.5 rounded-full bg-wheat text-white text-[11px] font-extrabold flex items-center gap-1 shadow-sm hover:brightness-105">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3"/></svg>
+                    <span>Install</span>
+                  </button>
+                ` : ''}
+                <button onclick="switchTab('account')" aria-label="Account"
+                  class="pressable w-9 h-9 rounded-full bg-white/12 border border-white/15 flex items-center justify-center shrink-0 hover:bg-white/20">
+                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </header>
+
+          <!-- STICKY SEARCH PANEL — STRICTLY ONLY ON HOME PAGE -->
+          <div class="bg-forest px-4 pb-3 pt-0.5 shrink-0 shadow-[0_6px_16px_rgba(26,61,40,0.14)] z-20">
+            <div class="flex items-center gap-2 bg-white rounded-2xl px-3.5 py-2.5 shadow-inner border border-white/40">
+              <button onclick="openSearchOverlay()" class="flex items-center gap-2.5 flex-1 min-w-0 text-left">
+                <svg class="w-4 h-4 text-forest shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"/>
+                </svg>
+                <span id="animated-search-placeholder" class="text-[13px] font-medium text-slate-500 truncate placeholder-animate">
+                  ${SEARCH_PLACEHOLDERS[state.placeholderIdx]}
+                </span>
+              </button>
+              <div class="w-px h-5 bg-borderSubtle"></div>
+              <button onclick="triggerVoiceSearch()" aria-label="Voice Search"
+                class="pressable p-1 rounded-xl text-forest hover:bg-forest-soft transition flex items-center justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- MAIN SCROLLABLE HOME BODY -->
+          <main id="home-scroll-area" data-dock-scroll="true" class="flex-1 overflow-y-auto no-scrollbar pb-44">
+
+            <!-- LIVE EVENING SLOT CUTOFF STRIP -->
+            <div class="mx-4 mt-3 px-3 py-2 rounded-xl ${slotInfo.urgent ? 'bg-amber-50 border-amber-200 text-amber-900' : 'bg-forest-soft/80 border-forest/15 text-forest'} border flex items-center justify-between gap-2 text-[11px] font-bold">
+              <span class="truncate">⏱ ${slotInfo.countdown}</span>
+              <span class="shrink-0 text-[10px] font-extrabold opacity-75">Yamuna Vihar Hub</span>
+            </div>
+
+            <!-- DYNAMIC GEOFENCE NOTICE -->
+            ${!geo.deliverable ? `
+              <div class="mx-4 mt-2.5 p-3.5 rounded-2xl bg-red-50 border border-red-200 flex items-start gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-red-100 text-red-600 flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+                </div>
+                <div class="flex-1">
+                  <div class="text-xs font-extrabold text-red-800">Outside Yamuna Vihar 1.5 km Delivery Zone</div>
+                  <p class="text-[11px] text-red-700 leading-relaxed mt-0.5">
+                    Location (${geo.shortLoc}, ${geo.distanceKm} km) is beyond our hub radius.
+                    ${geo.isLive ? `<button onclick="clearLiveGPS()" class="underline font-extrabold ml-1">Use Saved Yamuna Vihar Address</button>` : ''}
+                  </p>
+                </div>
+              </div>
+            ` : geo.key === 'edge' ? `
+              <div class="mx-4 mt-2.5 px-3 py-2 rounded-xl bg-amber-50 border border-amber-200 flex items-center gap-2 text-[11px] font-semibold text-amber-900">
+                <span class="w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
+                <span>Near our 1.5 km boundary (${geo.distanceKm} km) — Evening 6–9 PM slot available.</span>
+              </div>
+            ` : ''}
+
+            <!-- 1-TAP APP INSTALL STRIP -->
+            ${!isAppInstalled && !state.installBannerDismissed ? `
+              <div class="mx-4 mt-2.5 p-3 rounded-2xl bg-white border border-forest/15 shadow-[0_2px_10px_rgba(26,61,40,0.06)] flex items-center justify-between gap-2.5">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <img src="./icon-192.png" alt="Weaverly" class="w-9 h-9 rounded-xl shrink-0 border border-wheat/40 bg-forest" />
+                  <div class="min-w-0">
+                    <div class="text-xs font-extrabold text-forest truncate">Add Weaverly App to Home Screen</div>
+                    <div class="text-[10.5px] text-slate-500 truncate">${deferredInstallPrompt ? 'Ready for instant 1-tap install' : 'Fast standalone icon • Zero Play Store'}</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                  <button onclick="triggerOneTapInstall()" class="pressable px-3 py-1.5 rounded-xl bg-emeraldBrand text-white text-[11px] font-extrabold shadow-sm">
+                    Install
+                  </button>
+                  <button onclick="state.installBannerDismissed=true; saveStoreState(); syncAllUI();" aria-label="Dismiss" class="w-7 h-7 rounded-lg text-slate-400 hover:bg-ivory text-xs font-bold">✕</button>
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- CATEGORY QUICK-FILTER PILLS -->
+            <div class="px-4 pt-3 pb-1 flex items-center gap-2 overflow-x-auto no-scrollbar">
+              ${HOME_FILTER_PILLS.map((pill) => {
+                const active = state.homeFilter === pill;
+                return `
+                  <button onclick="setHomeFilter('${pill}')"
+                    class="pressable shrink-0 px-3.5 py-2 rounded-full text-xs font-bold border transition ${
+                      active
+                        ? 'bg-forest text-white border-forest shadow-sm'
+                        : 'bg-white text-slate-700 border-borderSubtle hover:border-forest/40'
+                    }">
+                    ${pill}
+                  </button>`;
+              }).join('')}
+            </div>
+
+            <!-- PROMO BANNER CAROUSEL (Shown on 'All' view) -->
+            ${state.homeFilter === 'All' ? `
+              <section class="mt-3 px-4">
+                <div id="promo-carousel" class="carousel-track flex gap-3 overflow-x-auto no-scrollbar rounded-2xl">
+                  ${PROMO_BANNERS.map((b) => `
+                    <div class="carousel-slide shrink-0 w-full rounded-2xl bg-gradient-to-br ${b.bg} p-4 text-white relative overflow-hidden shadow-sm">
+                      <div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-white/10"></div>
+                      <div class="absolute right-6 top-3 w-12 h-12 rounded-full bg-white/5"></div>
+                      <span class="inline-block text-[9.5px] font-extrabold tracking-wider px-2 py-0.5 rounded-full bg-white/15 text-white mb-2">${b.tag}</span>
+                      <h2 class="text-[17px] font-extrabold leading-tight max-w-[240px]">${b.title}</h2>
+                      <p class="text-[11.5px] text-white/80 mt-1 max-w-[250px] leading-snug">${b.desc}</p>
+                      <button onclick="jumpToBannerFilter('${b.filter}')"
+                        class="pressable mt-3 inline-flex items-center gap-1 bg-white text-forest text-[11px] font-extrabold px-3 py-1.5 rounded-xl shadow-sm">
+                        ${b.cta} <span>→</span>
+                      </button>
+                    </div>
+                  `).join('')}
+                </div>
+                <div id="carousel-dots" class="flex items-center justify-center gap-1.5 mt-2.5">
+                  ${PROMO_BANNERS.map((_, i) => `
+                    <button onclick="scrollCarouselTo(${i})" aria-label="Slide ${i + 1}"
+                      class="h-1.5 rounded-full transition-all ${i === state.activeBannerIdx ? 'w-5 bg-forest' : 'w-1.5 bg-slate-300'}"></button>
+                  `).join('')}
+                </div>
+              </section>
+
+              <!-- EXPRESS PACKS HORIZONTAL SHELF -->
+              <section class="mt-4">
+                <div class="px-4 mb-2.5 flex items-center justify-between">
+                  <div>
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-wheat bg-wheat-soft border border-wheat-border px-2 py-0.5 rounded-full">Express Packs</span>
+                    <h2 class="text-[15.5px] font-extrabold text-forest mt-1">1-Tap Monthly Ration Bundles</h2>
+                  </div>
+                  <button onclick="setHomeFilter('Express Packs')" class="text-xs font-bold text-emeraldBrand">See All →</button>
+                </div>
+                <div class="px-4 flex gap-3 overflow-x-auto no-scrollbar snap-x pb-1">
+                  ${state.packs.map((pack) => renderExpressPackCard(pack)).join('')}
+                </div>
+              </section>
+            ` : ''}
+
+            <!-- WHOLESALE STAPLES 2-COLUMN ZEPTO GRID -->
+            <section id="home-catalog-anchor" class="mt-4 px-4">
+              <div class="flex items-center justify-between mb-2.5">
+                <div>
+                  <h2 class="text-[15.5px] font-extrabold text-forest">
+                    ${state.homeFilter === 'All' ? 'Daily Wholesale Staples' : state.homeFilter}
+                  </h2>
+                  <p class="text-[11px] text-slate-500 font-medium">
+                    Direct mandi pricing • ${visibleProducts.length} items${oosCount > 0 && state.homeFilter === 'All' ? ` • ${oosCount} OOS` : ''}
+                  </p>
+                </div>
+                ${state.homeFilter !== 'All' ? `
+                  <button onclick="setHomeFilter('All')" class="text-xs font-bold text-emeraldBrand">Clear Filter</button>
+                ` : `
+                  <button onclick="switchTab('categories')" class="text-xs font-bold text-emeraldBrand">Categories →</button>
+                `}
+              </div>
+
+              ${visibleProducts.length === 0 ? `
+                <div class="bg-white rounded-2xl border border-borderSubtle p-6 text-center">
+                  <div class="text-2xl mb-1">♡</div>
+                  <div class="text-xs font-extrabold text-forest">No Saved Staples Yet</div>
+                  <p class="text-[11px] text-slate-500 mt-1">Tap the heart icon on any staple for 1-tap weekly ordering.</p>
+                </div>
+              ` : `
+                <div class="grid grid-cols-2 gap-2.5">
+                  ${visibleProducts.map((p) => renderProductCard(p)).join('')}
+                </div>
+              `}
+            </section>
+
+            <!-- TRUST & MANDI PROMISE FOOTER -->
+            <section class="mx-4 mt-6 p-4 rounded-2xl bg-forest-soft/70 border border-forest/10">
+              <div class="flex items-center gap-2 text-forest font-extrabold text-xs">
+                <svg class="w-4 h-4 text-emeraldBrand" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Weaverly Wholesale Promise
+              </div>
+              <p class="text-[11px] text-slate-600 mt-1.5 leading-relaxed">
+                Double-cleaned loose staples weighed accurately at our Yamuna Vihar Dark Store. Check quality at your doorstep before paying COD.
+              </p>
+            </section>
+          </main>
+        </div>`;
+    }
+
+    function renderCategoriesView() {
+      const selectedCat = state.selectedCategoryRail;
+      const items = selectedCat === 'Express Packs'
+        ? state.packs
+        : state.products.filter((p) => p.category === selectedCat);
+
+      return `
+        <div class="flex-1 flex flex-col min-h-0 bg-ivory view-enter">
+          <header class="bg-white border-b border-borderSubtle px-4 py-3.5 flex items-center justify-between shrink-0">
+            <div>
+              <h1 class="text-[17px] font-extrabold text-forest tracking-tight">All Categories</h1>
+              <p class="text-[11px] text-slate-500 font-medium">Wholesale loose staples & ration bundles</p>
+            </div>
+            <span class="text-[10.5px] font-bold bg-forest-soft text-forest px-2.5 py-1 rounded-full">
+              ${getAllItems().length} Items
+            </span>
+          </header>
+
+          <div class="flex-1 flex min-h-0 overflow-hidden">
+            <aside class="w-[88px] shrink-0 bg-white border-r border-borderSubtle overflow-y-auto no-scrollbar pb-40 pt-2">
+              ${ALL_CATEGORIES_LIST.map((cat) => {
+                const isActive = cat === selectedCat;
+                return `
+                  <button onclick="selectCategoryRail('${cat}')"
+                    class="w-full px-2 py-3 flex flex-col items-center gap-1.5 relative transition ${isActive ? 'bg-forest-soft/75' : 'hover:bg-ivory'}">
+                    ${isActive ? `<span class="absolute left-0 top-2.5 bottom-2.5 w-1 rounded-r-full bg-emeraldBrand"></span>` : ''}
+                    <div class="w-11 h-11 rounded-2xl flex items-center justify-center border transition ${isActive ? 'bg-white border-emeraldBrand/40 shadow-sm scale-105' : 'bg-ivory border-borderSubtle'}">
+                      ${CAT_ICONS[cat] || ''}
+                    </div>
+                    <span class="text-[10px] leading-tight text-center ${isActive ? 'font-extrabold text-forest' : 'font-semibold text-slate-600'}">${cat}</span>
+                  </button>`;
+              }).join('')}
+            </aside>
+
+            <section data-dock-scroll="true" class="flex-1 overflow-y-auto no-scrollbar p-3 pb-44">
+              <div class="mb-2.5 flex items-center justify-between">
+                <h2 class="text-sm font-extrabold text-forest">${selectedCat}</h2>
+                <span class="text-[11px] text-slate-500 font-semibold">${items.length} products</span>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                ${items.map((p) => renderProductCard(p, true)).join('')}
+              </div>
+            </section>
+          </div>
+        </div>`;
+    }
+
+    function renderOrdersView() {
+      const orders = state.orderLedger || [];
+
+      return `
+        <div class="flex-1 flex flex-col min-h-0 bg-ivory view-enter">
+          <header class="bg-white border-b border-borderSubtle px-4 py-3.5 flex items-center justify-between shrink-0">
+            <div>
+              <h1 class="text-[17px] font-extrabold text-forest tracking-tight">My Orders</h1>
+              <p class="text-[11px] text-slate-500 font-medium">Verified tamper-proof receipts & 1-tap reorder</p>
+            </div>
+            <span class="inline-flex items-center gap-1 text-[10.5px] font-extrabold bg-forest-soft text-forest px-2.5 py-1 rounded-full">
+              ${orders.length} ${orders.length === 1 ? 'Order' : 'Orders'}
+            </span>
+          </header>
+
+          <main data-dock-scroll="true" class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-3.5 pb-40">
+            ${orders.length === 0 ? `
+              <div class="bg-white rounded-3xl border border-borderSubtle p-6 text-center">
+                <div class="w-12 h-12 rounded-2xl bg-forest-soft text-forest mx-auto flex items-center justify-center mb-2.5">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                </div>
+                <h3 class="text-sm font-extrabold text-forest">No Orders Placed Yet</h3>
+                <p class="text-xs text-slate-500 mt-1">Order before 5:30 PM for today's Evening 6–9 PM wholesale slot.</p>
+                <button onclick="switchTab('home')" class="pressable mt-3.5 px-4 py-2 rounded-xl bg-forest text-white text-xs font-bold">
+                  Browse Wholesale Staples
+                </button>
+              </div>
+            ` : orders.map((order, idx) => {
+              const intact = verifyOrderIntegrity(order);
+              return `
+                <article class="bg-white rounded-3xl border ${idx === 0 ? 'border-forest/25 shadow-sm' : 'border-borderSubtle'} overflow-hidden">
+                  <div class="${idx === 0 ? 'bg-forest text-white' : 'bg-ivory text-forest border-b border-borderSubtle'} px-4 py-3 flex items-center justify-between gap-2">
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <span class="text-xs font-extrabold">#${order.id}</span>
+                        <span class="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full ${
+                          intact
+                            ? (idx === 0 ? 'bg-emerald-400/25 text-emerald-200' : 'bg-emerald-100 text-emerald-800')
+                            : 'bg-red-500 text-white'
+                        }">
+                          ${intact ? `🔒 ${order.sealCode}` : '⚠ VERIFICATION MISMATCH'}
+                        </span>
+                      </div>
+                      <div class="text-[11px] ${idx === 0 ? 'text-white/75' : 'text-slate-500'} mt-0.5 font-medium">
+                        ${order.placedAt} • ${order.slot}
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <div class="text-sm font-extrabold">₹${order.grandTotal}</div>
+                      <div class="text-[10px] font-bold ${idx === 0 ? 'text-emerald-300' : 'text-emeraldBrand'}">Saved ₹${order.savings || 0}</div>
+                    </div>
+                  </div>
+
+                  <div class="p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-[10.5px] font-extrabold text-slate-500 uppercase tracking-wider">Locked Bill (${order.items.length} items)</span>
+                      <span class="text-[10px] font-bold text-slate-500">${order.paymentMode}</span>
+                    </div>
+
+                    <div class="space-y-2">
+                      ${order.items.map((item) => `
+                        <div class="flex items-center justify-between text-xs">
+                          <div class="flex items-center gap-2 min-w-0">
+                            <span class="w-5 h-5 rounded-md bg-ivory border border-borderSubtle text-[10px] font-extrabold text-forest flex items-center justify-center shrink-0">${item.qty}×</span>
+                            <div class="truncate">
+                              <span class="font-bold text-slate-800">${item.name}</span>
+                              <span class="text-slate-500 ml-1">(${item.variant})</span>
+                            </div>
+                          </div>
+                          <span class="font-extrabold text-slate-900 ml-2 shrink-0">₹${item.price * item.qty}</span>
+                        </div>
+                      `).join('')}
+                    </div>
+
+                    <div class="mt-3 pt-2.5 border-t border-dashed border-borderSubtle space-y-1 text-[11px]">
+                      <div class="flex justify-between text-slate-500">
+                        <span>Delivery / Small-Cart Fee</span>
+                        <span class="font-bold ${order.deliveryFee === 0 ? 'text-emeraldBrand' : 'text-slate-700'}">${order.deliveryFee === 0 ? 'FREE' : '₹' + order.deliveryFee}</span>
+                      </div>
+                      <div class="flex justify-between text-slate-700 font-extrabold text-xs">
+                        <span>Verified Payable Total</span>
+                        <span class="text-forest">₹${order.grandTotal}</span>
+                      </div>
+                    </div>
+
+                    <div class="mt-3 p-2.5 rounded-xl bg-ivory border border-borderSubtle text-[11px] text-slate-600 space-y-0.5">
+                      <div class="font-bold text-slate-800">${order.customerName} • ${order.customerPhone}</div>
+                      <div>${order.address}</div>
+                      ${order.deliveryNote ? `<div class="text-forest font-semibold pt-0.5">Note: "${order.deliveryNote}"</div>` : ''}
+                    </div>
+
+                    <div class="mt-3 grid grid-cols-2 gap-2">
+                      <button onclick="reorderPastOrder('${order.id}')"
+                        class="pressable py-2.5 rounded-xl bg-forest text-white text-xs font-extrabold flex items-center justify-center gap-1.5 shadow-sm">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        Reorder All
+                      </button>
+                      <button onclick="copyOrderReceipt('${order.id}')"
+                        class="pressable py-2.5 rounded-xl bg-ivory border border-borderSubtle text-forest text-xs font-extrabold flex items-center justify-center gap-1.5 hover:bg-forest-soft">
+                        Copy Receipt
+                      </button>
+                    </div>
+                  </div>
+                </article>`;
+            }).join('')}
+          </main>
+        </div>`;
+    }
+
+    function renderAccountView() {
+      const geo = getGeo();
+      const initials = (state.customer.name || 'RS').split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase();
+      const totalSaved = (state.orderLedger || []).reduce((s, o) => s + (o.savings || 0), 0);
+
+      return `
+        <div class="flex-1 flex flex-col min-h-0 bg-ivory view-enter">
+          <header class="bg-white border-b border-borderSubtle px-4 py-3.5 shrink-0">
+            <h1 class="text-[17px] font-extrabold text-forest tracking-tight">My Account</h1>
+            <p class="text-[11px] text-slate-500 font-medium">Profile, Yamuna Vihar address & app settings</p>
+          </header>
+
+          <main data-dock-scroll="true" class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-3.5 pb-40">
+
+            <div class="bg-forest text-white rounded-3xl p-4 shadow-md relative overflow-hidden">
+              <div class="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10"></div>
+              <div class="flex items-center gap-3.5 relative z-10">
+                <div class="w-[52px] h-[52px] rounded-2xl bg-wheat text-white font-extrabold text-lg flex items-center justify-center shadow-sm shrink-0">
+                  ${initials}
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <h2 class="text-base font-extrabold truncate">${state.customer.name}</h2>
+                    <span class="text-[9.5px] font-extrabold bg-emerald-400/25 text-emerald-200 px-2 py-0.5 rounded-full">VERIFIED</span>
+                  </div>
+                  <p class="text-xs text-white/80 mt-0.5">${state.customer.phone}</p>
+                  <p class="text-[11px] text-wheat-soft mt-1 font-semibold">Total Wholesale Savings: ₹${totalSaved + 1467}</p>
+                </div>
+                <button onclick="openAddressModal()" class="pressable px-2.5 py-1.5 rounded-xl bg-white/15 text-white text-[11px] font-bold hover:bg-white/25">
+                  Edit
+                </button>
+              </div>
+            </div>
+
+            <!-- 1-TAP APP INSTALL CARD -->
+            <div class="bg-gradient-to-r from-emerald-50 to-wheat-soft/60 rounded-2xl border border-emerald-200 p-4 flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="./icon-192.png" alt="Weaverly" class="w-10 h-10 rounded-xl shrink-0 shadow-sm bg-forest border border-wheat/40" />
+                <div class="min-w-0">
+                  <div class="text-xs font-extrabold text-forest">${isAppInstalled ? 'Weaverly App Installed' : 'Add Weaverly App Icon'}</div>
+                  <div class="text-[11px] text-slate-600 truncate">${isAppInstalled ? 'Running in standalone app mode' : '1-tap Home Screen installation'}</div>
+                </div>
+              </div>
+              <button onclick="triggerOneTapInstall()"
+                class="pressable shrink-0 px-3.5 py-2 rounded-xl text-xs font-extrabold shadow-sm ${isAppInstalled ? 'bg-emerald-100 text-emerald-800' : 'bg-forest text-white'}">
+                ${isAppInstalled ? '✓ Installed' : 'Install'}
+              </button>
+            </div>
+
+            <!-- Saved Delivery Address + GPS Verify -->
+            <div class="bg-white rounded-2xl border border-borderSubtle p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-extrabold text-forest uppercase tracking-wider">Saved Address</span>
+                <div class="flex items-center gap-3">
+                  <button onclick="detectLiveGPS()" class="text-[11px] font-extrabold text-forest underline">Detect GPS</button>
+                  <button onclick="openAddressModal()" class="text-[11px] font-extrabold text-emeraldBrand">Change →</button>
+                </div>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-forest-soft text-forest flex items-center justify-center shrink-0">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-xs font-extrabold text-slate-900">${geo.shortLoc}</span>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${geo.deliverable ? 'bg-emeraldBrand-soft text-emeraldBrand' : 'bg-red-100 text-red-700'}">
+                      ${geo.badge}
+                    </span>
+                  </div>
+                  <p class="text-[11.5px] text-slate-600 mt-0.5 leading-snug">${geo.fullAddress}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Options -->
+            <div class="bg-white rounded-2xl border border-borderSubtle divide-y divide-borderSubtle overflow-hidden">
+              <div class="p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-xl bg-wheat-soft text-wheat flex items-center justify-center">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-xs font-extrabold text-slate-900">Payment Preference</div>
+                    <div class="text-[11px] text-slate-500">Cash on Delivery (COD) / UPI at Door</div>
+                  </div>
+                </div>
+                <span class="text-[10px] font-extrabold text-emeraldBrand bg-emeraldBrand-soft px-2 py-0.5 rounded-md">ACTIVE</span>
+              </div>
+
+              <button onclick="openWhatsAppSupport('GENERAL')" class="w-full p-4 flex items-center justify-between text-left hover:bg-ivory transition">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.03 2C6.5 2 2 6.48 2 12c0 1.96.57 3.79 1.55 5.34L2 22l4.82-1.51A9.96 9.96 0 0012.03 22C17.55 22 22 17.52 22 12S17.55 2 12.03 2z"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-xs font-extrabold text-slate-900">WhatsApp Help Desk</div>
+                    <div class="text-[11px] text-slate-500">Bulk enquiry, quality check & slot help</div>
+                  </div>
+                </div>
+                <span class="text-slate-400 font-bold text-sm">→</span>
+              </button>
+
+              <button onclick="switchTab('orders')" class="w-full p-4 flex items-center justify-between text-left hover:bg-ivory transition">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-xs font-extrabold text-slate-900">Verified Order Receipts</div>
+                    <div class="text-[11px] text-slate-500">${(state.orderLedger || []).length} tamper-proof receipts</div>
+                  </div>
+                </div>
+                <span class="text-slate-400 font-bold text-sm">→</span>
+              </button>
+            </div>
+
+            <!-- DEDICATED ADMIN & OWNER CONSOLE ENTRY (PIN Protected) -->
+            <div class="pt-1">
+              <button onclick="openPinModal()"
+                class="pressable w-full bg-white rounded-2xl border border-slate-300/80 p-4 flex items-center justify-between text-left shadow-sm hover:border-forest transition">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-xs font-extrabold text-slate-900">Store Admin & Owner Console</div>
+                    <div class="text-[11px] text-slate-500">Orders, Batch Picking, Cloud Sync & Live Catalog</div>
+                  </div>
+                </div>
+                <span class="text-xs font-extrabold text-forest bg-forest-soft px-2.5 py-1 rounded-lg">PIN</span>
+              </button>
+            </div>
+
+            <p class="text-center text-[10.5px] text-slate-400 pt-2">
+              Weaverly Wholesale • Yamuna Vihar Hub v4.0 PWA
+            </p>
+          </main>
+        </div>`;
+    }
+
+    function openAddressModal() {
+      const modal = document.getElementById('address-modal');
+      const card = document.getElementById('address-card');
+      const c = state.customer;
+      card.innerHTML = `
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h3 class="text-sm font-extrabold text-forest">Edit Customer & Address</h3>
+            <p class="text-[10.5px] text-slate-500">Locked into your next order automatically</p>
+          </div>
+          <button onclick="closeAddressModal()" class="w-8 h-8 rounded-full bg-ivory text-slate-600 text-xs font-bold">✕</button>
+        </div>
+        <button onclick="detectLiveGPS()" class="pressable mb-3 w-full py-2.5 rounded-xl bg-forest-soft border border-forest/20 text-forest text-xs font-extrabold flex items-center justify-center gap-1.5">
+          📍 Verify My Live GPS Distance (1.5 km Zone)
+        </button>
+        <div class="space-y-2.5 text-xs">
+          <div>
+            <label class="block text-[10.5px] font-bold text-slate-500 mb-1">Full Name</label>
+            <input id="addr-name" type="text" value="${c.name.replace(/"/g, '&quot;')}" class="w-full px-3 py-2.5 rounded-xl bg-ivory border border-borderSubtle font-semibold outline-none focus:border-forest" />
+          </div>
+          <div>
+            <label class="block text-[10.5px] font-bold text-slate-500 mb-1">Mobile Number</label>
+            <input id="addr-phone" type="tel" value="${c.phone.replace(/"/g, '&quot;')}" class="w-full px-3 py-2.5 rounded-xl bg-ivory border border-borderSubtle font-semibold outline-none focus:border-forest" />
+          </div>
+          <div>
+            <label class="block text-[10.5px] font-bold text-slate-500 mb-1">House / Flat & Block</label>
+            <input id="addr-house" type="text" value="${c.houseNo.replace(/"/g, '&quot;')}" class="w-full px-3 py-2.5 rounded-xl bg-ivory border border-borderSubtle font-semibold outline-none focus:border-forest" />
+          </div>
+          <div>
+            <label class="block text-[10.5px] font-bold text-slate-500 mb-1">Landmark & Pincode</label>
+            <input id="addr-landmark" type="text" value="${c.landmark.replace(/"/g, '&quot;')}" class="w-full px-3 py-2.5 rounded-xl bg-ivory border border-borderSubtle font-semibold outline-none focus:border-forest" />
+          </div>
+        </div>
+        <button onclick="saveCustomerAddress()" class="pressable mt-4 w-full py-3 rounded-xl bg-forest text-white text-xs font-extrabold shadow-sm">
+          Save Delivery Details
+        </button>
+      `;
+      modal.classList.remove('hidden');
+    }
+
+    function closeAddressModal() { document.getElementById('address-modal').classList.add('hidden'); }
+
+    function saveCustomerAddress() {
+      const name = document.getElementById('addr-name').value.trim();
+      const phone = document.getElementById('addr-phone').value.trim();
+      const houseNo = document.getElementById('addr-house').value.trim();
+      const landmark = document.getElementById('addr-landmark').value.trim();
+      if (!name || !phone || !houseNo) {
+        showToast('Please enter name, phone, and house address.', 'amber');
+        return;
+      }
+      state.customer = { name, phone, houseNo, landmark };
+      saveStoreState();
+      closeAddressModal();
+      showToast('Delivery profile updated!', 'emerald');
+      syncAllUI();
+    }
+
+    // -------------------------------------------------------------------------
+    // 11. FLOATING BOTTOM DOCK RENDERER
+    // -------------------------------------------------------------------------
+    function renderFloatingDock() {
+      const totals = getCartTotals();
+      const cartSlot = document.getElementById('dock-cart-pill-slot');
+
+      if (totals.itemCount > 0) {
+        cartSlot.classList.remove('hidden');
+        cartSlot.innerHTML = `
+          <button onclick="openCart()"
+            class="pressable w-full bg-emeraldBrand text-white rounded-2xl px-3.5 py-2.5 shadow-[0_8px_22px_rgba(22,163,74,0.35)] flex items-center justify-between border border-emerald-400/30">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center font-extrabold text-xs">
+                ${totals.itemCount}
+              </div>
+              <div class="text-left leading-tight">
+                <div class="text-[13px] font-extrabold">₹${totals.grandTotal} <span class="text-[10.5px] font-semibold text-emerald-100">• ${totals.itemCount} ${totals.itemCount === 1 ? 'item' : 'items'}</span></div>
+                <div class="text-[10.5px] text-emerald-100 font-medium">
+                  ${totals.remainingForFree > 0 ? `Add ₹${totals.remainingForFree} for FREE delivery` : `FREE Delivery unlocked • Saved ₹${totals.wholesaleSavings}`}
+                </div>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold bg-white text-emerald-700 px-3 py-1.5 rounded-xl shadow-sm">
+              View Cart →
+            </span>
+          </button>`;
+      } else {
+        cartSlot.classList.add('hidden');
+        cartSlot.innerHTML = '';
+      }
+
+      const nav = document.getElementById('dock-bottom-nav');
+      const tabs = [
+        { id: 'home', label: 'Home', icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>` },
+        { id: 'categories', label: 'Categories', icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>` },
+        { id: 'orders', label: 'Orders', icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>` },
+        { id: 'account', label: 'Account', icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>` },
+      ];
+
+      nav.innerHTML = tabs.map((t) => {
+        const active = state.activeTab === t.id;
+        return `
+          <button onclick="switchTab('${t.id}')"
+            class="pressable relative flex-1 py-1.5 flex flex-col items-center justify-center gap-0.5 rounded-xl transition ${active ? 'bg-forest-soft text-forest' : 'text-slate-500 hover:text-forest'}">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="${active ? '2.4' : '1.9'}" viewBox="0 0 24 24">${t.icon}</svg>
+            <span class="text-[10px] ${active ? 'font-extrabold' : 'font-semibold'}">${t.label}</span>
+          </button>`;
+      }).join('');
+    }
+
+    // -------------------------------------------------------------------------
+    // 12. HOME-ONLY LIVE SEARCH OVERLAY & BILINGUAL VOICE SEARCH
+    // -------------------------------------------------------------------------
+    function openSearchOverlay(prefill = '') {
+      if (state.activeTab !== 'home') return;
+      state.searchQuery = prefill;
+      document.getElementById('search-overlay').classList.remove('hidden');
+      renderSearchOverlay();
+      setTimeout(() => {
+        const inp = document.getElementById('live-search-input');
+        if (inp) {
+          inp.focus();
+          inp.setSelectionRange(inp.value.length, inp.value.length);
+        }
+      }, 60);
+    }
+
+    function closeSearchOverlay() {
+      document.getElementById('search-overlay').classList.add('hidden');
+      state.searchQuery = '';
+      state.voiceListening = false;
+    }
+
+    function onSearchInput(val) {
+      state.searchQuery = val;
+      renderSearchResultsBody();
+    }
+
+    function triggerVoiceSearch() {
+      if (state.activeTab !== 'home') return;
+      openSearchOverlay();
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        showToast('Voice mic unavailable — try typing "chawal" or "tel".', 'amber');
+        return;
+      }
+
+      try {
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-IN';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        state.voiceListening = true;
+        renderSearchOverlay();
+        showToast('Listening... Say "Toor Dal", "Chawal", or "Mustard Oil"', 'emerald');
+
+        recognition.onresult = (event) => {
+          state.voiceListening = false;
+          state.searchQuery = event.results[0][0].transcript;
+          renderSearchOverlay();
+        };
+        recognition.onerror = () => {
+          state.voiceListening = false;
+          renderSearchOverlay();
+          showToast('Mic permission unavailable — type or pick a tag.', 'amber');
+        };
+        recognition.onend = () => {
+          state.voiceListening = false;
+          renderSearchOverlay();
+        };
+        recognition.start();
+      } catch (e) {
+        state.voiceListening = false;
+        showToast('Voice search unavailable in this browser.', 'amber');
+      }
+    }
+
+    function renderSearchOverlay() {
+      const overlay = document.getElementById('search-overlay');
+      overlay.innerHTML = `
+        <div class="bg-forest px-3.5 py-3 flex items-center gap-2 shrink-0">
+          <button onclick="closeSearchOverlay()" aria-label="Back"
+            class="pressable w-9 h-9 rounded-xl bg-white/12 text-white flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <div class="flex-1 flex items-center bg-white rounded-2xl px-3 py-2 gap-2">
+            <input id="live-search-input" type="text" value="${state.searchQuery.replace(/"/g, '&quot;')}"
+              oninput="onSearchInput(this.value)"
+              placeholder="Search dal, chawal, tel, aata, cheeni..."
+              class="flex-1 text-[13px] font-semibold text-slate-900 placeholder:text-slate-400 outline-none bg-transparent min-w-0" />
+            ${state.searchQuery ? `
+              <button onclick="onSearchInput(''); document.getElementById('live-search-input').value=''; document.getElementById('live-search-input').focus();"
+                class="text-slate-400 hover:text-slate-700 text-sm font-bold px-1">✕</button>
+            ` : ''}
+            <button onclick="triggerVoiceSearch()" aria-label="Voice Search"
+              class="p-1.5 rounded-xl ${state.voiceListening ? 'bg-red-100 text-red-600 animate-pulse' : 'text-forest hover:bg-forest-soft'}">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div id="search-results-body" class="flex-1 overflow-y-auto no-scrollbar p-4 pb-10"></div>
+      `;
+      renderSearchResultsBody();
+    }
+
+    function renderSearchResultsBody() {
+      const body = document.getElementById('search-results-body');
+      if (!body) return;
+      const q = state.searchQuery.trim().toLowerCase();
+
+      if (!q) {
+        const trending = ['1121 Basmati', 'Toor Dal', 'Sarson Tel', 'Sharbati Atta', 'Cheeni', 'Haldi', 'Starter Pack'];
+        body.innerHTML = `
+          <div>
+            <div class="text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-2.5">Popular in Yamuna Vihar</div>
+            <div class="flex flex-wrap gap-2 mb-6">
+              ${trending.map((term) => `
+                <button onclick="state.searchQuery='${term}'; renderSearchOverlay();"
+                  class="pressable px-3 py-1.5 rounded-full bg-white border border-borderSubtle text-xs font-bold text-forest hover:border-forest">
+                  🔍 ${term}
+                </button>
+              `).join('')}
+            </div>
+
+            <div class="text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-2.5">Top Wholesale Picks</div>
+            <div class="grid grid-cols-2 gap-2.5">
+              ${state.products.slice(0, 4).map((p) => renderProductCard(p)).join('')}
+            </div>
+          </div>`;
+        return;
+      }
+
+      const matches = getAllItems().filter((item) => {
+        const hay = `${item.name} ${item.hindiName || ''} ${item.keywords || ''} ${item.category} ${item.subtitle || ''} ${item.origin || ''}`.toLowerCase();
+        return hay.includes(q);
+      });
+
+      if (matches.length === 0) {
+        body.innerHTML = `
+          <div class="text-center py-14">
+            <div class="text-3xl mb-2">🌾</div>
+            <div class="text-sm font-extrabold text-forest">No staples found for "${state.searchQuery}"</div>
+            <p class="text-xs text-slate-500 mt-1">Try searching for Dal, Chawal, Atta, Tel, Cheeni or Jeera.</p>
+          </div>`;
+        return;
+      }
+
+      body.innerHTML = `
+        <div class="text-xs font-bold text-slate-500 mb-3">${matches.length} wholesale results for "${state.searchQuery}"</div>
+        <div class="grid grid-cols-2 gap-2.5">
+          ${matches.map((p) => renderProductCard(p)).join('')}
+        </div>`;
+    }
+
+    // -------------------------------------------------------------------------
+    // 13. PRODUCT DETAIL BOTTOM SHEET
+    // -------------------------------------------------------------------------
+    function openPDP(itemId, initialVariantIdx = 0) {
+      const item = findItemById(itemId);
+      if (!item) return;
+      state.pdpItemId = itemId;
+      state.pdpSelectedVariantIdx = Math.min(initialVariantIdx || 0, item.variants.length - 1);
+
+      const modal = document.getElementById('pdp-modal');
+      const backdrop = document.getElementById('pdp-backdrop');
+      const sheet = document.getElementById('pdp-sheet');
+
+      renderPDPSheet();
+      modal.classList.remove('hidden');
+
+      requestAnimationFrame(() => {
+        backdrop.classList.remove('opacity-0');
+        backdrop.classList.add('opacity-100');
+        sheet.classList.remove('translate-y-full');
+        sheet.classList.add('translate-y-0');
+      });
+    }
+
+    function closePDP() {
+      const modal = document.getElementById('pdp-modal');
+      const backdrop = document.getElementById('pdp-backdrop');
+      const sheet = document.getElementById('pdp-sheet');
+      backdrop.classList.add('opacity-0');
+      backdrop.classList.remove('opacity-100');
+      sheet.classList.add('translate-y-full');
+      sheet.classList.remove('translate-y-0');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        state.pdpItemId = null;
+      }, 280);
+    }
+
+    function selectPDPVariant(idx) {
+      state.pdpSelectedVariantIdx = idx;
+      renderPDPSheet();
+    }
+
+    function renderPDPSheet() {
+      const sheet = document.getElementById('pdp-sheet');
+      const item = findItemById(state.pdpItemId);
+      if (!sheet || !item) return;
+
+      const vIdx = state.pdpSelectedVariantIdx;
+      const v = item.variants[vIdx] || item.variants[0];
+      const discount = getDiscountPct(v.price, v.mrp);
+      const artSvg = SVG_ART[item.art] ? SVG_ART[item.art]() : '';
+
+      const subItems = !item.inStock && item.substitutes
+        ? item.substitutes.map((id) => findItemById(id)).filter((s) => s && s.inStock)
+        : [];
+
+      sheet.innerHTML = `
+        <div class="pt-3 pb-2 px-4 flex items-center justify-between border-b border-borderSubtle shrink-0">
+          <div class="w-8"></div>
+          <div class="w-10 h-1 rounded-full bg-slate-300"></div>
+          <button onclick="closePDP()" class="w-8 h-8 rounded-full bg-ivory text-slate-600 font-bold text-sm flex items-center justify-center">✕</button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-4">
+          <div class="flex items-start gap-3.5">
+            <div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0 border border-borderSubtle relative ${!item.inStock ? 'grayscale opacity-60' : ''}">
+              ${artSvg}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-extrabold bg-forest-soft text-forest px-2 py-0.5 rounded-md">${item.category}</span>
+                ${item.badge ? `<span class="text-[10px] font-extrabold bg-wheat-soft text-wheat px-2 py-0.5 rounded-md">${item.badge}</span>` : ''}
+              </div>
+              <h2 class="text-base font-extrabold text-slate-900 mt-1 leading-snug">${item.name}</h2>
+              ${item.hindiName ? `<div class="text-xs text-slate-500 font-medium">${item.hindiName}</div>` : ''}
+              <p class="text-[11px] text-emerald-700 font-semibold mt-1.5 flex items-center gap-1">
+                <span>✓</span> ${item.origin}
+              </p>
+            </div>
+          </div>
+
+          ${item.subtitle ? `
+            <div class="p-3 rounded-2xl bg-wheat-soft/70 border border-wheat-border text-xs font-semibold text-forest">
+              Includes: ${item.subtitle}
+            </div>
+          ` : ''}
+
+          ${!item.inStock ? `
+            <div class="p-3.5 rounded-2xl bg-red-50 border border-red-200">
+              <div class="text-xs font-extrabold text-red-800">Currently Out of Stock at Yamuna Vihar Hub</div>
+              <p class="text-[11px] text-red-700 mt-0.5">Fresh mandi stock arrives tomorrow morning. Verified in-stock substitutes:</p>
+              ${subItems.length > 0 ? `
+                <div class="mt-3 space-y-2">
+                  ${subItems.map((sub) => {
+                    const sv = sub.variants[0];
+                    return `
+                      <div class="bg-white rounded-xl p-2.5 border border-borderSubtle flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2.5 min-w-0" onclick="openPDP('${sub.id}')">
+                          <div class="w-11 h-11 rounded-lg overflow-hidden shrink-0">${SVG_ART[sub.art]()}</div>
+                          <div class="min-w-0">
+                            <div class="text-xs font-extrabold text-slate-900 truncate">${sub.name}</div>
+                            <div class="text-[11px] text-slate-500">${sv.label} • <span class="font-extrabold text-forest">₹${sv.price}</span> <span class="line-through">₹${sv.mrp}</span></div>
+                          </div>
+                        </div>
+                        <div data-stepper-slot="${sub.id}__0">${renderStepperHTML(sub.id, 0, true)}</div>
+                      </div>`;
+                  }).join('')}
+                </div>
+              ` : `<p class="text-[11px] text-slate-600 mt-2">Check Categories for other available staples.</p>`}
+            </div>
+          ` : `
+            <div>
+              <div class="text-xs font-extrabold text-slate-600 uppercase tracking-wider mb-2">Select Pack Weight</div>
+              <div class="grid grid-cols-3 gap-2">
+                ${item.variants.map((vr, idx) => {
+                  const selected = idx === vIdx;
+                  const qtyInCart = getCartQty(item.id, idx);
+                  const d = getDiscountPct(vr.price, vr.mrp);
+                  return `
+                    <button onclick="selectPDPVariant(${idx})"
+                      class="pressable relative rounded-2xl p-2.5 text-left border-[1.5px] transition ${selected ? 'bg-forest-soft border-forest shadow-sm' : 'bg-white border-borderSubtle hover:border-slate-300'}">
+                      ${qtyInCart > 0 ? `<span class="absolute -top-2 -right-1.5 bg-emeraldBrand text-white text-[9.5px] font-extrabold px-1.5 py-0.5 rounded-full shadow">${qtyInCart} in cart</span>` : ''}
+                      <div class="text-xs font-extrabold text-forest">${vr.label}</div>
+                      <div class="mt-1 flex items-baseline gap-1">
+                        <span class="text-sm font-extrabold text-slate-900">₹${vr.price}</span>
+                        <span class="text-[10px] text-slate-400 line-through">₹${vr.mrp}</span>
+                      </div>
+                      <div class="text-[9.5px] font-bold text-emeraldBrand mt-0.5">Save ${d}%</div>
+                    </button>`;
+                }).join('')}
+              </div>
+            </div>
+          `}
+
+          <div class="grid grid-cols-3 gap-2 pt-1">
+            <div class="bg-ivory rounded-xl p-2.5 text-center border border-borderSubtle">
+              <div class="text-xs font-extrabold text-forest">Zero Polish</div>
+              <div class="text-[10px] text-slate-500">Lab Checked</div>
+            </div>
+            <div class="bg-ivory rounded-xl p-2.5 text-center border border-borderSubtle">
+              <div class="text-xs font-extrabold text-forest">6–9 PM</div>
+              <div class="text-[10px] text-slate-500">Evening Slot</div>
+            </div>
+            <div class="bg-ivory rounded-xl p-2.5 text-center border border-borderSubtle">
+              <div class="text-xs font-extrabold text-forest">COD Only</div>
+              <div class="text-[10px] text-slate-500">Open & Check</div>
+            </div>
+          </div>
+        </div>
+
+        ${item.inStock ? `
+          <div class="p-4 bg-white border-t border-borderSubtle flex items-center justify-between gap-3 shrink-0">
+            <div>
+              <div class="text-[11px] font-semibold text-slate-500">${v.label} Wholesale Price</div>
+              <div class="flex items-baseline gap-1.5">
+                <span class="text-lg font-extrabold text-slate-900">₹${v.price}</span>
+                <span class="text-xs text-slate-400 line-through font-medium">₹${v.mrp}</span>
+                <span class="text-[10.5px] font-extrabold text-emeraldBrand">${discount}% OFF</span>
+              </div>
+            </div>
+            <div data-stepper-slot="${item.id}__${vIdx}">${renderStepperHTML(item.id, vIdx, false)}</div>
+          </div>
+        ` : ''}
+      `;
+    }
+
+    // -------------------------------------------------------------------------
+    // 14. CART, CHECKOUT & CLOUD DISPATCH (Unmanipulated Server Logging)
+    // -------------------------------------------------------------------------
+    function openCart() {
+      const modal = document.getElementById('cart-modal');
+      const backdrop = document.getElementById('cart-backdrop');
+      const sheet = document.getElementById('cart-sheet');
+      renderCartDrawer();
+      modal.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        backdrop.classList.remove('opacity-0');
+        backdrop.classList.add('opacity-100');
+        sheet.classList.remove('translate-y-full');
+        sheet.classList.add('translate-y-0');
+      });
+    }
+
+    function closeCart() {
+      const modal = document.getElementById('cart-modal');
+      const backdrop = document.getElementById('cart-backdrop');
+      const sheet = document.getElementById('cart-sheet');
+      backdrop.classList.add('opacity-0');
+      backdrop.classList.remove('opacity-100');
+      sheet.classList.add('translate-y-full');
+      sheet.classList.remove('translate-y-0');
+      setTimeout(() => modal.classList.add('hidden'), 280);
+    }
+
+    function renderCartDrawer() {
+      const sheet = document.getElementById('cart-sheet');
+      if (!sheet) return;
+      const totals = getCartTotals();
+      const geo = getGeo();
+      const slotInfo = getSlotCutoffInfo();
+      const progressPct = Math.min(100, Math.round((totals.subtotal / totals.freeDeliveryThreshold) * 100));
+      const quickAddons = state.products.filter((p) => p.inStock && getTotalQtyForItem(p.id) === 0).slice(0, 4);
+
+      sheet.innerHTML = `
+        <div class="bg-white px-4 py-3.5 border-b border-borderSubtle flex items-center justify-between shrink-0">
+          <div>
+            <h2 class="text-base font-extrabold text-forest">Your Wholesale Cart</h2>
+            <p class="text-[11px] text-slate-500 font-medium">${slotInfo.slotLabel} • ${geo.shortLoc}</p>
+          </div>
+          <button onclick="closeCart()" class="w-8 h-8 rounded-full bg-ivory text-slate-700 font-bold text-sm flex items-center justify-center">✕</button>
+        </div>
+
+        ${totals.itemCount === 0 ? `
+          <div class="flex-1 flex flex-col items-center justify-center p-6 text-center">
+            <div class="w-16 h-16 rounded-3xl bg-forest-soft text-forest flex items-center justify-center text-2xl mb-3">🧺</div>
+            <h3 class="text-base font-extrabold text-forest">Your cart is empty</h3>
+            <p class="text-xs text-slate-500 mt-1 max-w-[240px]">Add wholesale dals, basmati rice or a ₹499 Starter Pack for free evening delivery.</p>
+            <button onclick="closeCart(); switchTab('home');" class="pressable mt-4 px-5 py-2.5 rounded-xl bg-forest text-white text-xs font-extrabold">
+              Start Shopping
+            </button>
+          </div>
+        ` : `
+          <div class="px-4 py-2.5 ${totals.remainingForFree === 0 ? 'bg-emeraldBrand-soft border-b border-emerald-200' : 'bg-wheat-soft border-b border-wheat-border'} shrink-0">
+            <div class="flex items-center justify-between text-xs font-extrabold ${totals.remainingForFree === 0 ? 'text-emerald-800' : 'text-amber-900'}">
+              <span>
+                ${totals.remainingForFree === 0
+                  ? `🎉 FREE Delivery unlocked! You save ₹${totals.wholesaleSavings}`
+                  : `Add ₹${totals.remainingForFree} more for FREE Delivery & save ₹${state.storeConfig.smallCartFee}`}
+              </span>
+              <span>${progressPct}%</span>
+            </div>
+            <div class="w-full h-1.5 bg-white/80 rounded-full mt-1.5 overflow-hidden">
+              <div class="h-full ${totals.remainingForFree === 0 ? 'bg-emeraldBrand' : 'bg-wheat'} rounded-full transition-all duration-300" style="width:${progressPct}%"></div>
+            </div>
+          </div>
+
+          <div class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-4">
+            ${!geo.deliverable ? `
+              <div class="p-3 rounded-2xl bg-red-50 border border-red-200 text-xs text-red-800 font-semibold">
+                ⚠️ Delivery paused for ${geo.shortLoc} (${geo.distanceKm} km). Weaverly delivers within 1.5 km of Yamuna Vihar Hub.
+              </div>
+            ` : ''}
+
+            <div class="bg-white rounded-2xl border border-borderSubtle divide-y divide-borderSubtle overflow-hidden">
+              ${totals.lines.map((line) => `
+                <div class="p-3 flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-borderSubtle">
+                    ${SVG_ART[line.item.art] ? SVG_ART[line.item.art]() : ''}
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="text-xs font-extrabold text-slate-900 truncate">${line.item.name}</div>
+                    <div class="text-[11px] text-slate-500 font-medium">${line.variant.label}</div>
+                    <div class="mt-0.5 flex items-baseline gap-1.5">
+                      <span class="text-xs font-extrabold text-forest">₹${line.variant.price * line.qty}</span>
+                      <span class="text-[10px] text-slate-400 line-through">₹${line.variant.mrp * line.qty}</span>
+                    </div>
+                  </div>
+                  <div class="shrink-0">${renderStepperHTML(line.item.id, line.variantIdx, true)}</div>
+                </div>
+              `).join('')}
+            </div>
+
+            ${totals.remainingForFree > 0 && quickAddons.length > 0 ? `
+              <div>
+                <div class="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider mb-2">Quick Add to Unlock Free Delivery</div>
+                <div class="flex gap-2.5 overflow-x-auto no-scrollbar pb-1">
+                  ${quickAddons.map((p) => {
+                    const pv = p.variants[0];
+                    return `
+                      <div class="shrink-0 w-[138px] bg-white rounded-2xl border border-borderSubtle p-2.5 flex flex-col justify-between">
+                        <div class="flex items-center gap-2">
+                          <div class="w-9 h-9 rounded-lg overflow-hidden shrink-0">${SVG_ART[p.art]()}</div>
+                          <div class="min-w-0">
+                            <div class="text-[11px] font-bold text-slate-900 truncate">${p.name}</div>
+                            <div class="text-[10px] text-slate-500">${pv.label}</div>
+                          </div>
+                        </div>
+                        <div class="mt-2 flex items-center justify-between">
+                          <span class="text-xs font-extrabold text-forest">₹${pv.price}</span>
+                          <button onclick="addToCart('${p.id}', 0, event)" class="pressable px-2.5 py-1 rounded-lg border border-emeraldBrand text-emeraldBrand text-[10.5px] font-extrabold">+ ADD</button>
+                        </div>
+                      </div>`;
+                  }).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <div class="bg-white rounded-2xl border border-borderSubtle p-4 space-y-2 text-xs">
+              <div class="font-extrabold text-forest text-xs uppercase tracking-wider mb-1">Bill Summary</div>
+              <div class="flex justify-between text-slate-600"><span>Item Total (MRP)</span><span>₹${totals.mrpTotal}</span></div>
+              <div class="flex justify-between text-emeraldBrand font-bold"><span>Wholesale Discount</span><span>− ₹${totals.wholesaleSavings}</span></div>
+              <div class="flex justify-between text-slate-600">
+                <span>Delivery / Small-Cart Fee</span>
+                <span class="${totals.smallCartFee === 0 ? 'text-emeraldBrand font-extrabold' : 'font-semibold'}">${totals.smallCartFee === 0 ? 'FREE' : `₹${totals.smallCartFee}`}</span>
+              </div>
+              <div class="pt-2.5 mt-1 border-t border-dashed border-borderSubtle flex justify-between items-center text-sm font-extrabold text-slate-900">
+                <span>To Pay (COD / UPI at Door)</span>
+                <span class="text-base text-forest">₹${totals.grandTotal}</span>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-borderSubtle p-3.5">
+              <label class="block text-[10.5px] font-extrabold text-slate-500 uppercase tracking-wider mb-1.5">Delivery Instruction (Optional)</label>
+              <input type="text" value="${(state.deliveryNote || '').replace(/"/g, '&quot;')}"
+                oninput="state.deliveryNote = this.value"
+                placeholder="e.g., Call before arriving, leave with guard..."
+                class="w-full px-3 py-2 rounded-xl bg-ivory border border-borderSubtle text-xs font-medium outline-none focus:border-forest" />
+            </div>
+          </div>
+
+          <div class="p-4 bg-white border-t border-borderSubtle space-y-2 shrink-0">
+            <button onclick="placeCODOrder()" ${!geo.deliverable ? 'disabled' : ''}
+              class="pressable w-full py-3.5 rounded-2xl font-extrabold text-sm flex items-center justify-center gap-2 shadow-md transition ${geo.deliverable ? 'bg-forest text-white hover:bg-forest-dark' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}">
+              <span>Place Verified COD Order • ₹${totals.grandTotal}</span>
+              <span>→</span>
+            </button>
+            <button onclick="checkoutViaWhatsApp()" ${!geo.deliverable ? 'disabled' : ''}
+              class="pressable w-full py-2.5 rounded-2xl text-xs font-extrabold flex items-center justify-center gap-2 border transition ${geo.deliverable ? 'bg-emerald-50 border-emerald-200 text-emerald-800 hover:bg-emerald-100' : 'bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed'}">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.03 2C6.5 2 2 6.48 2 12c0 1.96.57 3.79 1.55 5.34L2 22l4.82-1.51A9.96 9.96 0 0012.03 22C17.55 22 22 17.52 22 12S17.55 2 12.03 2z"/></svg>
+              Order via WhatsApp (Sealed Bill)
+            </button>
+          </div>
+        `}
+      `;
+    }
+
+    function buildAuthoritativeOrder(paymentMode = 'Cash on Delivery (COD)') {
+      const geo = getGeo();
+      const slotInfo = getSlotCutoffInfo();
+      const authoritativeItems = [];
+      let subtotal = 0;
+      let mrpTotal = 0;
+      const maxQty = Number(state.storeConfig.maxQtyPerSku) || 20;
+
+      for (const key of Object.keys(state.cart)) {
+        const entry = state.cart[key];
+        const catalogItem = findItemById(entry.itemId);
+        if (!catalogItem || !catalogItem.inStock || entry.qty <= 0) continue;
+        const vIdx = Math.min(Math.max(0, Number(entry.variantIdx) || 0), catalogItem.variants.length - 1);
+        const variant = catalogItem.variants[vIdx];
+        const qty = Math.max(1, Math.min(maxQty, Math.floor(Number(entry.qty))));
+        subtotal += variant.price * qty;
+        mrpTotal += variant.mrp * qty;
+        authoritativeItems.push({
+          itemId: catalogItem.id,
+          variantIdx: vIdx,
+          name: catalogItem.name,
+          variant: variant.label,
+          qty,
+          price: variant.price,
+          mrp: variant.mrp,
+        });
+      }
+
+      if (authoritativeItems.length === 0) return null;
+
+      const threshold = Number(state.storeConfig.freeDeliveryThreshold) || 499;
+      const feeAmt = Number(state.storeConfig.smallCartFee) || 10;
+      const deliveryFee = subtotal < threshold ? feeAmt : 0;
+      const grandTotal = subtotal + deliveryFee;
+      const savings = Math.max(0, mrpTotal - subtotal);
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' });
+      const orderId = `WV-${String(now.getFullYear()).slice(-2)}${String(now.getMonth() + 1).padStart(2, '0')}-${Math.floor(100 + Math.random() * 899)}`;
+
+      return sealOrderRecord({
+        id: orderId,
+        placedAt: `Today, ${timeStr}`,
+        isoTime: now.toISOString(),
+        slot: slotInfo.slotLabel,
+        paymentMode,
+        customerName: state.customer.name,
+        customerPhone: state.customer.phone,
+        address: geo.fullAddress,
+        deliveryNote: (state.deliveryNote || '').trim(),
+        items: authoritativeItems,
+        subtotal,
+        mrpTotal,
+        savings,
+        deliveryFee,
+        grandTotal,
+      });
+    }
+
+    // Dispatches unmanipulated order payload to Google Apps Script backend if configured
+    async function dispatchOrderToCloud(sealedOrder) {
+      const url = (state.storeConfig.cloudWebhookUrl || '').trim();
+      if (!url) return;
+      try {
+        await fetch(url, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(sealedOrder),
+        });
+      } catch (e) {
+        // Order remains sealed locally even if offline
+      }
+    }
+
+    function placeCODOrder() {
+      const geo = getGeo();
+      if (!geo.deliverable) {
+        showToast('Delivery is outside the 1.5 km Yamuna Vihar zone.', 'red');
+        return;
+      }
+
+      const sealedOrder = buildAuthoritativeOrder('Cash on Delivery (COD)');
+      if (!sealedOrder) return;
+
+      state.orderLedger = [sealedOrder, ...(state.orderLedger || [])];
+      state.cart = {};
+      state.deliveryNote = '';
+      saveStoreState();
+      dispatchOrderToCloud(sealedOrder);
+      closeCart();
+      showOrderSuccessOverlay(sealedOrder);
+    }
+
+    function showOrderSuccessOverlay(order) {
+      const modal = document.getElementById('order-success-modal');
+      modal.innerHTML = `
+        <div class="w-20 h-20 rounded-full bg-emeraldBrand text-white flex items-center justify-center text-4xl shadow-2xl mb-4 pop-in">✓</div>
+        <div class="text-xs font-extrabold tracking-widest uppercase text-emerald-300">Order Confirmed & Sealed</div>
+        <h2 class="text-2xl font-extrabold mt-1">Thank You, ${order.customerName.split(' ')[0]}!</h2>
+        <p class="text-xs text-white/80 mt-2 max-w-[290px] leading-relaxed">
+          Order <span class="font-bold text-white">#${order.id}</span> for <span class="font-bold text-white">₹${order.grandTotal} (COD)</span> is locked for <span class="font-bold text-wheat-soft">${order.slot}</span>.
+        </p>
+        <div class="mt-4 px-4 py-2.5 rounded-2xl bg-white/10 border border-white/15 text-xs font-bold text-emerald-200 space-y-1">
+          <div>🔒 Integrity Seal: <span class="text-white tracking-wider">${order.sealCode}</span></div>
+          <div class="text-[11px] text-white/80">Saved ₹${order.savings} at wholesale mandi rates</div>
+        </div>
+        <button onclick="dismissOrderSuccess()"
+          class="pressable mt-7 w-full max-w-[260px] py-3.5 rounded-2xl bg-white text-forest font-extrabold text-sm shadow-xl">
+          View Verified Receipt →
+        </button>
+      `;
+      modal.classList.remove('hidden');
+    }
+
+    function dismissOrderSuccess() {
+      document.getElementById('order-success-modal').classList.add('hidden');
+      switchTab('orders');
+    }
+
+    function checkoutViaWhatsApp() {
+      const geo = getGeo();
+      if (!geo.deliverable) {
+        showToast('Delivery is outside the 1.5 km Yamuna Vihar zone.', 'red');
+        return;
+      }
+
+      const sealedOrder = buildAuthoritativeOrder('WhatsApp COD');
+      if (!sealedOrder) return;
+
+      state.orderLedger = [sealedOrder, ...(state.orderLedger || [])];
+      state.cart = {};
+      state.deliveryNote = '';
+      saveStoreState();
+      dispatchOrderToCloud(sealedOrder);
+      closeCart();
+      syncAllUI();
+
+      const linesText = sealedOrder.items
+        .map((l) => `• ${l.qty}x ${l.name} (${l.variant}) = ₹${l.price * l.qty}`)
+        .join('\n');
+
+      const msg = `*Weaverly Wholesale — Verified Order*\nOrder ID: #${sealedOrder.id}\nIntegrity Seal: *${sealedOrder.sealCode}*\nSlot: ${sealedOrder.slot}\nCustomer: ${sealedOrder.customerName} (${sealedOrder.customerPhone})\nAddress: ${sealedOrder.address}${sealedOrder.deliveryNote ? `\nNote: ${sealedOrder.deliveryNote}` : ''}\n\n${linesText}\n\n*Total Payable: ₹${sealedOrder.grandTotal}* (${sealedOrder.deliveryFee === 0 ? 'Free Delivery' : 'Incl. ₹' + sealedOrder.deliveryFee + ' small-cart fee'})`;
+
+      const waNum = (state.storeConfig.whatsappNumber || '919811245670').replace(/\D/g, '');
+      const waUrl = `https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, '_blank', 'noopener');
+      showToast(`Order #${sealedOrder.id} sealed (${sealedOrder.sealCode}) & opened in WhatsApp!`, 'emerald');
+    }
+
+    // -------------------------------------------------------------------------
+    // 15. RESTORED & ENHANCED: WHATSAPP SUPPORT + ADMIN PIN MODAL + CONSOLE
+    // -------------------------------------------------------------------------
+    function openWhatsAppSupport(topic = 'GENERAL') {
+      const waNum = (state.storeConfig.whatsappNumber || '919811245670').replace(/\D/g, '');
+      const msg = `Hi Weaverly Wholesale Team! I need help regarding ${topic === 'GENERAL' ? 'an order / bulk wholesale rates in Yamuna Vihar' : topic}.`;
+      window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+    }
+
+    function openPinModal() {
+      state.pinEntered = '';
+      state.pinError = false;
+      document.getElementById('pin-modal').classList.remove('hidden');
+      renderPinModal();
+    }
+
+    function closePinModal() {
+      document.getElementById('pin-modal').classList.add('hidden');
+      state.pinEntered = '';
+      state.pinError = false;
+    }
+
+    function pressPinDigit(digit) {
+      if (state.pinEntered.length >= 4) return;
+      state.pinEntered += String(digit);
+      state.pinError = false;
+      renderPinModal();
+
+      if (state.pinEntered.length === 4) {
+        const expectedPin = String(state.storeConfig.adminPin || '1234');
+        if (state.pinEntered === expectedPin) {
+          setTimeout(() => {
+            closePinModal();
+            openAdminConsole();
+          }, 120);
+        } else {
+          state.pinError = true;
+          renderPinModal();
+          setTimeout(() => {
+            state.pinEntered = '';
+            state.pinError = false;
+            renderPinModal();
+          }, 550);
+        }
+      }
+    }
+
+    function backspacePin() {
+      if (state.pinEntered.length === 0) return;
+      state.pinEntered = state.pinEntered.slice(0, -1);
+      state.pinError = false;
+      renderPinModal();
+    }
+
+    function renderPinModal() {
+      const card = document.getElementById('pin-card');
+      if (!card) return;
+      const dots = [0, 1, 2, 3].map((i) => {
+        const filled = i < state.pinEntered.length;
+        return `<span class="w-3.5 h-3.5 rounded-full transition-all ${state.pinError ? 'bg-red-500 scale-110' : filled ? 'bg-forest scale-110' : 'bg-slate-200'}"></span>`;
+      }).join('');
+
+      card.innerHTML = `
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h3 class="text-sm font-extrabold text-forest">Owner & Admin PIN</h3>
+            <p class="text-[11px] text-slate-500">Default PIN: 1234</p>
+          </div>
+          <button onclick="closePinModal()" class="w-8 h-8 rounded-full bg-ivory text-slate-600 text-xs font-bold">✕</button>
+        </div>
+
+        <div class="flex items-center justify-center gap-4 py-4 ${state.pinError ? 'shake-anim' : ''}">
+          ${dots}
+        </div>
+        ${state.pinError ? `<p class="text-center text-[11px] font-bold text-red-600 -mt-2 mb-2">Incorrect PIN. Try again.</p>` : ''}
+
+        <div class="grid grid-cols-3 gap-2 mt-2">
+          ${[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => `
+            <button onclick="pressPinDigit(${n})" class="pressable py-3 rounded-2xl bg-ivory border border-borderSubtle text-base font-extrabold text-forest hover:bg-forest-soft">${n}</button>
+          `).join('')}
+          <button onclick="closePinModal()" class="pressable py-3 rounded-2xl bg-slate-100 text-xs font-bold text-slate-500">Cancel</button>
+          <button onclick="pressPinDigit(0)" class="pressable py-3 rounded-2xl bg-ivory border border-borderSubtle text-base font-extrabold text-forest hover:bg-forest-soft">0</button>
+          <button onclick="backspacePin()" class="pressable py-3 rounded-2xl bg-slate-100 text-sm font-extrabold text-slate-700">⌫</button>
+        </div>
+      `;
+    }
+
+    function openAdminConsole() {
+      document.getElementById('admin-console').classList.remove('hidden');
+      renderAdminConsole();
+    }
+
+    function closeAdminConsole() {
+      document.getElementById('admin-console').classList.add('hidden');
+      state.adminEditingProductId = null;
+      syncAllUI();
+    }
+
+    function setAdminTab(tab) {
+      state.adminTab = tab;
+      renderAdminConsole();
+    }
+
+    // -------------------------------------------------------------------------
+    // 15B. ADMIN ACTIONS (Cloud Sync, Batch Picker, Inline Price Editor, Catalog)
+    // -------------------------------------------------------------------------
+    function adminSetGeofence(zoneKey) {
+      state.geofence = zoneKey;
+      state.liveGPS = null;
+      saveStoreState();
+      renderAdminConsole();
+      syncAllUI();
+      showToast(`GPS simulated: ${GEOFENCE_PRESETS[zoneKey].label}`, zoneKey === 'outside' ? 'red' : 'emerald');
+    }
+
+    function adminToggleStock(productId) {
+      const p = state.products.find((i) => i.id === productId);
+      if (!p) return;
+      p.inStock = !p.inStock;
+      saveStoreState();
+      renderAdminConsole();
+      syncAllUI();
+      showToast(`${p.name} marked ${p.inStock ? 'IN STOCK' : 'OUT OF STOCK'}`, p.inStock ? 'emerald' : 'amber');
+    }
+
+    function adminStartEditPrice(productId) {
+      state.adminEditingProductId = state.adminEditingProductId === productId ? null : productId;
+      renderAdminConsole();
+    }
+
+    function adminSaveEditedPrices(productId) {
+      const p = state.products.find((i) => i.id === productId);
+      if (!p) return;
+      let valid = true;
+      p.variants.forEach((v, idx) => {
+        const priceEl = document.getElementById(`edit-price-${productId}-${idx}`);
+        const mrpEl = document.getElementById(`edit-mrp-${productId}-${idx}`);
+        const newPrice = Number(priceEl ? priceEl.value : v.price);
+        const newMrp = Number(mrpEl ? mrpEl.value : v.mrp);
+        if (!newPrice || newPrice <= 0 || !newMrp || newMrp < newPrice) {
+          valid = false;
+        } else {
+          v.price = Math.round(newPrice);
+          v.mrp = Math.round(newMrp);
+        }
+      });
+      if (!valid) {
+        showToast('Ensure valid Price & MRP (MRP ≥ Price).', 'amber');
+        return;
+      }
+      state.adminEditingProductId = null;
+      saveStoreState();
+      renderAdminConsole();
+      syncAllUI();
+      showToast(`Updated wholesale rates for ${p.name}!`, 'emerald');
+    }
+
+    function adminDeleteProduct(productId) {
+      const idx = state.products.findIndex((p) => p.id === productId);
+      if (idx === -1) return;
+      const name = state.products[idx].name;
+      state.products.splice(idx, 1);
+      Object.keys(state.cart).forEach((k) => {
+        if (k.startsWith(productId + '__')) delete state.cart[k];
+      });
+      saveStoreState();
+      renderAdminConsole();
+      syncAllUI();
+      showToast(`Removed "${name}" from catalog.`, 'amber');
+    }
+
+    function adminUpdateDraft(field, value) {
+      state.newProductDraft[field] = value;
+      if (field === 'art') renderAdminConsole();
+    }
+
+    function adminAddNewProduct() {
+      const d = state.newProductDraft;
+      const name = (d.name || '').trim();
+      const v1Price = Number(d.v1Price);
+      const v1Mrp = Number(d.v1Mrp);
+      const v1Label = (d.v1Label || '1 kg').trim();
+
+      if (!name) { showToast('Enter a product name first.', 'amber'); return; }
+      if (!v1Price || v1Price <= 0 || !v1Mrp || v1Mrp < v1Price) {
+        showToast('Enter a valid wholesale price and MRP (MRP ≥ Price).', 'amber');
+        return;
+      }
+
+      const variants = [{ label: v1Label, price: Math.round(v1Price), mrp: Math.round(v1Mrp) }];
+      const v2Price = Number(d.v2Price);
+      const v2Mrp = Number(d.v2Mrp);
+      if (d.v2Label && v2Price > 0 && v2Mrp >= v2Price) {
+        variants.push({ label: d.v2Label.trim(), price: Math.round(v2Price), mrp: Math.round(v2Mrp) });
+      }
+
+      state.products.unshift({
+        id: `p_custom_${Date.now()}`,
+        name,
+        hindiName: (d.hindiName || '').trim(),
+        keywords: `${name.toLowerCase()} ${(d.hindiName || '').toLowerCase()}`,
+        category: d.category || 'Dal & Pulses',
+        art: d.art || 'dal_toor',
+        origin: (d.origin || 'Yamuna Vihar Direct Mill • Wholesale Pack').trim(),
+        badge: (d.badge || 'NEW ARRIVAL').trim().toUpperCase(),
+        inStock: true,
+        isCustom: true,
+        substitutes: ['p_toor_dal', 'p_rice_1121'],
+        variants,
+      });
+
+      state.newProductDraft = {
+        name: '', hindiName: '', category: d.category,
+        origin: 'Yamuna Vihar Mandi Direct • Wholesale Pack',
+        badge: 'NEW ARRIVAL', art: d.art,
+        v1Label: '1 kg', v1Price: '', v1Mrp: '', v2Label: '5 kg', v2Price: '', v2Mrp: '',
+      };
+
+      saveStoreState();
+      renderAdminConsole();
+      syncAllUI();
+      showToast(`"${name}" published live to storefront!`, 'emerald');
+    }
+
+    function adminSaveCloudConfig() {
+      const url = (document.getElementById('cfg-webhook-url')?.value || '').trim();
+      const key = (document.getElementById('cfg-api-key')?.value || '').trim();
+      state.storeConfig.cloudWebhookUrl = url;
+      state.storeConfig.cloudApiKey = key;
+      saveStoreState();
+      showToast('Cloud Order Sync settings saved!', 'emerald');
+      renderAdminConsole();
+    }
+
+    async function adminFetchCloudOrders() {
+      const url = (state.storeConfig.cloudWebhookUrl || '').trim();
+      const key = (state.storeConfig.cloudApiKey || '').trim();
+      if (!url) {
+        showToast('Paste your deployed Google Apps Script Web App URL first.', 'amber');
+        return;
+      }
+      state.cloudSyncBusy = true;
+      renderAdminConsole();
+      try {
+        const sep = url.includes('?') ? '&' : '?';
+        const res = await fetch(`${url}${sep}key=${encodeURIComponent(key)}`);
+        const data = await res.json();
+        if (data && data.ok && Array.isArray(data.orders)) {
+          state.cloudOrders = data.orders;
+          showToast(`Fetched ${data.orders.length} server-verified orders from Google Sheets!`, 'emerald');
+        } else {
+          showToast(data?.error || 'Could not authenticate with Apps Script.', 'red');
+        }
+      } catch (e) {
+        showToast('Fetch failed. Check Apps Script deployment ("Anyone" access).', 'red');
+      } finally {
+        state.cloudSyncBusy = false;
+        renderAdminConsole();
+      }
+    }
+
+    function adminSaveStoreSettings() {
+      const wa = (document.getElementById('set-wa')?.value || '').trim();
+      const freeTh = Number(document.getElementById('set-free-th')?.value || 499);
+      const fee = Number(document.getElementById('set-fee')?.value || 10);
+      const pin = (document.getElementById('set-pin')?.value || '').trim();
+
+      if (pin && !/^\d{4}$/.test(pin)) {
+        showToast('Admin PIN must be exactly 4 digits.', 'amber');
+        return;
+      }
+      if (wa) state.storeConfig.whatsappNumber = wa.replace(/\D/g, '');
+      if (freeTh >= 0) state.storeConfig.freeDeliveryThreshold = freeTh;
+      if (fee >= 0) state.storeConfig.smallCartFee = fee;
+      if (pin) state.storeConfig.adminPin = pin;
+      saveStoreState();
+      syncAllUI();
+      renderAdminConsole();
+      showToast('Store settings updated!', 'emerald');
+    }
+
+    function adminVerifySealCode() {
+      const code = (state.adminSealCheckInput || '').trim().toUpperCase();
+      if (!code) {
+        state.adminSealCheckResult = { ok: false, msg: 'Enter a Seal Code (e.g., WV-XXXXXXXX) or Order ID.' };
+        renderAdminConsole();
+        return;
+      }
+      const all = [...(state.cloudOrders || []), ...(state.orderLedger || [])];
+      const match = all.find(
+        (o) => (o.sealCode || '').toUpperCase() === code || (o.id || '').toUpperCase() === code
+      );
+      if (!match) {
+        state.adminSealCheckResult = { ok: false, msg: `No sealed record found for "${code}". Possible edited WhatsApp bill!` };
+      } else if (!verifyOrderIntegrity(match)) {
+        state.adminSealCheckResult = { ok: false, msg: `⚠ ALERT: Record #${match.id} failed integrity check! Data was altered.` };
+      } else {
+        state.adminSealCheckResult = {
+          ok: true,
+          msg: `✓ AUTHENTIC ORDER: #${match.id} • ${match.customerName} • Verified Total ₹${match.grandTotal} (${match.items.length} items).`,
+        };
+      }
+      renderAdminConsole();
+    }
+
+    function computeBatchPickingList(orders) {
+      const tally = {};
+      orders.forEach((o) => {
+        if (!verifyOrderIntegrity(o)) return;
+        (o.items || []).forEach((it) => {
+          const k = `${it.name} (${it.variant})`;
+          if (!tally[k]) tally[k] = { label: k, qty: 0, revenue: 0 };
+          tally[k].qty += Number(it.qty) || 0;
+          tally[k].revenue += (Number(it.price) || 0) * (Number(it.qty) || 0);
+        });
+      });
+      return Object.values(tally).sort((a, b) => b.qty - a.qty);
+    }
+
+    function adminExportOrdersCSV() {
+      const orders = (state.cloudOrders && state.cloudOrders.length > 0) ? state.cloudOrders : (state.orderLedger || []);
+      if (orders.length === 0) { showToast('No orders to export.', 'amber'); return; }
+
+      const headers = ['OrderID', 'SealCode', 'Integrity', 'DateTime', 'Customer', 'Phone', 'Address', 'Slot', 'Payment', 'Items', 'Subtotal', 'DeliveryFee', 'GrandTotal', 'Note'];
+      const rows = orders.map((o) => {
+        const itemsStr = (o.items || []).map((i) => `${i.qty}x ${i.name} (${i.variant}) @ Rs${i.price}`).join(' | ');
+        const cols = [
+          o.id, o.sealCode, verifyOrderIntegrity(o) ? 'VERIFIED' : 'TAMPERED',
+          o.isoTime, o.customerName, o.customerPhone, o.address, o.slot, o.paymentMode,
+          itemsStr, o.subtotal, o.deliveryFee, o.grandTotal, o.deliveryNote || '',
+        ];
+        return cols.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',');
+      });
+      const csv = [headers.join(','), ...rows].join('\n');
+
+      try {
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `weaverly-verified-orders-${new Date().toISOString().slice(0, 10)}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        showToast('Verified Order Ledger CSV downloaded!', 'emerald');
+      } catch (e) {
+        showToast('Export blocked by browser.', 'amber');
+      }
+    }
+
+    function adminSimulateTamperCheck(orderId) {
+      const idx = state.orderLedger.findIndex((o) => o.id === orderId);
+      if (idx === -1) return;
+      const clone = JSON.parse(JSON.stringify(state.orderLedger[idx]));
+      clone.grandTotal = Math.max(1, clone.grandTotal - 200);
+      state.orderLedger[idx] = clone;
+      renderAdminConsole();
+      syncAllUI();
+      showToast(`Tamper test triggered on #${orderId} — mismatch flagged!`, 'red');
+    }
+
+    function adminClearCart() {
+      state.cart = {};
+      saveStoreState();
+      renderAdminConsole();
+      syncAllUI();
+      showToast('Customer cart cleared.', 'amber');
+    }
+
+    function adminResetDemoData() {
+      const currentAdminTab = state.adminTab;
+      localStorage.removeItem(STORAGE_KEY);
+      state = createInitialState();
+      state.adminTab = currentAdminTab;
+      saveStoreState();
+      renderAdminConsole();
+      syncAllUI();
+      showToast('All demo data reset to verified defaults!', 'emerald');
+    }
+
+    function renderAdminConsole() {
+      const el = document.getElementById('admin-console');
+      if (!el) return;
+
+      const tabs = [
+        { id: 'ledger', label: 'Orders & Picking' },
+        { id: 'add_product', label: '+ Add Product' },
+        { id: 'stock', label: 'Prices & Stock' },
+        { id: 'cloud', label: 'Cloud Sync' },
+        { id: 'settings', label: 'Settings & GPS' },
+      ];
+
+      let contentHtml = '';
+
+      if (state.adminTab === 'add_product') {
+        const d = state.newProductDraft;
+        const artKeys = ['dal_toor', 'dal_moong', 'dal_chana', 'rice_1121', 'rice_mogra', 'oil_mustard', 'atta', 'sugar', 'soya', 'haldi', 'mirch', 'jeera'];
+        const categories = ['Dal & Pulses', 'Basmati Rice', 'Oils & Ghee', 'Atta & Sugar', 'Spices & Soya'];
+
+        contentHtml = `
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 space-y-3">
+            <div>
+              <div class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Add New Wholesale Product</div>
+              <p class="text-[11px] text-slate-500 mt-0.5">Published immediately to Home, Categories & Live Search.</p>
+            </div>
+            <div class="space-y-2.5 text-xs">
+              <div>
+                <label class="block text-[10.5px] font-bold text-slate-600 mb-1">Product Name *</label>
+                <input type="text" value="${(d.name || '').replace(/"/g, '&quot;')}" oninput="adminUpdateDraft('name', this.value)"
+                  placeholder="e.g., Rajma Chitra Premium or Desi Cow Ghee"
+                  class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 font-semibold outline-none focus:border-forest" />
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-[10.5px] font-bold text-slate-600 mb-1">Hindi Name (Optional)</label>
+                  <input type="text" value="${(d.hindiName || '').replace(/"/g, '&quot;')}" oninput="adminUpdateDraft('hindiName', this.value)"
+                    placeholder="e.g., राजमा चित्रा"
+                    class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 font-medium outline-none focus:border-forest" />
+                </div>
+                <div>
+                  <label class="block text-[10.5px] font-bold text-slate-600 mb-1">Category *</label>
+                  <select onchange="adminUpdateDraft('category', this.value)"
+                    class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 font-bold outline-none focus:border-forest">
+                    ${categories.map((c) => `<option value="${c}" ${d.category === c ? 'selected' : ''}>${c}</option>`).join('')}
+                  </select>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-[10.5px] font-bold text-slate-600 mb-1">Origin / Quality Note</label>
+                  <input type="text" value="${(d.origin || '').replace(/"/g, '&quot;')}" oninput="adminUpdateDraft('origin', this.value)"
+                    class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 font-medium outline-none focus:border-forest" />
+                </div>
+                <div>
+                  <label class="block text-[10.5px] font-bold text-slate-600 mb-1">Badge Tag</label>
+                  <input type="text" value="${(d.badge || '').replace(/"/g, '&quot;')}" oninput="adminUpdateDraft('badge', this.value)"
+                    class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 font-bold uppercase outline-none focus:border-forest" />
+                </div>
+              </div>
+              <div class="p-3 rounded-xl bg-forest-soft/50 border border-forest/15 space-y-2">
+                <div class="text-[10.5px] font-extrabold text-forest uppercase">Primary Pack Size *</div>
+                <div class="grid grid-cols-3 gap-2">
+                  <div><label class="block text-[10px] font-bold text-slate-500 mb-0.5">Weight</label><input type="text" value="${(d.v1Label || '').replace(/"/g, '&quot;')}" oninput="adminUpdateDraft('v1Label', this.value)" placeholder="1 kg" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 font-bold outline-none" /></div>
+                  <div><label class="block text-[10px] font-bold text-slate-500 mb-0.5">Price (₹) *</label><input type="number" value="${d.v1Price}" oninput="adminUpdateDraft('v1Price', this.value)" placeholder="120" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 font-bold outline-none" /></div>
+                  <div><label class="block text-[10px] font-bold text-slate-500 mb-0.5">MRP (₹) *</label><input type="number" value="${d.v1Mrp}" oninput="adminUpdateDraft('v1Mrp', this.value)" placeholder="160" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 font-bold outline-none" /></div>
+                </div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                <div class="text-[10.5px] font-extrabold text-slate-600 uppercase">Bulk Pack Size (Optional)</div>
+                <div class="grid grid-cols-3 gap-2">
+                  <div><label class="block text-[10px] font-bold text-slate-500 mb-0.5">Weight</label><input type="text" value="${(d.v2Label || '').replace(/"/g, '&quot;')}" oninput="adminUpdateDraft('v2Label', this.value)" placeholder="5 kg" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 font-bold outline-none" /></div>
+                  <div><label class="block text-[10px] font-bold text-slate-500 mb-0.5">Price (₹)</label><input type="number" value="${d.v2Price}" oninput="adminUpdateDraft('v2Price', this.value)" placeholder="580" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 font-bold outline-none" /></div>
+                  <div><label class="block text-[10px] font-bold text-slate-500 mb-0.5">MRP (₹)</label><input type="number" value="${d.v2Mrp}" oninput="adminUpdateDraft('v2Mrp', this.value)" placeholder="760" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 font-bold outline-none" /></div>
+                </div>
+              </div>
+              <div>
+                <label class="block text-[10.5px] font-bold text-slate-600 mb-1.5">Select Pack Artwork</label>
+                <div class="grid grid-cols-6 gap-1.5">
+                  ${artKeys.map((k) => `
+                    <button type="button" onclick="adminUpdateDraft('art', '${k}')"
+                      class="p-1 rounded-xl border-2 transition ${d.art === k ? 'border-emeraldBrand bg-emerald-50 scale-105' : 'border-slate-200 bg-white'}">
+                      <div class="aspect-square rounded-lg overflow-hidden">${SVG_ART[k]()}</div>
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+              <button onclick="adminAddNewProduct()" class="pressable w-full py-3 rounded-xl bg-forest text-white text-xs font-extrabold shadow-md">
+                + Publish Product to Storefront
+              </button>
+            </div>
+          </div>`;
+      } else if (state.adminTab === 'ledger') {
+        const displayOrders = (state.cloudOrders && state.cloudOrders.length > 0) ? state.cloudOrders : (state.orderLedger || []);
+        const showingCloud = state.cloudOrders && state.cloudOrders.length > 0;
+        const totalRevenue = displayOrders.reduce((s, o) => s + (verifyOrderIntegrity(o) ? o.grandTotal : 0), 0);
+        const batchList = computeBatchPickingList(displayOrders);
+
+        contentHtml = `
+          <div class="space-y-3">
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <div>
+                  <div class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
+                    ${showingCloud ? '☁️ Live Cloud Order Ledger' : '🔒 Local Device Order Ledger'}
+                  </div>
+                  <p class="text-[11px] text-slate-500">
+                    ${showingCloud ? 'Server-verified from Google Sheets across all customers.' : 'Connect Cloud Sync tab to pull orders from every phone.'}
+                  </p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <div class="p-2.5 rounded-xl bg-forest-soft border border-forest/10">
+                  <div class="text-[10px] font-bold text-forest uppercase">Verified Orders</div>
+                  <div class="text-lg font-extrabold text-forest">${displayOrders.length}</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
+                  <div class="text-[10px] font-bold text-emerald-800 uppercase">Verified Revenue</div>
+                  <div class="text-lg font-extrabold text-emerald-800">₹${totalRevenue}</div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <button onclick="adminExportOrdersCSV()" class="pressable py-2.5 rounded-xl bg-slate-900 text-white text-xs font-extrabold">
+                  ⬇ Export CSV
+                </button>
+                <button onclick="setAdminTab('cloud')" class="pressable py-2.5 rounded-xl bg-forest-soft text-forest border border-forest/20 text-xs font-extrabold">
+                  ☁️ Sync Cloud Orders
+                </button>
+              </div>
+            </div>
+
+            <!-- DARK-STORE BATCH PICKING SUMMARY -->
+            ${batchList.length > 0 ? `
+              <div class="bg-white rounded-2xl border border-slate-200 p-4 space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">📦 Dark-Store Batch Picking List</div>
+                  <span class="text-[10px] font-bold text-emeraldBrand bg-emerald-50 px-2 py-0.5 rounded-md">${batchList.length} SKUs</span>
+                </div>
+                <div class="divide-y divide-slate-100 text-[11.5px]">
+                  ${batchList.map((b) => `
+                    <div class="py-1.5 flex items-center justify-between">
+                      <span class="font-semibold text-slate-700">${b.label}</span>
+                      <span class="font-extrabold text-forest bg-forest-soft px-2 py-0.5 rounded-md">${b.qty} packs</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- WHATSAPP SEAL VERIFIER -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 space-y-2">
+              <div class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Verify Customer Order / WhatsApp Seal</div>
+              <div class="flex gap-2">
+                <input type="text" value="${(state.adminSealCheckInput || '').replace(/"/g, '&quot;')}"
+                  oninput="state.adminSealCheckInput = this.value"
+                  placeholder="WV-XXXXXXXX or Order ID"
+                  class="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold uppercase outline-none focus:border-forest" />
+                <button onclick="adminVerifySealCode()" class="pressable px-3.5 py-2 rounded-xl bg-forest text-white text-xs font-extrabold">Verify</button>
+              </div>
+              ${state.adminSealCheckResult ? `
+                <div class="p-2.5 rounded-xl text-[11px] font-bold ${state.adminSealCheckResult.ok ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'}">
+                  ${state.adminSealCheckResult.msg}
+                </div>
+              ` : ''}
+            </div>
+
+            <!-- ORDER CARDS -->
+            <div class="space-y-2.5">
+              ${displayOrders.map((o) => {
+                const intact = verifyOrderIntegrity(o);
+                return `
+                  <div class="bg-white rounded-2xl border ${intact ? 'border-slate-200' : 'border-red-400 bg-red-50/40'} p-3.5 space-y-2">
+                    <div class="flex items-start justify-between gap-2">
+                      <div>
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                          <span class="text-xs font-extrabold text-slate-900">#${o.id}</span>
+                          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md ${intact ? 'bg-emerald-100 text-emerald-800' : 'bg-red-600 text-white'}">
+                            ${intact ? '✓ UNMODIFIED' : (o.tamperStatus || '⚠ TAMPERED')}
+                          </span>
+                        </div>
+                        <div class="text-[10.5px] text-slate-500 mt-0.5">Seal: <span class="font-mono font-bold text-slate-700">${o.sealCode}</span> • ${o.placedAt}</div>
+                      </div>
+                      <div class="text-right">
+                        <div class="text-sm font-extrabold text-forest">₹${o.grandTotal}</div>
+                        <div class="text-[10px] font-semibold text-slate-500">${o.paymentMode}</div>
+                      </div>
+                    </div>
+
+                    <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] space-y-0.5">
+                      <div class="font-extrabold text-slate-800">${o.customerName} • ${o.customerPhone}</div>
+                      <div class="text-slate-600">${o.address}</div>
+                      ${o.deliveryNote ? `<div class="text-forest font-semibold">Note: ${o.deliveryNote}</div>` : ''}
+                    </div>
+
+                    <div class="space-y-1 text-[11px] pt-1">
+                      ${(o.items || []).map((it) => `
+                        <div class="flex justify-between">
+                          <span class="text-slate-700 font-semibold">${it.qty}× ${it.name} (${it.variant})</span>
+                          <span class="font-extrabold text-slate-900">₹${it.price * it.qty}</span>
+                        </div>
+                      `).join('')}
+                    </div>
+
+                    <div class="pt-2 border-t border-slate-100 flex items-center justify-between gap-2">
+                      <button onclick="copyOrderReceipt('${o.id}')" class="pressable px-2.5 py-1.5 rounded-lg bg-forest-soft text-forest text-[10.5px] font-extrabold">Copy Full Data</button>
+                      ${!o.fromCloud && intact ? `
+                        <button onclick="adminSimulateTamperCheck('${o.id}')" class="pressable px-2.5 py-1.5 rounded-lg bg-red-50 text-red-700 border border-red-200 text-[10.5px] font-bold">Test Tamper Alert</button>
+                      ` : ''}
+                    </div>
+                  </div>`;
+              }).join('')}
+            </div>
+          </div>`;
+      } else if (state.adminTab === 'stock') {
+        contentHtml = `
+          <div class="bg-white rounded-2xl border border-slate-200 p-4">
+            <div class="text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-1">Live Price & Stock Manager</div>
+            <p class="text-[11px] text-slate-500 mb-3">Edit daily mandi rates inline or toggle Out-of-Stock instantly.</p>
+            <div class="divide-y divide-slate-100">
+              ${state.products.map((p) => {
+                const isEditing = state.adminEditingProductId === p.id;
+                return `
+                  <div class="py-2.5 space-y-2">
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="min-w-0">
+                        <div class="text-xs font-bold text-slate-900 truncate">
+                          ${p.name}
+                          ${p.isCustom ? `<span class="ml-1 text-[9px] font-extrabold bg-forest-soft text-forest px-1.5 py-0.5 rounded">CUSTOM</span>` : ''}
+                        </div>
+                        <div class="text-[10.5px] text-slate-500">${p.variants.map((v) => `${v.label} ₹${v.price}`).join(' • ')}</div>
+                      </div>
+                      <div class="flex items-center gap-1.5 shrink-0">
+                        <button onclick="adminStartEditPrice('${p.id}')"
+                          class="pressable px-2.5 py-1.5 rounded-xl text-[10px] font-extrabold border bg-slate-50 border-slate-200 text-slate-700">
+                          ${isEditing ? 'Close' : 'Edit ₹'}
+                        </button>
+                        <button onclick="adminToggleStock('${p.id}')"
+                          class="pressable px-2.5 py-1.5 rounded-xl text-[10px] font-extrabold border ${p.inStock ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-red-50 border-red-200 text-red-700'}">
+                          ${p.inStock ? 'IN' : 'OOS'}
+                        </button>
+                        ${p.isCustom ? `
+                          <button onclick="adminDeleteProduct('${p.id}')" class="pressable w-7 h-7 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs font-bold">✕</button>
+                        ` : ''}
+                      </div>
+                    </div>
+                    ${isEditing ? `
+                      <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-[11px]">
+                        ${p.variants.map((v, idx) => `
+                          <div class="grid grid-cols-3 gap-2 items-center">
+                            <span class="font-bold text-forest">${v.label}</span>
+                            <input id="edit-price-${p.id}-${idx}" type="number" value="${v.price}" class="px-2 py-1 rounded-lg bg-white border border-slate-300 font-bold" placeholder="Price" />
+                            <input id="edit-mrp-${p.id}-${idx}" type="number" value="${v.mrp}" class="px-2 py-1 rounded-lg bg-white border border-slate-300 font-medium text-slate-600" placeholder="MRP" />
+                          </div>
+                        `).join('')}
+                        <button onclick="adminSaveEditedPrices('${p.id}')" class="pressable w-full py-2 rounded-lg bg-forest text-white font-extrabold text-[11px]">
+                          Save Updated Rates
+                        </button>
+                      </div>
+                    ` : ''}
+                  </div>`;
+              }).join('')}
+            </div>
+          </div>`;
+      } else if (state.adminTab === 'cloud') {
+        contentHtml = `
+          <div class="space-y-3">
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 space-y-3">
+              <div>
+                <div class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">☁️ Unmanipulated Server Orders (Google Sheets)</div>
+                <p class="text-[11px] text-slate-500 mt-0.5 leading-relaxed">
+                  Deploy the included <b>Code.gs</b> file in Google Apps Script as a Web App ("Anyone" access), then paste the URL below. Every customer order is server-verified against master prices automatically!
+                </p>
+              </div>
+              <div class="space-y-2.5 text-xs">
+                <div>
+                  <label class="block text-[10.5px] font-bold text-slate-600 mb-1">Apps Script Web App URL</label>
+                  <input id="cfg-webhook-url" type="url" value="${(state.storeConfig.cloudWebhookUrl || '').replace(/"/g, '&quot;')}"
+                    placeholder="https://script.google.com/macros/s/AKfycb.../exec"
+                    class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 font-medium outline-none focus:border-forest" />
+                </div>
+                <div>
+                  <label class="block text-[10.5px] font-bold text-slate-600 mb-1">Owner API Key (Matches OWNER_API_KEY in Code.gs)</label>
+                  <input id="cfg-api-key" type="text" value="${(state.storeConfig.cloudApiKey || '').replace(/"/g, '&quot;')}"
+                    class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 font-bold outline-none focus:border-forest" />
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="adminSaveCloudConfig()" class="pressable py-2.5 rounded-xl bg-slate-900 text-white font-extrabold">Save URL</button>
+                  <button onclick="adminFetchCloudOrders()" ${state.cloudSyncBusy ? 'disabled' : ''} class="pressable py-2.5 rounded-xl bg-emeraldBrand text-white font-extrabold">
+                    ${state.cloudSyncBusy ? 'Syncing...' : 'Fetch Live Orders'}
+                  </button>
+                </div>
+              </div>
+              ${state.cloudOrders && state.cloudOrders.length > 0 ? `
+                <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-800 flex items-center justify-between">
+                  <span>✓ ${state.cloudOrders.length} server-verified orders synced</span>
+                  <button onclick="setAdminTab('ledger')" class="underline">View →</button>
+                </div>
+              ` : ''}
+            </div>
+          </div>`;
+      } else if (state.adminTab === 'settings') {
+        contentHtml = `
+          <div class="space-y-3">
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 space-y-2.5 text-xs">
+              <div class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Store Configuration</div>
+              <div>
+                <label class="block text-[10.5px] font-bold text-slate-600 mb-1">Store WhatsApp Number (with 91)</label>
+                <input id="set-wa" type="tel" value="${state.storeConfig.whatsappNumber}" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 font-bold" />
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-[10.5px] font-bold text-slate-600 mb-1">Free Delivery Min (₹)</label>
+                  <input id="set-free-th" type="number" value="${state.storeConfig.freeDeliveryThreshold}" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 font-bold" />
+                </div>
+                <div>
+                  <label class="block text-[10.5px] font-bold text-slate-600 mb-1">Small-Cart Fee (₹)</label>
+                  <input id="set-fee" type="number" value="${state.storeConfig.smallCartFee}" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 font-bold" />
+                </div>
+              </div>
+              <div>
+                <label class="block text-[10.5px] font-bold text-slate-600 mb-1">Change 4-Digit Admin PIN</label>
+                <input id="set-pin" type="password" maxlength="4" placeholder="Current: ${state.storeConfig.adminPin}" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 font-bold" />
+              </div>
+              <button onclick="adminSaveStoreSettings()" class="pressable w-full py-2.5 rounded-xl bg-forest text-white font-extrabold">Save Store Settings</button>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 p-4">
+              <div class="text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-1">GPS Geofence Simulator</div>
+              <p class="text-[11px] text-slate-500 mb-3">Simulate how storefront responds inside, at edge, or outside 1.5 km.</p>
+              <div class="space-y-2">
+                ${Object.values(GEOFENCE_PRESETS).map((z) => {
+                  const active = state.geofence === z.key && !state.liveGPS;
+                  return `
+                    <button onclick="adminSetGeofence('${z.key}')"
+                      class="pressable w-full p-3 rounded-xl border text-left flex items-center justify-between transition ${active ? 'bg-forest-soft border-forest ring-1 ring-forest/20' : 'bg-slate-50 border-slate-200 hover:bg-white'}">
+                      <div>
+                        <div class="text-xs font-extrabold ${active ? 'text-forest' : 'text-slate-800'}">${z.label}</div>
+                        <div class="text-[11px] text-slate-500">${z.shortLoc}</div>
+                      </div>
+                      <span class="text-[10px] font-extrabold px-2 py-1 rounded-lg ${z.deliverable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700'}">
+                        ${active ? 'ACTIVE' : z.deliverable ? 'DELIVERABLE' : 'BLOCKED'}
+                      </span>
+                    </button>`;
+                }).join('')}
+              </div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 p-4">
+              <div class="text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-2.5">QA Reset Tools</div>
+              <div class="grid grid-cols-2 gap-2">
+                <button onclick="adminClearCart()" class="pressable py-2.5 px-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-extrabold">Clear Cart</button>
+                <button onclick="adminResetDemoData()" class="pressable py-2.5 px-3 rounded-xl bg-slate-900 text-white text-xs font-extrabold">Reset All Data</button>
+              </div>
+            </div>
+          </div>`;
+      }
+
+      el.innerHTML = `
+        <header class="bg-slate-900 text-white px-4 py-3.5 flex items-center justify-between shrink-0">
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-300">Owner & Admin Mode</span>
+            </div>
+            <h2 class="text-sm font-extrabold mt-0.5">Store Admin & Owner Console</h2>
+          </div>
+          <button onclick="closeAdminConsole()" class="pressable px-3 py-1.5 rounded-xl bg-white/15 text-white text-xs font-extrabold hover:bg-white/25">
+            Exit Console
+          </button>
+        </header>
+
+        <div class="bg-white border-b border-slate-200 px-3 py-2 flex gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+          ${tabs.map((t) => `
+            <button onclick="setAdminTab('${t.id}')"
+              class="pressable shrink-0 px-3 py-1.5 rounded-xl text-xs font-extrabold transition ${state.adminTab === t.id ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
+              ${t.label}
+            </button>
+          `).join('')}
+        </div>
+
+        <div class="flex-1 overflow-y-auto no-scrollbar p-4 pb-8">${contentHtml}</div>
+      `;
+    }
+
+    // -------------------------------------------------------------------------
+    // 16. PROMO CAROUSEL INTERACTIVITY
+    // -------------------------------------------------------------------------
+    function scrollCarouselTo(idx) {
+      const track = document.getElementById('promo-carousel');
+      if (!track) return;
+      state.activeBannerIdx = idx;
+      track.scrollTo({ left: idx * (track.clientWidth + 12), behavior: 'smooth' });
+      updateCarouselDots();
+    }
+
+    function updateCarouselDots() {
+      document.querySelectorAll('#carousel-dots button').forEach((btn, i) => {
+        btn.className = `h-1.5 rounded-full transition-all ${i === state.activeBannerIdx ? 'w-5 bg-forest' : 'w-1.5 bg-slate-300'}`;
+      });
+    }
+
+    function bindCarouselEvents() {
+      const track = document.getElementById('promo-carousel');
+      if (!track) return;
+      track.addEventListener('scroll', () => {
+        const idx = Math.round(track.scrollLeft / (track.clientWidth + 12));
+        if (idx !== state.activeBannerIdx && idx >= 0 && idx < PROMO_BANNERS.length) {
+          state.activeBannerIdx = idx;
+          updateCarouselDots();
+        }
+      }, { passive: true });
+    }
+
+    // -------------------------------------------------------------------------
+    // 17. MASTER RENDER & REACTIVE UI SYNC
+    // -------------------------------------------------------------------------
+    function renderCurrentView(opts = {}) {
+      const root = document.getElementById('view-root');
+      if (!root) return;
+      const prevScrollEl = opts.preserveScroll ? root.querySelector('[data-dock-scroll="true"]') : null;
+      const savedScrollTop = prevScrollEl ? prevScrollEl.scrollTop : 0;
+
+      if (state.activeTab === 'home') root.innerHTML = renderHomeView();
+      else if (state.activeTab === 'categories') root.innerHTML = renderCategoriesView();
+      else if (state.activeTab === 'orders') root.innerHTML = renderOrdersView();
+      else if (state.activeTab === 'account') root.innerHTML = renderAccountView();
+
+      bindScrollListeners();
+      if (state.activeTab === 'home') bindCarouselEvents();
+
+      if (opts.preserveScroll && savedScrollTop > 0) {
+        const newScrollEl = root.querySelector('[data-dock-scroll="true"]');
+        if (newScrollEl) newScrollEl.scrollTop = savedScrollTop;
+      }
+    }
+
+    function syncAllUI() {
+      renderCurrentView({ preserveScroll: true });
+      renderFloatingDock();
+
+      const searchOverlay = document.getElementById('search-overlay');
+      if (searchOverlay && !searchOverlay.classList.contains('hidden')) renderSearchResultsBody();
+
+      const pdpModal = document.getElementById('pdp-modal');
+      if (pdpModal && !pdpModal.classList.contains('hidden') && state.pdpItemId) renderPDPSheet();
+
+      const cartModal = document.getElementById('cart-modal');
+      if (cartModal && !cartModal.classList.contains('hidden')) renderCartDrawer();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const pinModal = document.getElementById('pin-modal');
+      if (!pinModal || pinModal.classList.contains('hidden')) return;
+      if (e.key >= '0' && e.key <= '9') pressPinDigit(Number(e.key));
+      else if (e.key === 'Backspace') backspacePin();
+      else if (e.key === 'Escape') closePinModal();
+    });
+
+    // -------------------------------------------------------------------------
+    // 18. APP BOOTSTRAP & TIMERS
+    // -------------------------------------------------------------------------
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCurrentView();
+      renderFloatingDock();
+
+      setInterval(() => {
+        state.placeholderIdx = (state.placeholderIdx + 1) % SEARCH_PLACEHOLDERS.length;
+        const ph = document.getElementById('animated-search-placeholder');
+        if (ph && state.activeTab === 'home') {
+          ph.textContent = SEARCH_PLACEHOLDERS[state.placeholderIdx];
+        }
+      }, 2800);
+
+      setInterval(() => {
+        if (state.activeTab === 'home' && state.homeFilter === 'All') {
+          const track = document.getElementById('promo-carousel');
+          if (track) scrollCarouselTo((state.activeBannerIdx + 1) % PROMO_BANNERS.length);
+        }
+      }, 5500);
+    });
+  </script>
+</body>
+</html>
